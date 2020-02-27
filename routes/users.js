@@ -39,4 +39,9 @@ router.post("/new", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.get('/likes', (req, res)=> {
+  let currentUser
+  Like.find({_id: currentUser}).then(likes => res.send(json(likes)))
+})
+
 module.exports = router;

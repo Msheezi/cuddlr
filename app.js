@@ -21,5 +21,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", users);
+app.use("/likes", likes)
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
