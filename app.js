@@ -6,6 +6,7 @@ const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
 
 const users = require("./routes/users");
+const likes = require("./routes/likes");
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
