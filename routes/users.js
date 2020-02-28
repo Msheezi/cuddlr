@@ -9,28 +9,20 @@ router.get("/", (req, res) => {
 });
 
 router.post("/new", (req, res) => {
-  const {
-    username,
-    age,
-    location,
-    gender,
-    targetGender,
-    cuddleStyle,
-    cuddlePosition,
-    headline,
-    description
-  } = req.body;
-  const newUser = new User({
-    username: username,
-    age: age,
-    location: location,
-    gender: gender,
-    targetGender: targetGender,
-    cuddleStyle: cuddleStyle,
-    cuddlePosition: cuddlePosition,
-    headline: headline,
-    description: description
-  });
+  
+  const body = req.body
+  tempUser = {}
+  Object.keys(body).forEach(key => {
+    if (!tempUser[key]) {
+      tempUser[key] = body[key]
+    }
+  }) 
+
+  // loop through all sent fields and populate object
+  // save object and send object to front end
+  
+  const newUser = new User(tempUser)
+  
   newUser
     .save()
     .then(user => {
@@ -45,3 +37,32 @@ router.get('/likes', (req, res)=> {
 })
 
 module.exports = router;
+
+
+
+
+
+
+
+  // const {
+  //   username,
+  //   age,
+  //   location,
+  //   gender,
+  //   targetGender,
+  //   cuddleStyle,
+  //   cuddlePosition,
+  //   headline,
+  //   description
+  // } = req.body;
+  // const newUser = new User({
+  //   username: username,
+  //   age: age,
+  //   location: location,
+  //   gender: gender,
+  //   targetGender: targetGender,
+  //   cuddleStyle: cuddleStyle,
+  //   cuddlePosition: cuddlePosition,
+  //   headline: headline,
+  //   description: description
+  // });

@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Now You're Cooking with Butter!");
 });
 
 app.use("/users", users);
