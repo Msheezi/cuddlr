@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const Converstaion = mongoose.Schema
+const Schema = mongoose.Schema
 
-const ConversationSchema = new ConversationSchema({
+const ConversationSchema = new Schema({
     userId: {
         type: String,
         required: true
@@ -18,6 +18,8 @@ const ConversationSchema = new ConversationSchema({
     }
 
 })
+
+module.exports = Conversation = mongoose.Model('conversations', ConversationSchema)
 
 // do i need to include both the participants in this table
 // if i do the array, remove the userID field.  the model then just has a convoId and participants
