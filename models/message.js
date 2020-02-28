@@ -7,7 +7,7 @@ const MessageSchema = new Schema({
         required: true
     }, 
 
-    sender: {
+    senderId: {
         type: String, 
         required: true
     },
@@ -16,13 +16,13 @@ const MessageSchema = new Schema({
         type: String,
         required: true
     },
-    timeSent: {
+    timeSent: {  // may not need this as i can get timestamp from docID
         type: Date,
         default: Date.now
     }
 
     // do you need other fields in this and linking in the routes for
-    //finding the correct matching for the conversations and groupings
+    // finding the correct matching for the conversations and groupings
     // displayed in user profile, conversations, will have messages they 
     // are a part of, Conversation.find({ userId: inlcudes current user(if array)})
     // sort these by the create date 

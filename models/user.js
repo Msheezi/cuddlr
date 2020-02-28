@@ -12,25 +12,29 @@ const UserSchema = new Schema({
     required: true
   },
 
-  password: {
+  passwordDigest: {
     type: String,
     required: true
   },
 
   dob: {
-    type: Date, // maybe have this be calculated so it updates every time the user is updated, thuse users age but don't have to update it
+    type: Date,
+     // want to do the calculation on the validation, if date entered doesn't make you 18, fail it
+     // 
     required: true,
-    default: Date.now
+    //default: Date.now // commented because don't create user if under 18
   },
 
 
   location: {
-    type: String,
+    type: String, // thinking this should be updated at login with a 
+    // geolocation thing, translate this to get location on front end
     required: true
   },
 
-  profilePics: {
+  mainProfilePic: {
     type: Array
+    // this updates when user adds a new photo and sets it as primary, updates value here?
   },
 
   headline: {
@@ -44,22 +48,26 @@ const UserSchema = new Schema({
   },
 
   gender: {
-    type: String, //(M, F, T, NB)
+    type: String, //(M, F, T, NB),
+    ///  should you do a model with the id and descript for genders, allow more
     required: false
   },
 
   targetGender: {
     type: String, //(M, F, T, NB)
+    ///  should you do a model with the id and descript for genders, allow more
     required: false
   },
 
   cuddleStyle: {
     type: String,
+    // should i do a collection for the different styles and reference an ID here
     required: false
   },
 
   cuddlePostion: {
     type: String,
+    // should i do a collection for the different positions and reference an ID here
     required: false
   }
 

@@ -18,3 +18,5 @@ const UserPictureSchema = new UserPicture({
         required: true
     }
 })
+
+module.exports = UserPicture = mongoose.model('userPictures', UserPictureSchema)
