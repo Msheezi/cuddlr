@@ -6,17 +6,46 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  age: {
-    type: Number, // maybe have this be calculated so it updates every time the user is updated, thuse users age but don't have to update it
+
+  email: {
+    type: String, 
     required: true
   },
+
+  password: {
+    type: String,
+    required: true
+  },
+
+  dob: {
+    type: Date, // maybe have this be calculated so it updates every time the user is updated, thuse users age but don't have to update it
+    required: true,
+    default: Date.now
+  },
+
+
   location: {
     type: String,
     required: true
   },
+
+  profilePics: {
+    type: Array
+  },
+
+  headline: {
+    type: String,
+
+  },
+
+  description: {
+    type: String,
+
+  },
+
   gender: {
     type: String, //(M, F, T, NB)
-    required: true
+    required: false
   },
 
   targetGender: {
@@ -32,17 +61,10 @@ const UserSchema = new Schema({
   cuddlePostion: {
     type: String,
     required: false
-  },
-
-  headline: {
-    type: String,
-    required: false
-  },
-
-  description: {
-    type: String,
-    required: false
   }
+
+  
+ 
 });
 
 module.exports = User = mongoose.model("users", UserSchema);
