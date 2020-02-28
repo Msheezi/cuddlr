@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   },
 
   email: {
-    type: String, 
+    type: String,
     required: true
   },
 
@@ -19,37 +19,45 @@ const UserSchema = new Schema({
 
   dob: {
     type: Date,
-     // want to do the calculation on the validation, if date entered doesn't make you 18, fail it
-     // 
-    required: true,
+    // want to do the calculation on the validation, if date entered doesn't make you 18, fail it
+    //
+    required: true
     //default: Date.now // commented because don't create user if under 18
   },
+  homeZip: {
+    // use a zip to normalize date
+    // validate length and a valid zip code
+    // cause users won't always enter correct spelling, name, etc
+    // use the zip to return a city
 
-
-  location: {
-    type: String, // thinking this should be updated at login with a 
+    type: Number,
+    required: false
+  },
+  gpsLocation: {
+    type: String,
+    // thinking this should be updated at login with a
     // geolocation thing, translate this to get location on front end
     required: true
   },
 
   mainProfilePic: {
-    type: Array
+    type: String
     // this updates when user adds a new photo and sets it as primary, updates value here?
+    // use this for index
   },
 
   headline: {
-    type: String,
-
+    type: String
   },
 
   description: {
-    type: String,
-
+    type: String
   },
 
   gender: {
     type: String, //(M, F, T, NB),
-    ///  should you do a model with the id and descript for genders, allow more
+    //  should you do a model with the id and descript for genders, allow more
+    // these could be hard coded in the front end or use the model
     required: false
   },
 
@@ -70,9 +78,6 @@ const UserSchema = new Schema({
     // should i do a collection for the different positions and reference an ID here
     required: false
   }
-
-  
- 
 });
 
 module.exports = User = mongoose.model("users", UserSchema);
