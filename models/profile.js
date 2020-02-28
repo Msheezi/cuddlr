@@ -7,39 +7,10 @@ const ProfileSchema = new Profile({
         required: true
     },
 
-    profilePics: {
-        type: Array
-    },
-
-    headline: {
-        type: String, 
-
-    },
-
-    description: {
-        type: String, 
-
-    },
-
-    gender: {
-        type: String, //(M, F, T, NB)
-        required: true
-    },
-
-    targetGender: {
-        type: String, //(M, F, T, NB)
-        required: false
-    },
-
-    cuddleStyle: {
-        type: String,
-        required: false
-    },
-
-    cuddlePostion: {
-        type: String,
-        required: false
-    },
+    
 })
 
 module.exports = Profile = mongoose.model('profiles', ProfileSchema)
+
+// keep all data on the user or add a profile model for the additional 
+// data fields.  Pros / Cons
