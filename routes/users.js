@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 
+
 // index view
 router.get("/", (req, res) => {
   User.find().then(users => {
@@ -12,16 +13,17 @@ router.get("/", (req, res) => {
 // create new user
 router.post("/", (req, res) => {
   const body = req.body;
-  tempUser = {};
-  // loop through all sent fields and populate object
-  // save object and send object to front end
-  Object.keys(body).forEach(key => {
-    if (!tempUser[key]) {
-      tempUser[key] = body[key];
-    }
-  });
+  // tempUser = {};
+  // // loop through all sent fields and populate object
+  // // save object and send object to front end
+  // Object.keys(body).forEach(key => {
+  //   if (!tempUser[key]) {
+  //     tempUser[key] = body[key];
+  //   }
+  // });
 
-  const newUser = new User(tempUser);
+  // const newUser = new User(tempUser);
+  const newUser = new User(body);
 
   newUser
     .save()
@@ -36,6 +38,10 @@ router.get("/:id/likes", (req, res) => {
   let currentUser;
   Like.find({ _id: currentUser }).then(likes => res.send(json(likes)));
 });
+
+
+
+
 
 module.exports = router;
 

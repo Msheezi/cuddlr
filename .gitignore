@@ -2,3 +2,5 @@
 /config/keys.js
 /schema.txt
 
+/awskeys
+/.env

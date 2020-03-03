@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     //default: Date.now // commented because don't create user if under 18
   },
   homeZip: {
-    // use a zip to normalize date
+    // use a zip to normalize data, prevent miskeys
     // validate length and a valid zip code
     // cause users won't always enter correct spelling, name, etc
     // use the zip to return a city
@@ -37,7 +37,7 @@ const UserSchema = new Schema({
     type: String,
     // thinking this should be updated at login with a
     // geolocation thing, translate this to get location on front end
-    required: true
+    required: false
   },
 
   mainProfilePic: {

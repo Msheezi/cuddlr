@@ -1,3 +1,4 @@
+require('dotenv').config()
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
@@ -7,14 +8,15 @@ const bodyParser = require("body-parser");
 
 const users = require("./routes/users");
 const likes = require("./routes/likes");
+const photoUpload = require("./routes/photoUpload")
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to Mongo"))
   .catch(err => console.log(err));
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.send("Now You're Cooking with Butter!");
@@ -22,5 +24,6 @@ app.get("/", (req, res) => {
 
 app.use("/users", users);
 app.use("/likes", likes)
+app.use("/userPicture", photoUpload)
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
