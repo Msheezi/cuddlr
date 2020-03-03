@@ -12,12 +12,6 @@ router.post("/upload", upload.single("file"), (req, res) =>{
     const file = req.file 
     const s3FileURL = process.env.AWS_Uploaded_File_URL_Link
 
-console.log(process.env.AWS_BUCKET_NAME);
-console.log(process.env.AWS_ACCESS_KEY_ID);
-console.log(process.env.AWS_SECRET_ACCESS_KEY);
-console.log(process.env.AWS_REGION);
-console.log(process.env.AWS_Uploaded_File_URL_LINK);
-
     let s3bucket = new AWS.S3({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID, 
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, 
