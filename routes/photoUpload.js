@@ -40,6 +40,7 @@ router.post("/upload", upload.single("file"), (req, res) =>{
               profilePrimary: false
             };
             const userPicture = new UserPicture(newFileUploaded)
+            // add in conditional to update user model with primary photo if it is selected
                 userPicture.save((error, newFile) => {
               if (error) {
                 throw error.Message;

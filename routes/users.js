@@ -33,6 +33,31 @@ router.post("/", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.get("/:id", (req,res)=>{
+  let userId = req.params.id;
+
+  let userProfile = {}
+  User.find({"_id": userId})
+  .then(user => {
+    let obj = user[0]
+    // console.log(user[0])
+    // console.log( typeof user[0])
+    // console.log(Object.keys(obj));
+    Object.keys(obj._doc).forEach(key => {  
+      //obj._doc is the reference to the 
+      // actual document returned, there are various other fields want to omit
+      if (key === "passwordDigest") return 
+      
+        userProfile[key] = obj[key]
+      
+    })
+
+      // user is an array
+      res.json(userProfile)
+  })
+  // add the search in to get the pictures for the user
+})
+
 // Current users Likes
 router.get("/:id/likes", (req, res) => {
   let currentUser;
