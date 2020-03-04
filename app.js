@@ -22,9 +22,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-// app.get("/", (req, res) => {
-//   res.send("Now You're Cooking with Butter!");
-// });
+app.get("/", (req, res) => {
+  res.send("Now You're Cooking with Butter!");
+});
 
 app.use("/users", users);
 app.use("/likes", likes)
