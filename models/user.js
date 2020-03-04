@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     required: true
   },
 
-  passwordDigest: {
+  password: {
     type: String,
     required: true
   },
@@ -21,7 +21,7 @@ const UserSchema = new Schema({
     type: Date,
     // want to do the calculation on the validation, if date entered doesn't make you 18, fail it
     //
-    required: true
+    required: false
     //default: Date.now // commented because don't create user if under 18
   },
   homeZip: {
