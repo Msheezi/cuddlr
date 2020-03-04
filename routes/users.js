@@ -67,8 +67,8 @@ router.get("/", (req,res)=>{
   //     foreignField: "userId",
   //     as: "pictureURLs"
   //   }}])
-    .then(combinedUsers => res.json(combinedUsers))
-  })
+    .then (combinedUsers => res.json(combinedUsers))
+     })
   
 
 
