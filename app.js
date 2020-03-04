@@ -5,6 +5,7 @@ const app = express();
 const db = require("./config/keys").mongoURI;
 const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
+const passport = require('passport')
 
 const users = require("./routes/users");
 const likes = require("./routes/likes");
@@ -15,12 +16,15 @@ mongoose
   .then(() => console.log("Connected to Mongo"))
   .catch(err => console.log(err));
 
+app.use(passport.initialize())  
+require('./config/passport')(passport)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.send("Now You're Cooking with Butter!");
-});
+
+// app.get("/", (req, res) => {
+//   res.send("Now You're Cooking with Butter!");
+// });
 
 app.use("/users", users);
 app.use("/likes", likes)

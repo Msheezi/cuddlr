@@ -3,17 +3,29 @@ const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require('bcryptjs')
 const UserPicture = require('../models/userPicture')
+const keys = require('../config/keys')
+const jwt = require('jsonwebtoken')
+const passport = require('passport')
+const validateLoginInput = require('../validation/login')
+const validateRegisterInput = require('../validation/register')
 
 const excludedUserFields = { "password": 0, "email": 0, }
 
 
 //register route
 router.post("/register", (req,res)=>{
+  const {errors, isValid} = validateRegisterInput(req.body)
+  
+  if (!isValid){
+    return res.status(400).json(errors)
+  }
   let body = req.body
+
   User.findOne({email: req.body.email})
   .then(user=>{
     if(user){
-      return res.status(400).json({email: "Email already exists"})
+      errors.email = 'Email already Exists'
+      return res.status(400).json(errors)
     } else {
       const newUser = new User(body);
       bcrypt.genSalt(10, (err,salt)=>{
@@ -21,13 +33,73 @@ router.post("/register", (req,res)=>{
           if (err) throw err;
           newUser.password = hash
           newUser.save()
-          .then(user => res.json(user))
+          .then(user => {
+            const payload = {id:user.id, name: user.username}
+
+            jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token)=>{
+              res.json({
+                success: true,
+                token: "Bearer " + token
+              })
+            })
+
+          })
           .catch(err => console.log(err))
         })
       })
       
     }
 
+  })
+})
+
+//login
+router.post('/login', (req, res)=>{
+  const {errors, isValid} = validateLoginInput(req.body)
+
+  if (!isValid){
+    return res.status(400).json(errors)
+  }
+
+  const email = req.body.email
+  const password = req.body.password
+
+
+  User.findOne({email})
+  .then(user => {
+    if (!user) {
+      errors.email = "User not Found"
+      return res.status(404).json(errors)
+    }
+    bcrypt.compare(password, user.password)
+    .then(isMatch => {
+      if (isMatch) {
+        const payload = {id: user.id, name: user.name}
+
+        jwt.sign(
+          payload, 
+          keys.secretOrKey,
+          {expiresIn: 3600},
+          (err, token)=>{
+            res.json({success: true,
+            token: 'Bearer ' + token
+            })
+          }
+        )
+      } else {
+        errors.password = 'Bad Password Bro'
+        return res.status(400).json(errors)
+      }
+    })
+  })
+})
+
+// get current user
+router.get("/current", passport.authenticate('jwt', {session: false}), (req,res)=>{
+  res.json({
+    id: req.user.id, 
+    username: req.user.username,
+    email: req.user.email
   })
 })
 
@@ -41,28 +113,7 @@ router.get("/", (req, res)=>{
 
 })
 
-// create new user
-router.post("/", (req, res) => {
-  const body = req.body;
-  // tempUser = {};
-  // // loop through all sent fields and populate object
-  // // save object and send object to front end
-  // Object.keys(body).forEach(key => {
-  //   if (!tempUser[key]) {
-  //     tempUser[key] = body[key];
-  //   }
-  // });
-
-  // const newUser = new User(tempUser);
-  const newUser = new User(body);
-
-  newUser
-    .save()
-    .then(user => {
-      res.json(user);
-    })
-    .catch(err => console.log(err));
-});
+// 
 
 router.get("/:id", (req,res)=>{
   const userId = req.params.id;

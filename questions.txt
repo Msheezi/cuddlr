@@ -5,3 +5,6 @@ Posting photos to AWS or mongo
 https://medium.com/@paulrohan/file-upload-to-aws-s3-bucket-in-a-node-react-mongo-app-and-using-multer-72884322aada
 
 seperate profile model or just pull from user 
+
+
+"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjAyNmEyNTkzZGRhMjc0MzgwODVmMiIsImlhdCI6MTU4MzM1OTkzMSwiZXhwIjoxNTgzMzYzNTMxfQ.4ftTnOyjVkkYRTgXyObnWX440qDKxkDRWYhMBFLZAN4"
