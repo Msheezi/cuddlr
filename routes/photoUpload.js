@@ -6,9 +6,12 @@ const AWS = require('aws-sdk')
 const storage = multer.memoryStorage()
 const upload = multer({storage: storage})
 const UserPicture = require("../models/userPicture");
+const User = require("../models/user")
 
 
 router.post("/upload", upload.single("file"), (req, res) =>{
+    const primary = req.body.profilePrimary
+    const userId = req.body.userId
     const file = req.file 
     const s3FileURL = process.env.AWS_Uploaded_File_URL_Link
 
@@ -30,22 +33,44 @@ router.post("/upload", upload.single("file"), (req, res) =>{
         if (err) {
             res.status(500).json({error: true, Message: err})
         } else {
-            res.send({ data})
+            //res.send({ data})
             const newFileUploaded = {
             //   description: req.body.description,
             //   fileLink: s3FileURL + file.originalname,
             //   s3_key: params.key,
               userId: req.body.userId,
               pictureUrl: s3FileURL + file.originalname, //params.key
-              profilePrimary: false
+              profilePrimary: primary
             };
+
             const userPicture = new UserPicture(newFileUploaded)
             // add in conditional to update user model with primary photo if it is selected
                 userPicture.save((error, newFile) => {
               if (error) {
                 throw error.Message;
-              }
-            });
+            }
+                if (primary) {
+
+                    //console.log(updatedUser)
+                    User.findOne({"_id": userId }, (err, userData)=> {
+                        userData.mainProfilePic = s3FileURL + file.originalname
+                        // console.log(userData)
+                        userData.save()
+                    })
+                }
+                // .then(user => {
+                //     user["mainProfilePic"] = s3FileURL + file.originalname
+                //     console.log(user)
+                //     // console.log(user)
+                //     // user.save()
+                // //     updatedUser = user.join()
+                // //     updatedUser["mainProfilePic"] = s3FileURL + file.originalname
+                // //    updatedUser.save()
+                // }).then(returnedUser => res.send(returnedUser))
+
+            // console.log(newFile)
+            res.json(newFile)
+            })
         }
     })
 })
