@@ -33,13 +33,9 @@ router.post("/upload", upload.single("file"), (req, res) =>{
         if (err) {
             res.status(500).json({error: true, Message: err})
         } else {
-            //res.send({ data})
             const newFileUploaded = {
-            //   description: req.body.description,
-            //   fileLink: s3FileURL + file.originalname,
-            //   s3_key: params.key,
               userId: req.body.userId,
-              pictureUrl: s3FileURL + file.originalname, //params.key
+              pictureUrl: s3FileURL + file.originalname,
               profilePrimary: primary
             };
 
@@ -50,26 +46,12 @@ router.post("/upload", upload.single("file"), (req, res) =>{
                 throw error.Message;
             }
                 if (primary) {
-
-                    //console.log(updatedUser)
                     User.findOne({"_id": userId }, (err, userData)=> {
                         userData.mainProfilePic = s3FileURL + file.originalname
-                        // console.log(userData)
                         userData.save()
                     })
                 }
-                // .then(user => {
-                //     user["mainProfilePic"] = s3FileURL + file.originalname
-                //     console.log(user)
-                //     // console.log(user)
-                //     // user.save()
-                // //     updatedUser = user.join()
-                // //     updatedUser["mainProfilePic"] = s3FileURL + file.originalname
-                // //    updatedUser.save()
-                // }).then(returnedUser => res.send(returnedUser))
-
-            // console.log(newFile)
-            res.json(newFile)
+              res.json(newFile)
             })
         }
     })
