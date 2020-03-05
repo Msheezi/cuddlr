@@ -1,6 +1,9 @@
 import React from "react";
+// import styled from 'styled-components'
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import {Container, StyledH1, LinkButton, LinksContainer} from './navbarcomponents'
+
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -19,17 +22,21 @@ class NavBar extends React.Component {
     if (this.props.loggedIn) {
       return (
         <div className='navbar-links-logged'>
-          <Link to={"/Home"}>Home</Link>
-          <Link to={"/profile"}>Profile</Link>
+          <LinkButton>Home </LinkButton> 
+          <LinkButton>Logout </LinkButton> 
+          {/* <Link to={"/Home"}>Home</Link> */}
+          {/* <Link to={"/profile"}>Profile</Link> */}
           {/* <Link to={"/new_tweet"}>Write a Tweet</Link> */}
           <button onClick={this.logoutUser}>Logout</button>
         </div>
       );
     } else {
       return (
-        <div className='navbar-links-not-logged'>
-          <Link to={"/register"}>Register</Link>
-          <Link to={"/login"}>Login</Link>
+        <div className="navbar-links-not-logged">
+          <LinkButton>Register </LinkButton>
+          <LinkButton>Login </LinkButton>
+          {/* <Link to={"/register"}>Register</Link>
+          <Link to={"/login"}>Login</Link> */}
         </div>
       );
     }
@@ -37,12 +44,10 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <div className='bar'>
-        <h2>Cuddlr</h2>
-        <div className='links'>
-        {this.getLinks()}
-        </div>
-      </div>
+      <Container>
+        <StyledH1>Cuddlr</StyledH1>
+        <LinksContainer>{this.getLinks()}</LinksContainer>
+      </Container>
     );
   }
 }
