@@ -13,7 +13,7 @@ const InputField = styled.input`
 margin-bottom: 20px;
 `
 const StyledLabel = styled.label`
-    color: red;
+    color: #2e3443;
 `
 
 
