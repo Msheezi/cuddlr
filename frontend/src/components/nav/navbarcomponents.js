@@ -18,7 +18,7 @@ export const StyledH1 = styled.h1`
   line-height: 0.7em;
 `;
 
-export const LinkButton = styled.div`
+export const LinkButton = styled.Link`
   width: 150px;
   background-color: gray;
   border: 1px solid white;
