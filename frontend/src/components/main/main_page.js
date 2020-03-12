@@ -1,14 +1,25 @@
 import React from 'react'
+import styled from 'styled-components'
+
+
+
+const MainPageContainer = styled.div`
+    position: relative;
+    /* min-height: 100vh; */
+
+`
+
 
 class MainPage extends React.Component {
     render() {
         return (
-            <div>
-                <h1>Cuddlr</h1>
-                <footer>
+            <MainPageContainer>
+                Find your cuddle buddy today
+                
+                {/* <Footer>
                     Copyright &copy; 2020 Cuddlr
-                </footer>
-            </div>
+                </Footer> */}
+            </MainPageContainer>
         )
     }
 }

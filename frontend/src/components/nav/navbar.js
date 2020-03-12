@@ -12,6 +12,19 @@ import { Link } from "react-router-dom";
   padding: 0;
   height: 75px;
   overflow: hidden;
+  position: relative;
+
+`;
+const LinksContainer = styled.div`
+ position: absolute;
+ bottom: 2px;
+ right:3px;
+ display: flex;
+ flex-direction: row;
+  margin: 0px 2px;
+  justify-content: flex-end;
+  width: 100%;
+  
 `;
 
  const StyledH1 = styled.h1`
@@ -30,21 +43,17 @@ import { Link } from "react-router-dom";
 
  const LinkButton = styled(Link)`
   width: 150px;
-  background-color: gray;
+  background: transparent;
   border: 1px solid white;
   text-align: center;
   margin: 0px 2px ;
-  color: white;
+  align-self: flex-end;
+  color: black;
   &:hover{
     background-color:green;
   }
 `;
 
- const LinksContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 0px 2px;
-`;
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -62,23 +71,19 @@ class NavBar extends React.Component {
   getLinks() {
     if (this.props.loggedIn) {
       return (
-        <div className='navbar-links-logged'>
-          <LinkButton to="/">Home </LinkButton> 
+        <LinksContainer>
           <LinkButton onClick={()=> this.logoutUser()}>Logout </LinkButton> 
           <LinkButton to={"/profile"}>Home</LinkButton>
-          {/* <Link to={"/profile"}>Profile</Link> */}
-          {/* <Link to={"/new_tweet"}>Write a Tweet</Link> */}
           <button onClick={this.logoutUser}>Logout</button>
-        </div>
+        </LinksContainer>
+       
       );
     } else {
       return (
-        <div className="navbar-links-not-logged">
+        <LinksContainer>
           <LinkButton to="/register">Register </LinkButton>
           <LinkButton to="/login">Login </LinkButton>
-          {/* <Link to={"/register"}>Register</Link>
-          <Link to={"/login"}>Login</Link> */}
-        </div>
+        </LinksContainer>
       );
     }
   }
@@ -87,7 +92,7 @@ class NavBar extends React.Component {
     return (
       <Container>
         <StyledH1>Cuddlr</StyledH1>
-        <LinksContainer>{this.getLinks()}</LinksContainer>
+        {this.getLinks()}
       </Container>
     );
   }
