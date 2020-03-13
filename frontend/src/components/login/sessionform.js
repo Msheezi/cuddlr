@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import useSignUpForm from './CustomHooks'
+import { login } from '../../actions/session_actions'
 
 const FormContainer = styled.form`
 display:flex;
@@ -18,13 +20,14 @@ const StyledLabel = styled.label`
 
 
 const SessionForm = () => {
+    const{inputs, handleInputChange, handleSubmit} = useSignUpForm(login)
     return (
-        <FormContainer>
+        <FormContainer onSubmit={handleSubmit}>
             <StyledLabel>Username</StyledLabel>
-            <InputField type="text" name="username"/>
+            <InputField type="text" name="username" onChange={handleInputChange} value={inputs.username}/>
             <StyledLabel>Password</StyledLabel>
-            <InputField type="password" name="password"/>
-
+            <InputField type="password" name="password" onChange={handleInputChange} value={inputs.password}/>
+            <button type="submit" >Login</button>
         </FormContainer>
     )
 }

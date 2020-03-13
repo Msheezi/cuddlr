@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import SessionForm from './sessionform'
-import { Link} from 'react-router-dom'
+import { Link, withRouter} from 'react-router-dom'
 
 
 
@@ -29,19 +29,70 @@ color: #2e3443;
 font-size: 12pt;
 `
 
-class Login extends React.Component{
+const FormContainer = styled.form`
+display:flex;
+flex-direction:column;
+text-align: center;
+padding: 5% 10% 10% 10%;
+justify-content: space-around;
+`
+
+const InputField = styled.input`
+margin-bottom: 20px;
+`
+const StyledLabel = styled.label`
+    color: #2e3443;
+`
+
+class LoginForm extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errors: {}
             
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderErrors = this.renderErrors.bind(this);
        
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.currentUser === true) {
+            this.props.history.push('/tweets');
+        }
 
-    update(field){
+        // Set or clear errors
+        this.setState({ errors: nextProps.errors })
+    }
 
+    update(field) {
+        return e => this.setState({
+            [field]: e.currentTarget.value
+        });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        let user = {
+            username: this.state.username,
+            password: this.state.password
+        };
+
+        this.props.login(user);
+    }
+
+    renderErrors() {
+        return (
+            <ul>
+                {Object.keys(this.state.errors).map((error, i) => (
+                    <li key={`error-${i}`}>
+                        {this.state.errors[error]}
+                    </li>
+                ))}
+            </ul>
+        );
     }
 
     render(){
@@ -50,7 +101,14 @@ class Login extends React.Component{
             
             <LoginContainer>
                 <LoginHeadline >Login to get your <Accent >Cuddle</Accent> On!</LoginHeadline>
-            <SessionForm/>
+                <FormContainer onSubmit={this.handleSubmit}>
+                    <StyledLabel>Username</StyledLabel>
+                    <InputField type="text" name="username" onChange={this.update('username')} value={this.state.username} />
+                    <StyledLabel>Password</StyledLabel>
+                    <InputField type="password" name="password" onChange={this.update('password')} value={this.state.password} />
+                    <button type="submit" >Login</button>
+                    {this.renderErrors()}
+                </FormContainer>
                 <LoginRegister>Don't Have an Account? <Link to="/register">Register</Link></LoginRegister>
             </LoginContainer>
             )
@@ -59,4 +117,8 @@ class Login extends React.Component{
     
 }
 
-export default Login
+export default withRouter(LoginForm);
+
+
+
+

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import MainPage from './main/main_page'
 import NavBarContainer from './nav/navbar_container'
-import Login from './login/login'
+import LoginFormContainer from './login/login_form_container'
 
 const Footer = styled.footer`
     position: absolute;
@@ -24,7 +24,7 @@ const App = () => (
 
     <Switch>
         <AuthRoute exact path="/" component={MainPage}/>
-        <AuthRoute exact path="/login" component={Login}/>
+        <AuthRoute exact path="/login" component={LoginFormContainer}/>
         {/* <AuthRoute exact path="/login" component={LoginFormContainer}/> */}
         {/* <AuthRoute exact path="/register" component={RegisterFormContainer}/> */}
     </Switch>

@@ -61,14 +61,14 @@ router.post('/login', (req, res)=>{
     return res.status(400).json(errors)
   }
 
-  const email = req.body.email
+  const username = req.body.username
   const password = req.body.password
 
 
-  User.findOne({email})
+  User.findOne({username})
   .then(user => {
     if (!user) {
-      errors.email = "User not Found"
+      errors.username = "User not Found"
       return res.status(404).json(errors)
     }
     bcrypt.compare(password, user.password)
@@ -98,8 +98,8 @@ router.post('/login', (req, res)=>{
 router.get("/current", passport.authenticate('jwt', {session: false}), (req,res)=>{
   res.json({
     id: req.user.id, 
-    username: req.user.username,
-    email: req.user.email
+    username: req.user.username
+   
   })
 })
 

@@ -43,16 +43,35 @@ const LinksContainer = styled.div`
 
  const LinkButton = styled(Link)`
   width: 150px;
+  height: 20px;
   background: transparent;
   border: 1px solid white;
   text-align: center;
   margin: 0px 2px ;
   align-self: flex-end;
   color: black;
+  text-decoration: none;
+  box-sizing: border-box;
   &:hover{
     background-color:green;
   }
 `;
+
+const NavButton = styled.button`
+width: 150px;
+height: 20px;
+  background: transparent;
+  border: 1px solid white;
+  text-align: center;
+  margin: 0px 2px ;
+  align-self: flex-end;
+  color: black;
+  
+  &:hover{
+    background-color:green;
+  }
+  padding: 0px;
+`
 
 
 class NavBar extends React.Component {
@@ -72,9 +91,9 @@ class NavBar extends React.Component {
     if (this.props.loggedIn) {
       return (
         <LinksContainer>
-          <LinkButton onClick={()=> this.logoutUser()}>Logout </LinkButton> 
-          <LinkButton to={"/profile"}>Home</LinkButton>
-          <button onClick={this.logoutUser}>Logout</button>
+           
+          <LinkButton to={"/profile"}>Profile</LinkButton>
+          <NavButton onClick={this.logoutUser}>Logout</NavButton>
         </LinksContainer>
        
       );
