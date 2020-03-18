@@ -50,16 +50,30 @@ class LoginForm extends React.Component{
         this.state = {
             username: '',
             password: '',
+            password2:'',
+            dob: '',
+            email:'',
+            hzip:'',
             errors: {}
             
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSignup = this.handleSignup.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
         this.renderErrors = this.renderErrors.bind(this);
        
     }
+
+    // static getDerivedStateFromProps(nextProps){
+    //     if (nextProps.signedIn === true){
+    //         this.props.history.push('/login')
+    //     }
+
+    //    return { errors: nextProps.errors}
+    // }
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.currentUser === true) {
-            this.props.history.push('/tweets');
+        if (nextProps.signedIn === true) {
+            this.props.history.push('/login');
         }
 
         // Set or clear errors
@@ -72,7 +86,7 @@ class LoginForm extends React.Component{
         });
     }
 
-    handleSubmit(e) {
+    handleLogin(e) {
         e.preventDefault();
 
         let user = {
@@ -80,7 +94,21 @@ class LoginForm extends React.Component{
             password: this.state.password
         };
 
-        this.props.login(user);
+        this.props.login(user)
+    }
+    handleSignup(e) {
+        e.preventDefault();
+
+        let user = {
+            username: this.state.username,
+            password: this.state.password,
+            password2: this.state.password2,
+            dob: this.state.dob,
+            email: this.state.email,
+            homeZip: this.state.hzip
+        };
+
+        this.props.signup(user, this.props.history)
     }
 
     renderErrors() {
@@ -95,22 +123,70 @@ class LoginForm extends React.Component{
         );
     }
 
-    render(){
-
+    renderLogin() {
         return (
-            
-            <LoginContainer>
-                <LoginHeadline >Login to get your <Accent >Cuddle</Accent> On!</LoginHeadline>
-                <FormContainer onSubmit={this.handleSubmit}>
+            <>
+            <LoginHeadline >Login to get your <Accent >Cuddle</Accent> On!</LoginHeadline>
+            <FormContainer onSubmit={this.handleLogin}>
+                <StyledLabel>Username</StyledLabel>
+                <InputField type="text" name="username" onChange={this.update('username')} value={this.state.username} />
+                <StyledLabel>Password</StyledLabel>
+                <InputField type="password" name="password" onChange={this.update('password')} value={this.state.password} />
+                <button type="submit" >Login</button>
+                {this.renderErrors()}
+            </FormContainer>
+            <LoginRegister>Don't Have an Account? <Link to="/register">Register</Link></LoginRegister>
+            </>
+            )
+    }
+
+    renderRegister(){
+        return (
+
+            <>
+            <LoginHeadline>Register to get your <Accent >Cuddle</Accent> On! </LoginHeadline>
+                <FormContainer onSubmit={this.handleSignup}>
                     <StyledLabel>Username</StyledLabel>
                     <InputField type="text" name="username" onChange={this.update('username')} value={this.state.username} />
-                    <StyledLabel>Password</StyledLabel>
+                    <StyledLabel>Email</StyledLabel>
+                    <InputField type="text" name="email" onChange={this.update('email')} value={this.state.email} />
+                    <StyledLabel>Enter a Password</StyledLabel>
                     <InputField type="password" name="password" onChange={this.update('password')} value={this.state.password} />
-                    <button type="submit" >Login</button>
+                    <StyledLabel>Re-enter Password</StyledLabel>
+                    <InputField type="password" name="password2" onChange={this.update('password2')} value={this.state.password2} />
+                    <StyledLabel>Enter Date of Birth</StyledLabel>
+                    <InputField type="text" name="username" onChange={this.update('dob')} value={this.state.dob} />
+                    <StyledLabel>Enter Home Zip</StyledLabel>
+                    <InputField type="text" name="hzip" onChange={this.update('hzip')} value={this.state.hzip} />
+                    
+                    <button type="submit" >Register</button>
                     {this.renderErrors()}
                 </FormContainer>
-                <LoginRegister>Don't Have an Account? <Link to="/register">Register</Link></LoginRegister>
+                <LoginRegister>Already Have an Account? <Link to="/login">Login</Link> here</LoginRegister>
+            </>
+            )
+    }
+
+
+    render(){
+
+        let content 
+        if (this.props.match.path === "/login") {
+            content = this.renderLogin()
+        } else if (this.props.match.path === "/register"){
+            content = this.renderRegister()
+        }
+
+        
+
+
+        return (
+            <LoginContainer>
+
+                {content}
             </LoginContainer>
+            
+            
             )
         
     }

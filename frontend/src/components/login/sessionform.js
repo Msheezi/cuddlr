@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import useSignUpForm from './CustomHooks'
-import { login } from '../../actions/session_actions'
+import { login, register } from '../../actions/session_actions'
 
 const FormContainer = styled.form`
 display:flex;

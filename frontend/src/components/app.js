@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import MainPage from './main/main_page'
 import NavBarContainer from './nav/navbar_container'
 import LoginFormContainer from './login/login_form_container'
+import SignupFormContainer from './login/signup_form_container'
 
 const Footer = styled.footer`
     position: absolute;
@@ -25,8 +26,8 @@ const App = () => (
     <Switch>
         <AuthRoute exact path="/" component={MainPage}/>
         <AuthRoute exact path="/login" component={LoginFormContainer}/>
+        <AuthRoute exact path="/register" component={SignupFormContainer}/>
         {/* <AuthRoute exact path="/login" component={LoginFormContainer}/> */}
-        {/* <AuthRoute exact path="/register" component={RegisterFormContainer}/> */}
     </Switch>
         <Footer>
             Copyright &copy; 2020 Cuddlr
