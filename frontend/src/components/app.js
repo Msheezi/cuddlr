@@ -8,6 +8,7 @@ import MainPage from './main/main_page'
 import NavBarContainer from './nav/navbar_container'
 import LoginFormContainer from './login/login_form_container'
 import SignupFormContainer from './login/signup_form_container'
+import UserFeed from './index/userFeed'
 
 const Footer = styled.footer`
     position: absolute;
@@ -27,6 +28,7 @@ const App = () => (
         <AuthRoute exact path="/" component={MainPage}/>
         <AuthRoute exact path="/login" component={LoginFormContainer}/>
         <AuthRoute exact path="/register" component={SignupFormContainer}/>
+        <ProtectedRoute exact path="/home" component={UserFeed}/>
         {/* <AuthRoute exact path="/login" component={LoginFormContainer}/> */}
     </Switch>
         <Footer>
