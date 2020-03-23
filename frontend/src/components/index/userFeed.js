@@ -7,9 +7,13 @@ import {UserFeedItem} from './userFeedItem'
 const Wrapper = styled.div`
 width: 80vw;
 display: flex;
-justify-content:space-between;
+/* justify-content:flex-start; */
 flex-wrap: wrap;
-
+align-self: center;
+margin: 15px auto;
+position: relative;
+z-index: 1;
+background-color: white;
 `
 
 
@@ -46,13 +50,17 @@ flex-wrap: wrap;
                 ))
                 
                 //import user feeddetail component and pass in props
+                //add an onclick to wrapper to go to profile page
                 return (
-                
-                <Wrapper>This Shit Is Working
+               <div>
+
+                    <h3>View Cuddlrs In Your Area</h3>
+               <Wrapper> 
                 
 
                 {feedProfiles}
                 </Wrapper>
+               </div>
             
             )
         } else {

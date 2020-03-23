@@ -11,7 +11,7 @@ import SignupFormContainer from './login/signup_form_container'
 import UserFeed from './index/userFeed'
 
 const Footer = styled.footer`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     font-size: 12pt;
