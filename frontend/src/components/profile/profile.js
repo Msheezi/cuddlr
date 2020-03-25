@@ -16,10 +16,12 @@ class Profile extends React.Component{
 
         getProfile(id)
         .then(profile=> this.setState({user: profile.data[0]}))
-        getProfilePics(id)
+        .then(() => getProfilePics(id))
         .then(pics=> this.setState({pics: pics.data, loaded: true}, ))
         //fetch profile, fetch pictures from profile using id
     }
+
+    
 
 
     render(){
