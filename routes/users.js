@@ -9,8 +9,8 @@ const passport = require('passport')
 const validateLoginInput = require('../validation/login')
 const validateRegisterInput = require('../validation/register')
 
-const excludedUserFields = { "password": 0, "email": 0, }
-
+const excludedUserFields = { "passwordDigest": 0, "email": 0, "__v": 0}
+const pictureFields = {"profilePrimary": 1, "userId": 1, "pictureUrl": 1, "_id": 1}
 
 //register route
 router.post("/register", (req,res)=>{
@@ -130,7 +130,12 @@ router.get("/:id/likes", (req, res) => {
 });
 
 
+//get prfolie pics
 
+router.get("/userPics/:id", (req,res)=>{
+  const userId = req.params.id
+  UserPicture.find({"userId": userId}, pictureFields).then(userPictures => res.json(userPictures))
+})
 
 
 module.exports = router;

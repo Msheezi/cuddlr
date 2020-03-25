@@ -111,7 +111,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <Container>
-        <StyledH1>Cuddlr</StyledH1>
+        <Link to={'/home'} style={{textDecoration: "none"}}><StyledH1>Cuddlr</StyledH1></Link>
         {this.getLinks()}
       </Container>
     );

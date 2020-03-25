@@ -1,5 +1,6 @@
 import React from 'react'
 import {Container, Body, Title, Text, Image, Button} from './indexstyles'
+import {Link} from 'react-router-dom'
 
 // const ProfileContainer = styled.div`
 // display: flex;
@@ -45,9 +46,9 @@ import {Container, Body, Title, Text, Image, Button} from './indexstyles'
 // `
 
 export  const UserFeedItem = ({props, profile}) => {
-    let today = new Date
+    let today = new Date()
     let birthYear = profile.hasOwnProperty('dob') ? new Date(profile.dob): 0
-    let userAge = birthYear != 0 ? today.getFullYear() - birthYear.getFullYear() : ""
+    let userAge = birthYear !== 0 ? today.getFullYear() - birthYear.getFullYear() : ""
 
     let imgSrc 
     if (profile.mainProfilePic){
@@ -68,7 +69,7 @@ export  const UserFeedItem = ({props, profile}) => {
                     <Text>{profile.headline}</Text>
                      <br/>
             </Body>
-                     <Button>View Profile</Button>
+            <Link to={`/users/${profile._id}`} style={{ textDecoration: "none" }}><Button>View Profile</Button></Link>
           
         </Container>
          
