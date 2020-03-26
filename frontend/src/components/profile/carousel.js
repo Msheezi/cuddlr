@@ -7,6 +7,9 @@ height: 300px;
 width: 300px;
 display: flex;
 align-items: center;
+margin: 15px 20px 10px 0px;
+padding-top: 50px;
+
 `
 
 class Carousel extends React.Component{
@@ -57,13 +60,13 @@ class Carousel extends React.Component{
             <CarouselContainer>
                 <Arrow direction="left"
                     clickFunction={this.previousSlide}
-                    glyph="&#9664"/>
+                    glyph="&#9664;"/>
 
                 <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]}/>
 
                 <Arrow direction="right"
                     clickFunction={this.nextSlide}
-                    glyph="&#9654" />
+                    glyph="&#9654;" />
             </CarouselContainer>
         )
 

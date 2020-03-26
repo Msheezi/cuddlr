@@ -53,7 +53,9 @@ const LinksContainer = styled.div`
   text-decoration: none;
   box-sizing: border-box;
   &:hover{
-    background-color:green;
+    color: #fff;
+    background-color: #218838;
+    border-color: #1e7e34;
   }
 `;
 

@@ -1,4 +1,13 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const ArrowDiv = styled.div`
+color: red;
+cursor: pointer;
+&:hover{
+    color: blue;
+}
+`
 
 export const ImageSlide = ({url}) => {
     const styles ={
@@ -17,9 +26,9 @@ export const ImageSlide = ({url}) => {
 
 
 export const Arrow = ({direction, clickFunction, glyph}) => (
-    <div className={`slide-arrow ${direction}`}
+    <ArrowDiv className={`slide-arrow ${direction}`} 
     onClick={clickFunction}>
         {glyph}
-    </div>
+    </ArrowDiv>
 )
 
