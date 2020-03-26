@@ -68,7 +68,7 @@ height: 20px;
   margin: 0px 2px ;
   align-self: flex-end;
   color: black;
-  font: "TimesNewRoman"
+  font: "TimesNewRoman";
   
   &:hover{
    color: #fff;

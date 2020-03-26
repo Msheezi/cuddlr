@@ -2,15 +2,20 @@ import React from 'react'
 import {ImageSlide, Arrow} from './imageSlide'
 import styled from  'styled-components'
 
-const CarouselContainer= styled.div`
-height: 300px;
-width: 300px;
-display: flex;
-align-items: center;
-margin: 15px 20px 10px 0px;
-padding-top: 50px;
+// const CarouselContainer = styled.div`
+// height: 300px;
+// width: 300px;
+// display: flex;
+// align-items: center;
+// margin: 15px 20px 10px 0px;
+// padding-top: 50px;
+// `
 
-`
+
+
+
+
+
 
 class Carousel extends React.Component{
     constructor(props){
@@ -26,8 +31,23 @@ class Carousel extends React.Component{
     }
 
     componentDidMount(){
+        if (this.props.auto){
+            this.autoAdvance()
+        }
         this.setState({ imgUrls: this.props.imgUrls})
     }
+
+    componentWillMount() {
+        clearInterval(this.carouselInterval)
+    }
+
+    autoAdvance() {
+        this.carouselInterval = setInterval(() => {
+            this.nextSlide()
+        }, 10000)
+
+    }
+
 
     previousSlide() {
         let imgUrls = this.props.imgUrls
@@ -49,28 +69,64 @@ class Carousel extends React.Component{
         this.setState({
             currentImageIndex: index
         }) 
-
-        
     }
+
+    renderArrows() {
+        if (this.props.arrows){
+            return (
+                <>
+                    <Arrow direction="left"
+                        clickFunction={this.previousSlide}
+                        glyph="&#9664;" />
+
+                    <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]} />
+
+                    <Arrow direction="right"
+                            clickFunction={this.nextSlide}
+                            glyph="&#9654;" />
+                </>
+                    )
+        } else {
+            return (
+                  <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]} />
+                   )
+                }
+    }
+
+    
+    
+    
 
     render(){
        
+        const CarouselContainer = this.props.style || {
+            height: "300px",
+            width: "300px",
+            display: "flex",
+            alignItems: "center",
+            margin: "15px 20px 10px 0px",
+            paddingTop: "50px ",
+        }
         
         return (
-            <CarouselContainer>
-                <Arrow direction="left"
-                    clickFunction={this.previousSlide}
-                    glyph="&#9664;"/>
-
-                <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]}/>
-
-                <Arrow direction="right"
-                    clickFunction={this.nextSlide}
-                    glyph="&#9654;" />
-            </CarouselContainer>
+            <div style={CarouselContainer}>
+           
+            {this.renderArrows()}
+            </div>
         )
 
     }
 }
 
 export default Carousel
+
+
+ //     <Arrow direction="left"
+            //         clickFunction={this.previousSlide}
+            //         glyph="&#9664;"/>
+
+            //     <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]}/>
+
+            //     <Arrow direction="right"
+            //         clickFunction={this.nextSlide}
+            //         glyph="&#9654;" />

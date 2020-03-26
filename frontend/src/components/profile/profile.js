@@ -100,7 +100,7 @@ class Profile extends React.Component{
                 <ProfileContainer>
                     <ProfileDetailsContainer>
 
-                        <Carousel imgUrls={imgUrls}/>
+                        <Carousel imgUrls={imgUrls} arrows={true} auto={false}/>
                         <ProfileDetails>
                             <h2>{profileData.headline}</h2>
                             <h3>Age: {getAge(profileData.dob)}</h3>
