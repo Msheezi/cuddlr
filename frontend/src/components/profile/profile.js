@@ -2,6 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 import { getProfile, getProfilePics} from '../../util/profiles_util'
+import Carousel from './carousel'
 //
 class Profile extends React.Component{
     constructor(props){
@@ -21,18 +22,21 @@ class Profile extends React.Component{
         //fetch profile, fetch pictures from profile using id
     }
 
-    
-
-
     render(){
+    
+        
 
         let profileData =  this.state.user
         
         if (this.state.loaded){
+            let imgUrls = this.state.pics.map(imgObj => (
+                 imgObj.pictureUrl
+            ))
 
             return(
-                <div>This Profile is working {profileData.username} </div>
-                
+                <div>This Profile is working {profileData.username}
+                    <Carousel imgUrls={imgUrls}/>
+                </div>
                 )
             } else {
                 return (<div>Info Loading...</div>)

@@ -64,7 +64,7 @@ background-color: white;
             
             )
         } else {
-            return ( "")
+            return ( <div>Page is Loading...</div>)
         }
     }
 
