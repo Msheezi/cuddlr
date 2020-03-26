@@ -68,9 +68,12 @@ height: 20px;
   margin: 0px 2px ;
   align-self: flex-end;
   color: black;
+  font: "TimesNewRoman"
   
   &:hover{
-    background-color:green;
+   color: #fff;
+    background-color: #218838;
+    border-color: #1e7e34;
   }
   padding: 0px;
 `
