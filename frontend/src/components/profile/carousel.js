@@ -93,10 +93,6 @@ class Carousel extends React.Component{
                 }
     }
 
-    
-    
-    
-
     render(){
        
         const CarouselContainer = this.props.style || {

@@ -11,7 +11,7 @@ const LoginContainer = styled.div`
     flex-direction: column;
     margin: 15vh auto;
     width: 35%;
-    height: 40vh;
+    
     align-items:center;
 `
 
