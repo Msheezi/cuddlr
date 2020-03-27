@@ -22,6 +22,13 @@ margin: 30px auto;
 text-align: center;
 `
 
+const Tagline = styled.h3`
+    color: #2e3443;
+    font-size: 12pt;
+    margin: 30px auto;
+    text-align: center; 
+`
+
 const mainPageStyle = {
     margin: "30px auto",
     width: "80vw",
@@ -54,6 +61,7 @@ class MainPage extends React.Component {
         return (
             <MainPageContainer>
                 <HeadlineH3>Find your <Accent>cuddle</Accent> buddy today</HeadlineH3>
+                <Tagline>Help us build a better, kinder human race through mutual embrace!</Tagline>
                 <Carousel imgUrls={splashPics} style={mainPageStyle} arrows={false} auto={true}/>
                 {/* <Footer>
                     Copyright &copy; 2020 Cuddlr

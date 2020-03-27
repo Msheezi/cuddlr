@@ -82,7 +82,7 @@ export  const UserFeedItem = ({props, profile}) => {
                      <br/>
                      {/* <BottomFade></BottomFade> */}
             </Body>
-            <Link to={`/users/${profile._id}`} style={{ textDecoration: "none" }}><Button>View Profile</Button></Link>
+            <Link to={`/users/${profile._id}`} style={{ textDecoration: "none" }}><Button>{profile.username}'s Profile</Button></Link>
           
         </Container>
          

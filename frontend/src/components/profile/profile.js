@@ -23,6 +23,7 @@ const ProfileDetails = styled.div`
     flex-direction: column;
     /* height: 100vh; */
     margin: 10px ;
+    padding-top: 30px;
 
 `
 const ProfileDescripton = styled.div`
@@ -34,6 +35,11 @@ const CrudButtons = styled.div`
     display: flex;
     margin: 5px auto;
 
+`
+
+const ProfileText = styled.h3`
+    margin: 5px;
+    color: #2e3443;
 
 `
 const ProfileButtons = styled.button`
@@ -120,12 +126,12 @@ class Profile extends React.Component{
                         <Carousel imgUrls={imgUrls} arrows={true} auto={false}/>
                         <ProfileDetails>
                             <h2>{profileData.headline}</h2>
-                            <h3>Age: {getAge(profileData.dob)}</h3>
-                            <h3>Location: {profileData.location}</h3>
-                            <h3>Cuddle Style: {profileData.cuddleStyle}</h3>
-                            <h3>Cuddle Position: {profileData.cuddlePosition}</h3>
-                            <h3>Gender: {profileData.gender}</h3>
-                            <h3>Interested in: {profileData.targetGender}</h3>
+                            <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
+                            <ProfileText>Location: {profileData.location}</ProfileText>
+                            <ProfileText>Cuddle Style: {profileData.cuddleStyle}</ProfileText>
+                            <ProfileText>Cuddle Position: {profileData.cuddlePosition}</ProfileText>
+                            <ProfileText>Gender: {profileData.gender}</ProfileText>
+                            <ProfileText>Interested in: {profileData.targetGender}</ProfileText>
                             
                             
                         </ProfileDetails>
@@ -133,7 +139,7 @@ class Profile extends React.Component{
                     
                     <ProfileDescripton>
                         <h2>About Me:</h2>
-                        <h3>{profileData.description}</h3>
+                        <ProfileText>{profileData.description}</ProfileText>
                     </ProfileDescripton>
                     <CrudButtons>
                         <ProfileButtons>Update Profile</ProfileButtons>
