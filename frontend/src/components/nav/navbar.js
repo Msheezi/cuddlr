@@ -97,7 +97,7 @@ class NavBar extends React.Component {
       return (
         <LinksContainer>
            
-          <LinkButton to={"/profile"}>Profile</LinkButton>
+          <LinkButton to={`/users/${this.props.currentUserId}`}> My Profile</LinkButton>
           <LinkButton to={"/messages"}>Messages</LinkButton>
           <NavButton onClick={this.logoutUser}>Logout</NavButton>
         </LinksContainer>

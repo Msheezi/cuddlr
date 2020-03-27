@@ -84,6 +84,16 @@ class Profile extends React.Component{
         //fetch profile, fetch pictures from profile using id
     }
 
+    componentDidUpdate(prevProps){
+        let id = this.props.match.params.id
+        if (prevProps.match.params.id !== id){
+            getProfile(id)
+                .then(profile => this.setState({ user: profile.data[0] }))
+                .then(() => getProfilePics(id))
+                .then(pics => this.setState({ pics: pics.data, loaded: true }))
+        }
+    }
+
     render(){
     
         
