@@ -11,11 +11,12 @@ cursor: pointer;
 
 export const ImageSlide = ({url}) => {
     const styles ={
-        backgroundImage: `url(${url})`,
+        backgroundImage: `url(https://res.cloudinary.com/ddtykf72z/image/fetch/f_auto,q_auto/${url})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: "100%",
-        width: "100%"
+        width: "100%",
+        boxShadow: "-2px 3px 3px 3px lightgray"
 
     }
 
