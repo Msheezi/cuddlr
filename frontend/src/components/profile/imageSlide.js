@@ -16,7 +16,9 @@ export const ImageSlide = ({url}) => {
         backgroundPosition: 'center',
         height: "100%",
         width: "100%",
-        boxShadow: "-2px 3px 3px 3px lightgray"
+        boxShadow: "-2px 3px 3px 3px lightgray",
+        transition: "backgroundImage 1s ease-in-out"
+
 
     }
 
