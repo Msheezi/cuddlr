@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   min-width: 0;
   max-width: 250px;
+  max-height: 450px;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
@@ -28,6 +29,10 @@ export const Body = styled.div`
   min-height: 1px;
   /* padding: 1.25rem; */
   padding: 5px ;
+  position:relative;
+  /* text-overflow: ellipsis;
+  white-space: nowrap; */
+  overflow: hidden;
 `;
 
 export const Title = styled.h1`
@@ -65,6 +70,8 @@ export const Button = styled.button`
   font-size: 1rem;
   line-height: 1.5;
   border-radius: 0.25rem;
+  z-index: 1;
+  opacity: 1;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   &:hover {

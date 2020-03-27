@@ -1,6 +1,8 @@
 import React from 'react'
 import {Container, Body, Title, Text, Image, Button} from './indexstyles'
 import {Link} from 'react-router-dom'
+import styled from 'styled-components'
+
 
 // const ProfileContainer = styled.div`
 // display: flex;
@@ -45,6 +47,16 @@ import {Link} from 'react-router-dom'
 
 // `
 
+
+// const BottomFade = styled.div`
+// position:fixed;
+// bottom: 250;
+// height: 20px;
+// width: 100%;
+// /* z-index: 99; */
+// background: url("%PUBLIC_URL%/bottom-fade.png");
+// `
+
 export  const UserFeedItem = ({props, profile}) => {
     let today = new Date()
     let birthYear = profile.hasOwnProperty('dob') ? new Date(profile.dob): 0
@@ -68,6 +80,7 @@ export  const UserFeedItem = ({props, profile}) => {
                     {/* <Text>Age: {userAge}</Text> */}
                     <Text>{profile.description}</Text>
                      <br/>
+                     {/* <BottomFade></BottomFade> */}
             </Body>
             <Link to={`/users/${profile._id}`} style={{ textDecoration: "none" }}><Button>View Profile</Button></Link>
           

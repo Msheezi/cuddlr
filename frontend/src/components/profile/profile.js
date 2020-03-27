@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { getProfile, getProfilePics} from '../../util/profiles_util'
 import Carousel from './carousel'
-import {getAge} from '../../reducers/selectors'
+import {getAge, refreshProfile} from '../../reducers/selectors'
 
 
 
@@ -16,7 +16,6 @@ const ProfileContainer = styled.div`
 `
 const ProfileDetailsContainer = styled.div`
     display: flex;
-    
 `
 
 const ProfileDetails = styled.div`
@@ -77,6 +76,7 @@ class Profile extends React.Component{
     componentDidMount(){
         let id = this.props.match.params.id
 
+        
         getProfile(id)
         .then(profile=> this.setState({user: profile.data[0]}))
         .then(() => getProfilePics(id))
@@ -84,9 +84,14 @@ class Profile extends React.Component{
         //fetch profile, fetch pictures from profile using id
     }
 
+    
     componentDidUpdate(prevProps){
+        // added component did update to resolve bug where nav bar "My Profile" button, when already
+        // on a profile was not triggering a re-render with the new data
         let id = this.props.match.params.id
+  
         if (prevProps.match.params.id !== id){
+            
             getProfile(id)
                 .then(profile => this.setState({ user: profile.data[0] }))
                 .then(() => getProfilePics(id))
@@ -139,7 +144,8 @@ class Profile extends React.Component{
                 </ProfileContainer>
                 )
             } else {
-                return (<div>Info Loading...</div>)
+                // maybe replace this with some graphic?
+                return (<div>Profile Loading...</div>)
             }
 
 
