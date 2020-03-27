@@ -91,10 +91,12 @@ class Profile extends React.Component{
         let profileData =  this.state.user
         
         if (this.state.loaded){
-            let imgUrls = this.state.pics.map(imgObj => (
+            
+            let imgUrls = this.state.pics.length === 0 ? ["https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp"] : this.state.pics.map(imgObj => (
                  imgObj.pictureUrl
             ))
 
+            
 
             return(
                 <ProfileContainer>

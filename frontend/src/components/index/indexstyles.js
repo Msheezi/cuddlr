@@ -9,10 +9,16 @@ export const Container = styled.div`
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
+  
   border-radius: 0.25rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   overflow: hidden;
   margin: 10px;
+  &:hover{
+    box-shadow: 0 0.125rem 0.25rem #a3fff6;
+    transition-duration: 0.4s;
+    transform: scale(1.03);
+  }
 `;
 
 export const Body = styled.div`
@@ -20,23 +26,25 @@ export const Body = styled.div`
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.25rem;
+  /* padding: 1.25rem; */
+  padding: 5px ;
 `;
 
 export const Title = styled.h1`
   font-size: 1.25rem;
   font-weight: bold;
   margin: 5 0 ;
+  text-align: center;
 `;
 
 export const Text = styled.p`
-  line-height: 25px;
+  /* line-height: 25px; */
   color: #6c757d;
 `;
 
 export const Image = styled.img`
-  width: 100%;
-  height: 300px;
+  
+  height: 250px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 `;
 

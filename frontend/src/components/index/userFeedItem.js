@@ -54,7 +54,7 @@ export  const UserFeedItem = ({props, profile}) => {
     if (profile.mainProfilePic){
         imgSrc = profile.mainProfilePic
     } else {
-        imgSrc = 'https://cuddlr-dev.s3-us-west-1.amazonaws.com/noimage.jpg'
+        imgSrc = 'https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp'
     }
 
 
@@ -64,9 +64,9 @@ export  const UserFeedItem = ({props, profile}) => {
                 <Image src={imgSrc}/>
             <Body>
                 
-                <Title>{profile.username}</Title>
-                    <Text>Age: {userAge}</Text>
-                    <Text>{profile.headline}</Text>
+                <Title>{profile.headline}</Title>
+                    {/* <Text>Age: {userAge}</Text> */}
+                    <Text>{profile.description}</Text>
                      <br/>
             </Body>
             <Link to={`/users/${profile._id}`} style={{ textDecoration: "none" }}><Button>View Profile</Button></Link>
@@ -83,7 +83,7 @@ export  const UserFeedItem = ({props, profile}) => {
 export default UserFeedItem
 
 
-
+// { profile.username }
 // single team 
 // box img  /box img
 // bot img txt 
