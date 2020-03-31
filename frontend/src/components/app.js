@@ -9,7 +9,7 @@ import NavBarContainer from './nav/navbar_container'
 import LoginFormContainer from './login/login_form_container'
 import SignupFormContainer from './login/signup_form_container'
 import UserFeed from './index/userFeed'
-import Profile from './profile/profile'
+import ProfileContainer from './profile/profileContainer'
 
 const Footer = styled.footer`
     position: fixed;
@@ -31,7 +31,7 @@ const App = () => (
         <AuthRoute exact path="/register" component={SignupFormContainer}/>
         {/* <AuthRoute exact path="/messages" component={MessagesContainer}/> */}
         <ProtectedRoute exact path="/home" component={UserFeed}/>
-            <ProtectedRoute exact path="/users/:id" component={Profile}/>
+            <ProtectedRoute exact path="/users/:id" component={ProfileContainer}/>
     </Switch>
         <Footer>
             Copyright &copy; 2020 Cuddlr

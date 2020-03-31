@@ -16,7 +16,7 @@ const carouselOptions = {
 }
 
 //
-class Profile extends React.Component{
+export class Profile extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -47,6 +47,27 @@ class Profile extends React.Component{
                 .then(profile => this.setState({ user: profile.data[0] }))
                 .then(() => getProfilePics(id))
                 .then(pics => this.setState({ pics: pics.data, loaded: true }))
+        }
+    }
+
+    renderCruds() {
+        if (this.props.currentUserId === this.props.match.params.id){
+            return (
+                <CrudButtons>
+                    <ProfileButtons>Update Profile</ProfileButtons>
+                    <ProfileButtons>Manage Photos</ProfileButtons>
+
+                </CrudButtons>
+
+            )
+        } else {
+            return (
+                <CrudButtons>
+                    <ProfileButtons>
+                        {`Contact ${this.state.user.username} `}
+                    </ProfileButtons>
+                </CrudButtons>
+            )
         }
     }
 
@@ -82,11 +103,12 @@ class Profile extends React.Component{
                         <h2>About Me:</h2>
                         <ProfileText>{profileData.description}</ProfileText>
                     </ProfileDescripton>
-                    <CrudButtons>
+                    {this.renderCruds()}
+                    {/* <CrudButtons>
                         <ProfileButtons>Update Profile</ProfileButtons>
                         <ProfileButtons>Manage Photos</ProfileButtons>
 
-                    </CrudButtons>
+                    </CrudButtons> */}
 
                 </ProfileContainer>
                 )
@@ -99,4 +121,4 @@ class Profile extends React.Component{
     }
 }
 
-export default Profile
+// export default Profile

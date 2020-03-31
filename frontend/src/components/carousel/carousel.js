@@ -44,7 +44,7 @@ class Carousel extends React.Component{
         this.setState({ imgUrls: this.props.imgUrls})
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
         clearInterval(this.carouselInterval)
     }
 
