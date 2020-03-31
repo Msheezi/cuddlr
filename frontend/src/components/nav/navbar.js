@@ -59,7 +59,7 @@ const LinksContainer = styled.div`
   }
 `;
 
-const NavButton = styled.button`
+const NavButton = styled.div`
 width: 150px;
 height: 20px;
   background: transparent;
@@ -68,7 +68,7 @@ height: 20px;
   margin: 0px 2px ;
   align-self: flex-end;
   color: black;
-  font: "TimesNewRoman";
+  box-sizing: border-box;
   
   &:hover{
    color: #fff;
