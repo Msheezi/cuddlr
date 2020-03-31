@@ -1,7 +1,7 @@
 import React from 'react'
 import {ImageSlide, Arrow} from './imageSlide'
 import styled from  'styled-components'
-import { ForecastQueryService } from 'aws-sdk'
+
 
 // const CarouselContainer = styled.div`
 // height: 300px;
@@ -29,16 +29,7 @@ class Carousel extends React.Component{
         super(props)
         this.state = {
             currentImageIndex: 0,
-            // slide1:{
-            //     id: 0,
-            //     position: s.onScreen,
-            //     transition: true
-            // },
-            // slide2:{
-            //     id: 1,
-            //     position: s.offScreenRight,
-            //     transition: true
-            // }
+           
         }
 
         this.previousSlide = this.previousSlide.bind(this)
@@ -136,12 +127,4 @@ class Carousel extends React.Component{
 export default Carousel
 
 
- //     <Arrow direction="left"
-            //         clickFunction={this.previousSlide}
-            //         glyph="&#9664;"/>
-
-            //     <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]}/>
-
-            //     <Arrow direction="right"
-            //         clickFunction={this.nextSlide}
-            //         glyph="&#9654;" />
+ 

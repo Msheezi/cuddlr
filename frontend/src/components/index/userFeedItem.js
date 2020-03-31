@@ -4,60 +4,8 @@ import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 
 
-// const ProfileContainer = styled.div`
-// display: flex;
-// background-image: url(${props => props.pic});
-// background-size:cover;
-// width: 250px;
-// height: 300px;
-// border: 1px solid black;
-// margin: 20px;
-// position: relative;
-// cursor: pointer;
-//  &:hover {
-//         transform: translateY(0)
-//     }
 
-// `
-
-// const SingleTeam = styled.div`
-    
-   
-   
-  
-// `
-
-// const Box = styled.div`
-// width: 350px;
-// height: 200px;
-// transition: 06s;
-// `
-
-
-
-// const BoxImg = styled.div`
- 
-//  `
-
-// const BoxText = styled.div`
-
-// `
-
-// const Description = styled.div` 
-
-// `
-
-
-// const BottomFade = styled.div`
-// position:fixed;
-// bottom: 250;
-// height: 20px;
-// width: 100%;
-// /* z-index: 99; */
-// background: url("%PUBLIC_URL%/bottom-fade.png");
-// `
-
-export  const UserFeedItem = ({props, profile}) => {
+export  const UserFeedItem = ({ profile}) => {
     let today = new Date()
     let birthYear = profile.hasOwnProperty('dob') ? new Date(profile.dob): 0
     let userAge = birthYear !== 0 ? today.getFullYear() - birthYear.getFullYear() : ""
