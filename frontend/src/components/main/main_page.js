@@ -47,6 +47,14 @@ const splashPics = [
     "https://cuddlr-dev.s3-us-west-1.amazonaws.com/splash/thought-catalog-2k58cwVzMQI-unsplash.jpg"
 ]
 
+
+const carouselOptions = {
+    style: mainPageStyle,
+    arrows: false, 
+    auto: true,
+    transitionDelay: "1s"
+}
+
 class MainPage extends React.Component {
     constructor(props){
         super(props)
@@ -62,7 +70,8 @@ class MainPage extends React.Component {
             <MainPageContainer>
                 <HeadlineH3>Find your <Accent>cuddle</Accent> buddy today</HeadlineH3>
                 <Tagline>Help us build a better, kinder human race through mutual embrace!</Tagline>
-                <Carousel imgUrls={splashPics} style={mainPageStyle} arrows={false} auto={true}/>
+                {/* <Carousel imgUrls={splashPics} style={mainPageStyle} arrows={false} auto={true}/> */}
+                <Carousel imgUrls={splashPics} options={carouselOptions}/>
                 {/* <Footer>
                     Copyright &copy; 2020 Cuddlr
                 </Footer> */}

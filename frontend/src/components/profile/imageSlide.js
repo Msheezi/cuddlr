@@ -9,7 +9,9 @@ cursor: pointer;
 }
 `
 
-export const ImageSlide = ({url}) => {
+export const ImageSlide = ({url, transitionDelay}) => {
+   
+    let myTransition = `background-image 1.5s ease-in-out ${transitionDelay}`
     const styles ={
         backgroundImage: `url(https://res.cloudinary.com/ddtykf72z/image/fetch/f_auto,q_auto/${url})`,
         backgroundSize: 'cover',
@@ -17,7 +19,7 @@ export const ImageSlide = ({url}) => {
         height: "100%",
         width: "100%",
         boxShadow: "-2px 3px 3px 3px lightgray",
-        transition: "backgroundImage 1s ease-in-out"
+        transition: myTransition
 
 
     }

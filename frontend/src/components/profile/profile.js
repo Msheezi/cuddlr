@@ -5,7 +5,13 @@ import { getProfile, getProfilePics} from '../../util/profiles_util'
 import Carousel from './carousel'
 import {getAge, refreshProfile} from '../../reducers/selectors'
 
-
+const carouselOptions = {
+    
+    arrows: true,
+    auto: false,
+    transitionDelay: "0s"
+    
+}
 
 const ProfileContainer = styled.div`
     display: flex;
@@ -123,7 +129,8 @@ class Profile extends React.Component{
                 <ProfileContainer>
                     <ProfileDetailsContainer>
 
-                        <Carousel imgUrls={imgUrls} arrows={true} auto={false}/>
+                        {/* <Carousel imgUrls={imgUrls} arrows={true} auto={false}/> */}
+                        <Carousel imgUrls={imgUrls} options={carouselOptions}/>
                         <ProfileDetails>
                             <h2>{profileData.headline}</h2>
                             <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>

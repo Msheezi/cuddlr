@@ -1,6 +1,7 @@
 import React from 'react'
 import {ImageSlide, Arrow} from './imageSlide'
 import styled from  'styled-components'
+import { ForecastQueryService } from 'aws-sdk'
 
 // const CarouselContainer = styled.div`
 // height: 300px;
@@ -14,7 +15,13 @@ import styled from  'styled-components'
 
 
 
-
+//This componenet is expecting an options has when called that can constist of 
+// {
+// style: "styles for the carousels container" , 
+// arrows: do you want to show arrows to progess images,
+// auto: should this use the auto advance feature ,
+// transitionDelay: was is the delay in executing the slide transition
+// }
 
 
 class Carousel extends React.Component{
@@ -22,7 +29,16 @@ class Carousel extends React.Component{
         super(props)
         this.state = {
             currentImageIndex: 0,
-            
+            // slide1:{
+            //     id: 0,
+            //     position: s.onScreen,
+            //     transition: true
+            // },
+            // slide2:{
+            //     id: 1,
+            //     position: s.offScreenRight,
+            //     transition: true
+            // }
         }
 
         this.previousSlide = this.previousSlide.bind(this)
@@ -31,7 +47,7 @@ class Carousel extends React.Component{
     }
 
     componentDidMount(){
-        if (this.props.auto){
+        if (this.props.options.auto){
             this.autoAdvance()
         }
         this.setState({ imgUrls: this.props.imgUrls})
@@ -71,15 +87,17 @@ class Carousel extends React.Component{
         }) 
     }
 
+    // if arrows are being rendered, there is no fade transition for the carousel 
+    // thus I'm not passing the transition delay option into the component
     renderArrows() {
-        if (this.props.arrows){
+        if (this.props.options.arrows){
             return (
                 <>
                     <Arrow direction="left"
                         clickFunction={this.previousSlide}
                         glyph="&#9664;" />
 
-                    <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]} />
+                    <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]}  />
 
                     <Arrow direction="right"
                             clickFunction={this.nextSlide}
@@ -87,15 +105,16 @@ class Carousel extends React.Component{
                 </>
                     )
         } else {
+            //This is for the auto slide function, the delay is for a smooth fade in/out transition
             return (
-                  <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]} />
+                <ImageSlide url={this.props.imgUrls[this.state.currentImageIndex]} transitionDelay={this.props.options.transitionDelay}  />
                    )
                 }
     }
 
     render(){
        
-        const CarouselContainer = this.props.style || {
+        const CarouselContainer = this.props.options.style || {
             height: "300px",
             width: "300px",
             display: "flex",
