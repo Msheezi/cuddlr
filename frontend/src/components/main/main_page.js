@@ -69,12 +69,14 @@ class MainPage extends React.Component {
         return (
             <MainPageContainer>
                 <HeadlineH3>Find your <Accent>cuddle</Accent> buddy today</HeadlineH3>
-                <Tagline>Help us build a better, kinder human race through mutual embrace!</Tagline>
+                <Tagline>Help us build a better, kinder human race through mutual embrace!*</Tagline>
                 {/* <Carousel imgUrls={splashPics} style={mainPageStyle} arrows={false} auto={true}/> */}
                 <Carousel imgUrls={splashPics} options={carouselOptions}/>
                 {/* <Footer>
                     Copyright &copy; 2020 Cuddlr
                 </Footer> */}
+
+                <p style={{textAlign: "center"}}>*Please follow all instructions from your local health officials, it is advisable to maintain proper distancing when interacting with individuals in these unique times</p>
             </MainPageContainer>
         )
     }
