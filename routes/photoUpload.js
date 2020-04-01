@@ -45,6 +45,7 @@ router.post("/upload", upload.single("file"), (req, res) =>{
               if (error) {
                 throw error.Message;
             }
+            //need to wipe all the current primaries from the userPicture
                 if (primary) {
                     User.findOne({"_id": userId }, (err, userData)=> {
                         userData.mainProfilePic = s3FileURL + file.originalname

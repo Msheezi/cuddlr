@@ -1,10 +1,21 @@
 import React from 'react'
-
+import styled from 'styled-components'
 import { getProfile, getProfilePics} from '../../util/profiles_util'
 import Carousel from '../carousel/carousel'
 import {getAge, } from '../../reducers/selectors'
 import {ProfileContainer, ProfileDetailsContainer, ProfileDetails, ProfileDescripton, CrudButtons, ProfileText, ProfileButtons} from './profileStyles'
 
+
+const StyledInput = styled.input`
+
+    font: 18.72px "Times New Roman";
+    color: #2e3443;
+
+    &:disabled{
+        border: none;
+        background-color: transparent;
+    }
+`
 
 //carousel options for image component
 const carouselOptions = {
@@ -20,7 +31,8 @@ export class Profile extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            loaded: false
+            loaded: false,
+            disabled: true
         }
     }
 
@@ -50,6 +62,8 @@ export class Profile extends React.Component{
         }
     }
 
+
+
     renderCruds() {
         if (this.props.currentUserId === this.props.match.params.id){
             return (
@@ -71,6 +85,19 @@ export class Profile extends React.Component{
         }
     }
 
+// add an on change to update the user, 
+// include a toggle to prevent updating on users that you don't belong to
+// add a backend validation that current user == userId being updated, if not send an error
+
+    enable(){
+        if (this.props.match.params.id === this.props.currentUserId ){
+
+            let toggle = !this.state.disabled
+            
+            return   this.setState({disabled: toggle})
+        }
+    }
+
     render(){
         let profileData =  this.state.user
         
@@ -87,8 +114,13 @@ export class Profile extends React.Component{
                         {/* <Carousel imgUrls={imgUrls} arrows={true} auto={false}/> */}
                         <Carousel imgUrls={imgUrls} options={carouselOptions}/>
                         <ProfileDetails>
+                            {/* <fieldset disabled={this.state.disabled} onClick={() => this.enable()}> */}
+
+                            {/* <form > */}
+
                             <h2>{profileData.headline}</h2>
-                            <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
+                                <ProfileText >Age: {getAge(profileData.dob)}</ProfileText>
+                                {/* <ProfileText >Age: <StyledInput value={getAge(profileData.dob)} /></ProfileText> */}
                             <ProfileText>Location: {profileData.location}</ProfileText>
                             <ProfileText>Cuddle Style: {profileData.cuddleStyle}</ProfileText>
                             <ProfileText>Cuddle Position: {profileData.cuddlePosition}</ProfileText>
@@ -96,18 +128,20 @@ export class Profile extends React.Component{
                             <ProfileText>Interested in: {profileData.targetGender}</ProfileText>
                             
                             
+                            {/* </form> */}
                         </ProfileDetails>
                     </ProfileDetailsContainer>
-                    
                     <ProfileDescripton>
                         <h2>About Me:</h2>
                         <ProfileText>{profileData.description}</ProfileText>
                     </ProfileDescripton>
+                    {/* </fieldset> */}
+                    
                     {this.renderCruds()}
                     {/* <CrudButtons>
                         <ProfileButtons>Update Profile</ProfileButtons>
                         <ProfileButtons>Manage Photos</ProfileButtons>
-
+                        
                     </CrudButtons> */}
 
                 </ProfileContainer>

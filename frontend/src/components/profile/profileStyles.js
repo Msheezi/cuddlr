@@ -20,8 +20,8 @@ export const ProfileDetails = styled.div`
 
 `
 export const ProfileDescripton = styled.div`
-    width: 80vw;
-    margin: 10px auto;
+    width: 60vw;
+    margin: 10px ;
 `
 
 export const CrudButtons = styled.div`
@@ -33,8 +33,11 @@ export const CrudButtons = styled.div`
 export const ProfileText = styled.h3`
     margin: 5px;
     color: #2e3443;
+    word-wrap: break-word;
 
 `
+
+
 export const ProfileButtons = styled.button`
 cursor: pointer;
 margin: 10px;
@@ -62,3 +65,4 @@ transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color: #1e7e34;
 }
 `
+

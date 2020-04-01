@@ -113,16 +113,26 @@ router.get("/", (req, res)=>{
 
 })
 
-// 
+// Retrieve User
 
 router.get("/:id", (req,res)=>{
   const userId = req.params.id;
   User.find({ "_id": userId }, excludedUserFields)
-  .then(user => {res.json(user) }) 
+  .then(user => res.json(user) ) 
   })
   // add the search in to get the pictures for the user
 
 
+// Update User Profile
+
+router.patch("/:id", (req, res)=> {
+  // pass fields through validator
+  const userId = req.params.id 
+  let updatedUser = req.body
+  
+  User.findOneAndUpdate({"_id": userId}, updatedUser, {new: true} ).then(user => res.json(user))
+
+})
 // Current users Likes
 router.get("/:id/likes", (req, res) => {
   let currentUser;

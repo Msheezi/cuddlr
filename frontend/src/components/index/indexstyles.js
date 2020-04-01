@@ -50,6 +50,9 @@ export const Text = styled.p`
 export const Image = styled.img`
   
   height: 250px;
+  width: 250px;
+  object-fit:cover;
+
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 `;
 

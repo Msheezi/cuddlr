@@ -12,7 +12,7 @@ const likes = require("./routes/likes");
 const photoUpload = require("./routes/photoUpload")
 
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false  })
   .then(() => console.log("Connected to Mongo"))
   .catch(err => console.log(err));
 
