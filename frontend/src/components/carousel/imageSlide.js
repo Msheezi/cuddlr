@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const ArrowDiv = styled.div`
 color: red;
 cursor: pointer;
+z-index: 1;
 &:hover{
     color: blue;
 }

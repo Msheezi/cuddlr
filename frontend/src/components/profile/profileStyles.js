@@ -9,27 +9,46 @@ import styled from "styled-components";
 // `
 export const ProfileContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  width: 80vw;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "header header header "
+    "carousel details  ."
+    ". description description  "
+    " crud crud crud ";
+  width: 90vw; 
   margin: 10px auto;
 `;
-export const ProfileDetailsContainer = styled.div`
-  display: flex;
-`;
+
+export const ProfileHeader = styled.h2`
+  grid-area: header;
+  text-align: center;
+`
+
+export const ProfileCarouselContainer = styled.div`
+  grid-area: carousel;
+  margin: 0;
+  justify-self: center;
+`
+
 
 export const ProfileDetails = styled.div`
+  grid-area: details;
   display: flex;
   flex-direction: column;
   /* height: 100vh; */
   margin: 10px;
-  padding-top: 30px;
+  /* padding-top: 30px; */
 `;
+
+
 export const ProfileDescripton = styled.div`
-  width: 60vw;
+grid-area: description;
   margin: 10px;
 `;
 
 export const CrudButtons = styled.div`
+  grid-area: crud;
   display: flex;
   margin: 5px auto;
 `;
@@ -39,6 +58,12 @@ export const ProfileText = styled.h3`
   color: #2e3443;
   word-wrap: break-word;
 `;
+
+export const DetailsText = styled.h2`
+  margin: 5px;
+  color: #2e3443;
+  word-wrap: break-word;
+`
 
 export const ProfileButtons = styled.button`
   cursor: pointer;

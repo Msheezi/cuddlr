@@ -10,7 +10,10 @@ import {
   ProfileDescripton,
   CrudButtons,
   ProfileText,
-  ProfileButtons
+  ProfileButtons,
+  ProfileHeader,
+  ProfileCarouselContainer,
+  DetailsText
 } from "./profileStyles";
 
 const StyledInput = styled.input`
@@ -105,30 +108,35 @@ export class Profile extends React.Component {
 
       return (
         <ProfileContainer>
-          <ProfileDetailsContainer>
-            {/* <Carousel imgUrls={imgUrls} arrows={true} auto={false}/> */}
+          <ProfileHeader>
+            {profileData.headline}
+          </ProfileHeader>
+    
+          <ProfileCarouselContainer>
             <Carousel imgUrls={imgUrls} options={carouselOptions} />
-            <ProfileDetails>
-              {/* <fieldset disabled={this.state.disabled} onClick={() => this.enable()}> */}
+          </ProfileCarouselContainer>
 
-              {/* <form > */}
 
-              <h2>{profileData.headline}</h2>
-              <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
-              {/* <ProfileText >Age: <StyledInput value={getAge(profileData.dob)} /></ProfileText> */}
-              <ProfileText>Location: {profileData.location}</ProfileText>
-              <ProfileText>Cuddle Style: {profileData.cuddleStyle}</ProfileText>
-              <ProfileText>
-                Cuddle Position: {profileData.cuddlePosition}
-              </ProfileText>
-              <ProfileText>Gender: {profileData.gender}</ProfileText>
-              <ProfileText>
-                Interested in: {profileData.targetGender}
-              </ProfileText>
+          <ProfileDetails>
+            {/* <fieldset disabled={this.state.disabled} onClick={() => this.enable()}> */}
 
-              {/* </form> */}
-            </ProfileDetails>
-          </ProfileDetailsContainer>
+            {/* <form > */}
+            <DetailsText>{profileData.username}'s Details</DetailsText>
+            <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
+            {/* <ProfileText >Age: <StyledInput value={getAge(profileData.dob)} /></ProfileText> */}
+            <ProfileText>Location: {profileData.location}</ProfileText>
+            <ProfileText>Cuddle Style: {profileData.cuddleStyle}</ProfileText>
+            <ProfileText>
+              Cuddle Position: {profileData.cuddlePosition}
+            </ProfileText>
+            <ProfileText>Gender: {profileData.gender}</ProfileText>
+            <ProfileText>
+              Interested in: {profileData.targetGender}
+            </ProfileText>
+
+            {/* </form> */}
+          </ProfileDetails>
+          
           <ProfileDescripton>
             <h2>About Me:</h2>
             <ProfileText>{profileData.description}</ProfileText>
@@ -136,11 +144,7 @@ export class Profile extends React.Component {
           {/* </fieldset> */}
 
           {this.renderCruds()}
-          {/* <CrudButtons>
-                        <ProfileButtons>Update Profile</ProfileButtons>
-                        <ProfileButtons>Manage Photos</ProfileButtons>
-                        
-                    </CrudButtons> */}
+          
         </ProfileContainer>
       );
     } else {
