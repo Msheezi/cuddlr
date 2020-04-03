@@ -131,7 +131,7 @@ router.patch("/:id", (req, res)=> {
   let updatedUser = req.body
   
   User.findOneAndUpdate({"_id": userId}, updatedUser, {new: true} ).then(user => res.json(user))
-
+  
 })
 // Current users Likes
 router.get("/:id/likes", (req, res) => {

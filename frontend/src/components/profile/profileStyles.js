@@ -14,7 +14,8 @@ export const ProfileContainer = styled.div`
   grid-template-areas: 
     "header header header "
     "carousel details  ."
-    "likes description description  "
+    "likes . . "
+     " . description description  "
     " crud crud crud ";
   width: 90vw; 
   margin: 10px auto;
@@ -23,7 +24,10 @@ export const ProfileContainer = styled.div`
 export const ProfileHeader = styled.h2`
   grid-area: header;
   text-align: center;
+  font-size: 24pt;
 `
+
+
 
 export const ProfileCarouselContainer = styled.div`
   grid-area: carousel;
@@ -97,3 +101,29 @@ export const ProfileButtons = styled.button`
     border-color: #1e7e34;
   }
 `;
+
+export const StyledInput = styled.input`
+  
+  &:disabled {
+    border: none;
+    background-color: transparent;
+  }
+`;
+
+export const StyledTextArea = styled.textarea`
+  
+  &:disabled {
+    border: none;
+    background-color: transparent;
+  }
+`;
+
+export const StyledHeadline = styled(StyledInput)`font-size:24pt;`
+
+export const StyledDescription = styled(StyledTextArea)`
+  font-size: 14pt;
+  color: #2e3443;
+  word-wrap: break-word;
+  width:100%;
+  height:200px;
+`

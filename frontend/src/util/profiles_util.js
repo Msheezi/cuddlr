@@ -12,6 +12,7 @@ export const getProfilePics = (id)=>{
     return axios.get(`/users/userPics/${id}`)
 }
 
-export const updateProfile = (id)=> {
-    return axios.patch(`/users/${id}`)
+export const updateProfile = (id, data)=> {
+    
+    return axios.patch(`/users/${id}`, data)
 }
