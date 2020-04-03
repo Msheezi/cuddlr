@@ -1,6 +1,5 @@
 import React from "react";
 import { ImageSlide, Arrow } from "./imageSlide";
-import styled from "styled-components";
 
 // const CarouselContainer = styled.div`
 // height: 300px;
@@ -19,14 +18,14 @@ import styled from "styled-components";
 // transitionDelay: was is the delay in executing the slide transition
 // }
 
-const CarouselContainer =  {
+const CarouselContainer = {
   height: "300px",
   width: "300px",
 
   // height: "100%",
   // width: "100%",
   display: "flex",
-  alignItems: "center",
+  alignItems: "center"
   // margin: "15px 20px 10px 0px",
   // paddingTop: "50px "
 };
@@ -114,9 +113,7 @@ class Carousel extends React.Component {
   }
 
   render() {
-   
-    const container = this.props.options.style || CarouselContainer
-     
+    const container = this.props.options.style || CarouselContainer;
 
     return <div style={container}>{this.renderArrows()}</div>;
   }

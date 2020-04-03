@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+
 import { getProfile, getProfilePics } from "../../util/profiles_util";
 import Carousel from "../carousel/carousel";
 import { getAge } from "../../reducers/selectors";
