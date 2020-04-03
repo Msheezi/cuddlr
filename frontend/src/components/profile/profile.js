@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { getProfile, getProfilePics } from "../../util/profiles_util";
 import Carousel from "../carousel/carousel";
 import { getAge } from "../../reducers/selectors";
+import Loader from "../spinner/spinner";
 import {
   ProfileContainer,
-  
   ProfileDetails,
   ProfileDescripton,
   CrudButtons,
@@ -15,11 +15,10 @@ import {
   ProfileCarouselContainer,
   DetailsText,
   Likes,
-  StyledHeadline, StyledDescription
+  StyledHeadline,
+  StyledDescription
 } from "./profileStyles";
-import { updateProfile} from '../../util/profiles_util'
-
-
+import { updateProfile } from "../../util/profiles_util";
 
 //carousel options for image component
 const carouselOptions = {
@@ -45,7 +44,7 @@ export class Profile extends React.Component {
       .then(profile => this.setState({ user: profile.data[0] }))
       .then(() => getProfilePics(id))
       .then(pics => this.setState({ pics: pics.data, loaded: true }));
-      }
+  }
 
   componentDidUpdate(prevProps) {
     // added component did update to resolve bug where nav bar "My Profile" button, when already
@@ -60,29 +59,28 @@ export class Profile extends React.Component {
     }
   }
 
-  handleInput(e){
-
+  handleInput(e) {
     // function is written this way to access the nested user object in state
     // destructures user and assigns to variable currentState
     // destructures e.target to get the id of the field being input to update the currentState object
     // sets state with the new user object
 
-    const {user} = {...this.state}
+    const { user } = { ...this.state };
     const currentState = user;
-    const { id,value } = e.target;
+    const { id, value } = e.target;
     currentState[id] = value;
     this.setState({ user: currentState });
   }
 
-  handleSubmit(){
+  handleSubmit() {
     //creates object from state, and sends to route updating mongo
     const updatedProfile = {
-      "headline": this.state.user.headline,
-      "description": this.state.user.description
-    }
-    
-    updateProfile(this.props.match.params.id, updatedProfile)
-    this.enable()
+      headline: this.state.user.headline,
+      description: this.state.user.description
+    };
+
+    updateProfile(this.props.match.params.id, updatedProfile);
+    this.enable();
   }
 
   renderCruds() {
@@ -90,10 +88,16 @@ export class Profile extends React.Component {
     // the current users profile
 
     if (this.props.currentUserId === this.props.match.params.id) {
-      let text = this.state.disabled ? 
-      <ProfileButtons onClick={() => this.enable()}>Update Profile</ProfileButtons> : 
-      <ProfileButtons onClick={(e) => this.handleSubmit()}>Save Changes</ProfileButtons> 
-      
+      let text = this.state.disabled ? (
+        <ProfileButtons onClick={() => this.enable()}>
+          Update Profile
+        </ProfileButtons>
+      ) : (
+        <ProfileButtons onClick={e => this.handleSubmit()}>
+          Save Changes
+        </ProfileButtons>
+      );
+
       return (
         <CrudButtons>
           {text}
@@ -118,7 +122,7 @@ export class Profile extends React.Component {
 
   enable() {
     // enables the profile to be edited if the current userID matches the displayed userId
-    
+
     if (this.props.match.params.id === this.props.currentUserId) {
       let toggle = !this.state.disabled;
 
@@ -137,20 +141,22 @@ export class Profile extends React.Component {
 
       return (
         <ProfileContainer>
-          
           {/* <button onClick={() => this.enable()}>Edit</button> */}
 
           <ProfileHeader>
-            <StyledHeadline id="headline" onChange={e => this.handleInput(e)} disabled={this.state.disabled} value={this.state.user.headline} />
+            <StyledHeadline
+              id="headline"
+              onChange={e => this.handleInput(e)}
+              disabled={this.state.disabled}
+              value={this.state.user.headline}
+            />
           </ProfileHeader>
-    
+
           <ProfileCarouselContainer>
             <Carousel imgUrls={imgUrls} options={carouselOptions} />
           </ProfileCarouselContainer>
 
-
           <ProfileDetails>
-            
             <DetailsText>{profileData.username}'s Details</DetailsText>
             <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
             <ProfileText>City: {profileData.location}</ProfileText>
@@ -159,36 +165,34 @@ export class Profile extends React.Component {
               Cuddle Position: {profileData.cuddlePosition}
             </ProfileText>
             <ProfileText>Gender: {profileData.gender}</ProfileText>
-            <ProfileText>
-              Interested in: {profileData.targetGender}
-            </ProfileText>
-
-           
+            <ProfileText>Interested in: {profileData.targetGender}</ProfileText>
           </ProfileDetails>
-          
+
           <ProfileDescripton>
             <h2>About Me:</h2>
-            <StyledDescription 
-              id="description" 
+            <StyledDescription
+              id="description"
               row
-              onChange={e => this.handleInput(e)} 
-              disabled={this.state.disabled} 
+              onChange={e => this.handleInput(e)}
+              disabled={this.state.disabled}
               // the below is a short circuit mechanism in case description comes in blank
-              value={this.state.user.description || ""}/>
+              value={this.state.user.description || ""}
+            />
           </ProfileDescripton>
 
-        <Likes>
-          <ProfileButtons color="red">Like {profileData.username}</ProfileButtons>
-        </Likes>
+          <Likes>
+            <ProfileButtons color="red">
+              Like {profileData.username}
+            </ProfileButtons>
+          </Likes>
 
           {this.renderCruds()}
-          
-        
         </ProfileContainer>
       );
     } else {
       // maybe replace this with some graphic?
-      return <div>Profile Loading...</div>;
+      // return <div>Profile Loading...</div>;
+      return <Loader />;
     }
   }
 }
