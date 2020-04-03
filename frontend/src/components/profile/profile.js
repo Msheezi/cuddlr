@@ -13,7 +13,8 @@ import {
   ProfileButtons,
   ProfileHeader,
   ProfileCarouselContainer,
-  DetailsText
+  DetailsText,
+  Likes
 } from "./profileStyles";
 
 const StyledInput = styled.input`
@@ -142,6 +143,10 @@ export class Profile extends React.Component {
             <ProfileText>{profileData.description}</ProfileText>
           </ProfileDescripton>
           {/* </fieldset> */}
+
+        <Likes>
+          <ProfileButtons color="red">Like {profileData.username}</ProfileButtons>
+        </Likes>
 
           {this.renderCruds()}
           

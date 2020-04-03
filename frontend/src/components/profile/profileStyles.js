@@ -14,7 +14,7 @@ export const ProfileContainer = styled.div`
   grid-template-areas: 
     "header header header "
     "carousel details  ."
-    ". description description  "
+    "likes description description  "
     " crud crud crud ";
   width: 90vw; 
   margin: 10px auto;
@@ -30,7 +30,11 @@ export const ProfileCarouselContainer = styled.div`
   margin: 0;
   justify-self: center;
 `
-
+export const Likes = styled.div`
+  grid-area: likes;
+  display: flex;
+  margin:  auto;
+`
 
 export const ProfileDetails = styled.div`
   grid-area: details;
@@ -70,8 +74,9 @@ export const ProfileButtons = styled.button`
   margin: 10px;
   width: 100%;
   height: 40px;
-  color: #fff;
-  background-color: #28a745;
+  color:  "#fff";
+  background-color: ${props => props.color || "#28a745"};
+  /* background-color: #28a745; */
   border-color: #28a745;
   display: block;
   font-weight: bold;
