@@ -73,7 +73,7 @@ const UserSchema = new Schema({
     required: false
   },
 
-  cuddlePostion: {
+  cuddlePosition: {
     type: String,
     // should i do a collection for the different positions and reference an ID here
     required: false
