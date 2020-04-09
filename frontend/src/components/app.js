@@ -10,6 +10,7 @@ import LoginFormContainer from './login/login_form_container'
 import SignupFormContainer from './login/signup_form_container'
 import UserFeed from './index/userFeed'
 import ProfileContainer from './profile/profileContainer'
+import PhotoManager from './photomanager/photomanager'
 
 const Footer = styled.footer`
     position: fixed;
@@ -31,7 +32,8 @@ const App = () => (
         <AuthRoute exact path="/register" component={SignupFormContainer}/>
         {/* <AuthRoute exact path="/messages" component={MessagesContainer}/> */}
         <ProtectedRoute exact path="/home" component={UserFeed}/>
-            <ProtectedRoute exact path="/users/:id" component={ProfileContainer}/>
+        <ProtectedRoute exact path="/users/:id" component={ProfileContainer}/>
+        <ProtectedRoute exact path="/photoman" component={PhotoManager}/>
     </Switch>
         <Footer>
             Copyright &copy; 2020 Cuddlr

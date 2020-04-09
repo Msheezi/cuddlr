@@ -42,6 +42,7 @@ export const Likes = styled.div`
 
 export const ProfileDetails = styled.div`
   grid-area: details;
+  
   display: flex;
   flex-direction: column;
   /* height: 100vh; */
@@ -126,4 +127,18 @@ export const StyledDescription = styled(StyledTextArea)`
   word-wrap: break-word;
   width:100%;
   height:200px;
+`
+export const StyledSelect = styled.select`
+  
+  font-size: 14pt;
+  color: #2e3443;
+  border: none;
+  
+    &:disabled {
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
 `

@@ -16,7 +16,7 @@ import {
   DetailsText,
   Likes,
   StyledHeadline,
-  StyledDescription
+  StyledDescription, StyledSelect
 } from "./profileStyles";
 import { updateProfile } from "../../util/profiles_util";
 
@@ -168,21 +168,21 @@ export class Profile extends React.Component {
             <ProfileText>City: {profileData.location}</ProfileText>
             <ProfileText> Cuddle Style: 
               {/* Cuddle Style: {profileData.cuddleStyle} */}
-              <select disabled={this.state.disabled} id="cuddleStyle" defaultValue={this.state.user.cuddleStyle} onChange={e => this.handleInput(e)}>
+              <StyledSelect disabled={this.state.disabled} id="cuddleStyle" defaultValue={this.state.user.cuddleStyle} onChange={e => this.handleInput(e)}>
                 <option value="Spoon">Spoon</option>
               <option value="Loom">Loom</option>
               <option value="Boom">Boom</option>
               {/* <option value={this.state.user.cuddleStyle} selected>{this.state.user.cuddleStyle}</option> */}
-              </select>
+              </StyledSelect>
             </ProfileText>
             <ProfileText> Cuddle Position: 
               {/* Cuddle Style: {profileData.cuddleStyle} */}
-              <select disabled={this.state.disabled} id="cuddlePosition" defaultValue={this.state.user.cuddlePosition} onChange={e => this.handleInput(e)}>
+              <StyledSelect disabled={this.state.disabled} id="cuddlePosition" defaultValue={this.state.user.cuddlePosition} onChange={e => this.handleInput(e)}>
                 <option value="Big Spoon">Big Spoon</option>
                 <option value="Little Spoon">Little Spoon</option>
                 <option value="There Is No Spoon">There Is No Spoon</option>
               {/* <option value={this.state.user.cuddleStyle} selected>{this.state.user.cuddleStyle}</option> */}
-              </select>
+              </StyledSelect>
             </ProfileText>
 
             
