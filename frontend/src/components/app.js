@@ -2,7 +2,7 @@ import React from 'react'
 import {AuthRoute, ProtectedRoute} from '../util/route_util'
 import {Switch} from 'react-router-dom'
 import styled from 'styled-components'
-
+import './app.css'
 
 import MainPage from './main/main_page'
 import NavBarContainer from './nav/navbar_container'
@@ -10,7 +10,6 @@ import LoginFormContainer from './login/login_form_container'
 import SignupFormContainer from './login/signup_form_container'
 import UserFeed from './index/userFeed'
 import ProfileContainer from './profile/profileContainer'
-import PhotoManager from './photomanager/photomanager'
 import PhotoManagerContainer from './photomanager/photoManagerContainer'
 
 const Footer = styled.footer`

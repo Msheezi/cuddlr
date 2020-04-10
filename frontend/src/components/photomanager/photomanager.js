@@ -14,22 +14,23 @@ const Screen = styled.div`
 `
 
 const ModalContainer = styled.div`
-    width: 50%;
+    /* width: 50%; */
     min-width: 500px;
-    height: 90%;
+    height: 75vh;
     min-height: 450px;
     padding: 10px;
     border-radius: 3px;
-    margin-left: 5%;
-    margin-top: 40px;
+    margin: 50px 20%;
+    
     background-color: #ffffff;
     box-sizing: border-box;
-    border: 1px solid black;
-    overflow-y: auto;
+    /* border: 1px solid black; */
+    /* overflow-y: auto; */
+    display: flex;
 
 `
 
-const Headline = styled.h3`
+const Headline = styled.h2`
     text-align: center;
     margin-top: 5px;
 `
@@ -40,9 +41,10 @@ const ImagesContainer = styled.div`
     flex-wrap: wrap;
     /* border: 1px solid black; */
     margin: 50px 5px 50px 10px;
-    width: 30%;
-    padding: 25px 10px;
-    /* height: 90%; */
+    /* width: 30%; */
+    /* padding: 25px 10px; */
+    /* height: 90vh; */
+    align-items: center;
    
 `
 
@@ -50,7 +52,7 @@ const SelectedImageContainer = styled.img`
     border: 1px solid blue;
     width: 300px;
     height: 300px;
-    margin: 15px auto;
+    /* margin: 5px auto; */
     src: url(${props => props.url});
     object-fit: cover;
 
@@ -72,6 +74,17 @@ const OtherImages = styled.img`
     object-fit: cover;
     cursor: pointer;
     
+`
+const UploadContainer = styled.div`
+    min-width: 300px;
+
+    /* height: 75vh; */
+    /* border: 1px solid red; */
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+
 `
 
 
@@ -119,18 +132,31 @@ export class PhotoManager extends React.Component{
         let selected = <SelectedImageContainer src={this.state.displayedImage}></SelectedImageContainer>
 
         return(
-            
-                <ModalContainer>
+            <div>
                     <Headline>
                         Photo Manager
                     </Headline>
+
+                <ModalContainer>
                     <ImagesContainer>
-                        {selected}
-                    <OtherImagesContainer>
-                        {others}
+                            {selected}
+                        <OtherImagesContainer>
+                            {others}
                     </OtherImagesContainer>
                     </ImagesContainer>
+                <UploadContainer> 
+                    <h2>Upload A New Image</h2>
+
+                <input type="file" name="file" id="file"/>
+                <label>Make Primary?</label>
+
+                    {/* this is where you will put your image preview */}
+                <input type="checkbox" value="Make Primary"/>
+                <br/>
+                <div style={{justifySelf: "flex-end"}}>Save Changes</div>
+                </UploadContainer>
                 </ModalContainer>
+            </div>
             
 
              )

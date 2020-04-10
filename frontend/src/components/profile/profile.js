@@ -16,7 +16,7 @@ import {
   DetailsText,
   Likes,
   StyledHeadline,
-  StyledDescription, StyledSelect
+  StyledDescription, StyledSelect, Spacer, LikeButton
 } from "./profileStyles";
 import { updateProfile } from "../../util/profiles_util";
 
@@ -194,7 +194,7 @@ export class Profile extends React.Component {
           </ProfileDetails>
 
           <ProfileDescripton>
-            <h2>About Me:</h2>
+            <h2>In Your Own Words:</h2>
             <StyledDescription
               id="description"
               row
@@ -206,11 +206,11 @@ export class Profile extends React.Component {
           </ProfileDescripton>
 
           <Likes>
-            <ProfileButtons color="red">
+            <LikeButton color="red">
               Like {profileData.username}
-            </ProfileButtons>
+            </LikeButton>
           </Likes>
-
+          <Spacer/>
           {this.renderCruds()}
         </ProfileContainer>
       );

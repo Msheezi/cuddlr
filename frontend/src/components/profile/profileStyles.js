@@ -14,8 +14,8 @@ export const ProfileContainer = styled.div`
   grid-template-areas: 
     "header header header "
     "carousel details  ."
-    "likes . . "
-     " . description description  "
+    "likes spacer . "
+     "  description description . "
     " crud crud crud ";
   width: 90vw; 
   margin: 10px auto;
@@ -38,7 +38,15 @@ export const Likes = styled.div`
   grid-area: likes;
   display: flex;
   margin:  auto;
+  border-bottom: 1px solid black;
+  width: 100%;
 `
+export const Spacer = styled.div`
+  grid-area: spacer;
+   border-bottom: 1px solid black;
+  width: 100%;
+`
+
 
 export const ProfileDetails = styled.div`
   grid-area: details;
@@ -69,6 +77,8 @@ export const ProfileText = styled.h3`
 `;
 
 export const DetailsText = styled.h2`
+  font-family: 'Work Sans', sans-serif;
+  
   margin: 5px;
   color: #2e3443;
   word-wrap: break-word;
@@ -77,8 +87,9 @@ export const DetailsText = styled.h2`
 export const ProfileButtons = styled.button`
   cursor: pointer;
   margin: 10px;
-  width: 100%;
+  /* width: 50%; */
   height: 40px;
+  /* margin: 10px auto; */
   color:  "#fff";
   background-color: ${props => props.color || "#28a745"};
   /* background-color: #28a745; */
@@ -103,6 +114,11 @@ export const ProfileButtons = styled.button`
   }
 `;
 
+export const LikeButton = styled(ProfileButtons)`
+  width: 50%;
+  margin: 10px auto;
+`
+
 export const StyledInput = styled.input`
   
   &:disabled {
@@ -119,7 +135,11 @@ export const StyledTextArea = styled.textarea`
   }
 `;
 
-export const StyledHeadline = styled(StyledInput)`font-size:24pt;`
+export const StyledHeadline = styled(StyledInput)`
+  font-family: 'Work Sans', sans-serif;
+
+  font-size:24pt;
+`
 
 export const StyledDescription = styled(StyledTextArea)`
   font-size: 14pt;
