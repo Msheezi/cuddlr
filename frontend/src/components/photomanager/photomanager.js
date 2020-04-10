@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { getProfile, getProfilePics } from "../../util/profiles_util";
+import Loader from "../spinner/spinner";
 
 const Screen = styled.div`
     position: fixed;
@@ -44,31 +46,31 @@ const ImagesContainer = styled.div`
    
 `
 
-const SelectedImageContainer = styled.div`
+const SelectedImageContainer = styled.img`
     border: 1px solid blue;
     width: 300px;
     height: 300px;
     margin: 15px auto;
-    background-image: url(${props => props.url});
+    src: url(${props => props.url});
+    object-fit: cover;
 
 `
 
 const OtherImagesContainer = styled.div`
     display:flex;
     flex-direction: row;
-    width: 100%;
-    overflow-x: scroll;
-    
-    
+  
 `
 
-const OtherImages = styled.div`
+const OtherImages = styled.img`
     border: 1px solid blue;
     margin: 50px auto;
     margin: 10px;
-    min-height: 125px;
-    min-width: 125px;
-    background-image: url(${props => props.url});
+    max-height: 125px;
+    max-width: 125px;
+    src: url(${props => props.url});
+    object-fit: cover;
+    cursor: pointer;
     
 `
 
@@ -79,53 +81,62 @@ export class PhotoManager extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            selected: 0
-
+            selected: 0,
+            displayedImage: "",
+            loaded:false,
+            
         }
 
-
-        
     }
 
-    handleClick(idx){
-        this.setState({ selected: idx })
+    componentDidMount(){
+        let id = this.props.currentUserId
+        // sets the default image to the first image in the object array retrieved
+        //backend needs to sort the images by the primary flag so this always works
+        getProfilePics(id)
+        .then(pics=> this.setState({
+            images: pics.data, 
+            loaded: true, 
+            displayedImage: pics.data[0].pictureUrl 
+        }))
+    }
+
+    handleClick(e){
+        
+        this.setState({ displayedImage: e.target.src })
     }
 
     render(){
-
-        const splashPics = [
-            "https://cuddlr-dev.s3-us-west-1.amazonaws.com/splash/laura-margarita-cedeno-peralta-X1VHEbHR1LQ-unsplash.jpg",
-            "https://cuddlr-dev.s3-us-west-1.amazonaws.com/splash/shanique-wright-8eAtzCbtv7A-unsplash.jpg",
-            "https://cuddlr-dev.s3-us-west-1.amazonaws.com/splash/freestocks-t3mXTwuTWJ4-unsplash.jpg",
-            "https://cuddlr-dev.s3-us-west-1.amazonaws.com/splash/clem-onojeghuo-eOe81Ux2DUw-unsplash.jpg",
-        ]
-
-        let others = splashPics.map((url, i) => {
-            return (<OtherImages url={url} key={i} onClick={i=> this.handleClick(i)}></OtherImages>)
+        if (this.state.loaded){
+        
+        let others = this.state.images.map(imageObj => {
+            let url = imageObj.pictureUrl
+            return (
+                    <OtherImages src={url} value={url} key={imageObj._id}
+                     onClick={e=>this.handleClick(e)}></OtherImages>
+                     )
         })
-        let url = splashPics[this.state.selected]
-        let selected = <SelectedImageContainer url={url}></SelectedImageContainer>
+        let selected = <SelectedImageContainer src={this.state.displayedImage}></SelectedImageContainer>
 
         return(
-            <Screen>
+            
                 <ModalContainer>
-                    <Headline>Photo Manager</Headline>
+                    <Headline>
+                        Photo Manager
+                    </Headline>
                     <ImagesContainer>
-                    {selected}
-                    {/* <SelectedImageContainer></SelectedImageContainer> */}
+                        {selected}
                     <OtherImagesContainer>
                         {others}
-                        {/* <OtherImages></OtherImages>
-                        <OtherImages></OtherImages>
-                        <OtherImages></OtherImages>
-                        <OtherImages></OtherImages> */}
                     </OtherImagesContainer>
-                    
                     </ImagesContainer>
                 </ModalContainer>
-            </Screen>
+            
 
-        )
+             )
+        } else {
+            return  <Loader />;
+        }
     }
 }
 

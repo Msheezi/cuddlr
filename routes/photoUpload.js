@@ -14,7 +14,10 @@ router.post("/upload", upload.single("file"), (req, res) =>{
     const userId = req.body.userId
     const file = req.file 
     const s3FileURL = process.env.AWS_Uploaded_File_URL_Link
-
+    // this should update the profile avatar with  the new photo if primary is selected
+    if (primary){
+        User.findOneAndUpdate({"_id": userId}, {"pictureUrl": s3FileUrl}, {new:true})
+    }
     let s3bucket = new AWS.S3({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID, 
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, 
@@ -40,18 +43,19 @@ router.post("/upload", upload.single("file"), (req, res) =>{
             };
 
             const userPicture = new UserPicture(newFileUploaded)
+            
             // add in conditional to update user model with primary photo if it is selected
                 userPicture.save((error, newFile) => {
               if (error) {
                 throw error.Message;
             }
-            //need to wipe all the current primaries from the userPicture
-                if (primary) {
-                    User.findOne({"_id": userId }, (err, userData)=> {
-                        userData.mainProfilePic = s3FileURL + file.originalname
-                        userData.save()
-                    })
-                }
+            //need to wipe all the current primaries from the userPicture, changed above
+                // if (primary) {
+                //     User.findOne({"_id": userId }, (err, userData)=> {
+                //         userData.mainProfilePic = s3FileURL + file.originalname
+                //         userData.save()
+                //     })
+                // }
               res.json(newFile)
             })
         }

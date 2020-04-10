@@ -74,13 +74,16 @@ export class Profile extends React.Component {
 
   handleSubmit() {
     //creates object from state, and sends to route updating mongo
-    const {headline, description, cuddleStyle, cuddlePosition} = this.state.user
+    const {headline, description, cuddleStyle, cuddlePosition, targetGender, location} = this.state.user
     
     const updatedProfile = {
       headline: headline,
       description: description,
       cuddleStyle: cuddleStyle,
-      cuddlePosition: cuddlePosition
+      cuddlePosition: cuddlePosition,
+      targetGender: targetGender,
+      location: location
+
     };
 
     
@@ -107,8 +110,7 @@ export class Profile extends React.Component {
       return (
         <CrudButtons>
           {text}
-          {/* <ProfileButtons onClick={() => this.enable()}></ProfileButtons> */}
-          <ProfileButtons>Manage Photos</ProfileButtons>
+          <ProfileButtons onClick={()=>this.props.history.push('/photoman')}>Manage Photos</ProfileButtons>
         </CrudButtons>
       );
     } else {
@@ -147,7 +149,6 @@ export class Profile extends React.Component {
 
       return (
         <ProfileContainer>
-          {/* <button onClick={() => this.enable()}>Edit</button> */}
 
           <ProfileHeader>
             <StyledHeadline
@@ -166,28 +167,30 @@ export class Profile extends React.Component {
             <DetailsText>{profileData.username}'s Details</DetailsText>
             <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
             <ProfileText>City: {profileData.location}</ProfileText>
-            <ProfileText> Cuddle Style: 
-              {/* Cuddle Style: {profileData.cuddleStyle} */}
+            <ProfileText> {"Cuddle Style: "} 
               <StyledSelect disabled={this.state.disabled} id="cuddleStyle" defaultValue={this.state.user.cuddleStyle} onChange={e => this.handleInput(e)}>
                 <option value="Spoon">Spoon</option>
-              <option value="Loom">Loom</option>
-              <option value="Boom">Boom</option>
-              {/* <option value={this.state.user.cuddleStyle} selected>{this.state.user.cuddleStyle}</option> */}
+                <option value="Loom">Loom </option>
+                <option value="Boom"> Boom</option>
               </StyledSelect>
             </ProfileText>
-            <ProfileText> Cuddle Position: 
-              {/* Cuddle Style: {profileData.cuddleStyle} */}
+            <ProfileText> {"Cuddle Position: "}
               <StyledSelect disabled={this.state.disabled} id="cuddlePosition" defaultValue={this.state.user.cuddlePosition} onChange={e => this.handleInput(e)}>
                 <option value="Big Spoon">Big Spoon</option>
                 <option value="Little Spoon">Little Spoon</option>
                 <option value="There Is No Spoon">There Is No Spoon</option>
-              {/* <option value={this.state.user.cuddleStyle} selected>{this.state.user.cuddleStyle}</option> */}
               </StyledSelect>
             </ProfileText>
 
             
-            <ProfileText>Gender: {profileData.gender}</ProfileText>
-            <ProfileText>Interested in: {profileData.targetGender}</ProfileText>
+            <ProfileText>{"Interested in: "}
+              <StyledSelect disabled={this.state.disabled} id="targetGender" defaultValue={this.state.user.targetGender} onChange={e => this.handleInput(e)}>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Doesn't Matter">Doesn't Matter</option>
+              </StyledSelect>
+            </ProfileText>
+            <ProfileText> Gender: {profileData.gender}</ProfileText>
           </ProfileDetails>
 
           <ProfileDescripton>

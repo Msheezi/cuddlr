@@ -133,6 +133,7 @@ export const StyledSelect = styled.select`
   font-size: 14pt;
   color: #2e3443;
   border: none;
+  background-color: lightblue;
   
     &:disabled {
     border: none;
