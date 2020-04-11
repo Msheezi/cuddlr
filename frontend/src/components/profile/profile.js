@@ -16,7 +16,10 @@ import {
   DetailsText,
   Likes,
   StyledHeadline,
-  StyledDescription, StyledSelect, Spacer, LikeButton
+  StyledDescription,
+  StyledSelect,
+  Spacer,
+  LikeButton,
 } from "./profileStyles";
 import { updateProfile } from "../../util/profiles_util";
 
@@ -24,7 +27,7 @@ import { updateProfile } from "../../util/profiles_util";
 const carouselOptions = {
   arrows: true,
   auto: false,
-  transitionDelay: "0s"
+  transitionDelay: "0s",
 };
 
 //
@@ -33,7 +36,7 @@ export class Profile extends React.Component {
     super(props);
     this.state = {
       loaded: false,
-      disabled: true
+      disabled: true,
     };
   }
 
@@ -41,9 +44,9 @@ export class Profile extends React.Component {
     let id = this.props.match.params.id;
 
     getProfile(id)
-      .then(profile => this.setState({ user: profile.data[0] }))
+      .then((profile) => this.setState({ user: profile.data[0] }))
       .then(() => getProfilePics(id))
-      .then(pics => this.setState({ pics: pics.data, loaded: true }));
+      .then((pics) => this.setState({ pics: pics.data, loaded: true }));
   }
 
   componentDidUpdate(prevProps) {
@@ -53,9 +56,9 @@ export class Profile extends React.Component {
 
     if (prevProps.match.params.id !== id) {
       getProfile(id)
-        .then(profile => this.setState({ user: profile.data[0] }))
+        .then((profile) => this.setState({ user: profile.data[0] }))
         .then(() => getProfilePics(id))
-        .then(pics => this.setState({ pics: pics.data, loaded: true }));
+        .then((pics) => this.setState({ pics: pics.data, loaded: true }));
     }
   }
 
@@ -74,20 +77,24 @@ export class Profile extends React.Component {
 
   handleSubmit() {
     //creates object from state, and sends to route updating mongo
-    const {headline, description, cuddleStyle, cuddlePosition, targetGender, location} = this.state.user
-    
+    const {
+      headline,
+      description,
+      cuddleStyle,
+      cuddlePosition,
+      targetGender,
+      location,
+    } = this.state.user;
+
     const updatedProfile = {
       headline: headline,
       description: description,
       cuddleStyle: cuddleStyle,
       cuddlePosition: cuddlePosition,
       targetGender: targetGender,
-      location: location
-
+      location: location,
     };
 
-    
-    
     updateProfile(this.props.match.params.id, updatedProfile);
     this.enable();
   }
@@ -102,7 +109,7 @@ export class Profile extends React.Component {
           Update Profile
         </ProfileButtons>
       ) : (
-        <ProfileButtons onClick={e => this.handleSubmit()}>
+        <ProfileButtons onClick={(e) => this.handleSubmit()}>
           Save Changes
         </ProfileButtons>
       );
@@ -110,7 +117,9 @@ export class Profile extends React.Component {
       return (
         <CrudButtons>
           {text}
-          <ProfileButtons onClick={()=>this.props.history.push('/photoman')}>Manage Photos</ProfileButtons>
+          <ProfileButtons onClick={() => this.props.history.push("/photoman")}>
+            Manage Photos
+          </ProfileButtons>
         </CrudButtons>
       );
     } else {
@@ -145,15 +154,14 @@ export class Profile extends React.Component {
       let imgUrls =
         this.state.pics.length === 0
           ? ["https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp"]
-          : this.state.pics.map(imgObj => imgObj.pictureUrl);
+          : this.state.pics.map((imgObj) => imgObj.pictureUrl);
 
       return (
         <ProfileContainer>
-
           <ProfileHeader>
             <StyledHeadline
               id="headline"
-              onChange={e => this.handleInput(e)}
+              onChange={(e) => this.handleInput(e)}
               disabled={this.state.disabled}
               value={this.state.user.headline || ""}
             />
@@ -167,24 +175,43 @@ export class Profile extends React.Component {
             <DetailsText>{profileData.username}'s Details</DetailsText>
             <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
             <ProfileText>City: {profileData.location}</ProfileText>
-            <ProfileText> {"Cuddle Style: "} 
-              <StyledSelect disabled={this.state.disabled} id="cuddleStyle" defaultValue={this.state.user.cuddleStyle} onChange={e => this.handleInput(e)}>
+            <ProfileText>
+              {" "}
+              {"Cuddle Style: "}
+              <StyledSelect
+                disabled={this.state.disabled}
+                id="cuddleStyle"
+                defaultValue={this.state.user.cuddleStyle}
+                onChange={(e) => this.handleInput(e)}
+              >
                 <option value="Spoon">Spoon</option>
                 <option value="Loom">Loom </option>
                 <option value="Boom"> Boom</option>
               </StyledSelect>
             </ProfileText>
-            <ProfileText> {"Cuddle Position: "}
-              <StyledSelect disabled={this.state.disabled} id="cuddlePosition" defaultValue={this.state.user.cuddlePosition} onChange={e => this.handleInput(e)}>
+            <ProfileText>
+              {" "}
+              {"Cuddle Position: "}
+              <StyledSelect
+                disabled={this.state.disabled}
+                id="cuddlePosition"
+                defaultValue={this.state.user.cuddlePosition}
+                onChange={(e) => this.handleInput(e)}
+              >
                 <option value="Big Spoon">Big Spoon</option>
                 <option value="Little Spoon">Little Spoon</option>
                 <option value="There Is No Spoon">There Is No Spoon</option>
               </StyledSelect>
             </ProfileText>
 
-            
-            <ProfileText>{"Interested in: "}
-              <StyledSelect disabled={this.state.disabled} id="targetGender" defaultValue={this.state.user.targetGender} onChange={e => this.handleInput(e)}>
+            <ProfileText>
+              {"Interested in: "}
+              <StyledSelect
+                disabled={this.state.disabled}
+                id="targetGender"
+                defaultValue={this.state.user.targetGender}
+                onChange={(e) => this.handleInput(e)}
+              >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Doesn't Matter">Doesn't Matter</option>
@@ -194,11 +221,11 @@ export class Profile extends React.Component {
           </ProfileDetails>
 
           <ProfileDescripton>
-            <h2>In Your Own Words:</h2>
+            <h2 style={{ backgroundColor: "white" }}>In Your Own Words:</h2>
             <StyledDescription
               id="description"
               row
-              onChange={e => this.handleInput(e)}
+              onChange={(e) => this.handleInput(e)}
               disabled={this.state.disabled}
               // the below is a short circuit mechanism in case description comes in blank
               value={this.state.user.description || ""}
@@ -206,11 +233,9 @@ export class Profile extends React.Component {
           </ProfileDescripton>
 
           <Likes>
-            <LikeButton color="red">
-              Like {profileData.username}
-            </LikeButton>
+            <LikeButton color="red">Like {profileData.username}</LikeButton>
           </Likes>
-          <Spacer/>
+          <Spacer />
           {this.renderCruds()}
         </ProfileContainer>
       );

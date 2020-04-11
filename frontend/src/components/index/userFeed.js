@@ -13,14 +13,14 @@ const Wrapper = styled.div`
   margin: 15px auto;
   position: relative;
   z-index: 1;
-  background-color: white;
+  background-color: transparent;
 `;
 
 class UserFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: false
+      loaded: false,
     };
   }
 
@@ -28,7 +28,7 @@ class UserFeed extends React.Component {
     // fetch users into state, consider pagination
     // valid this is passed in as an array of objects
     // pass objects to functional component to render
-    getProfiles().then(profiles => {
+    getProfiles().then((profiles) => {
       let data = profiles.data;
       this.setState({ data, loaded: true });
     });
@@ -36,7 +36,7 @@ class UserFeed extends React.Component {
 
   render() {
     if (this.state.loaded) {
-      let feedProfiles = this.state.data.map(userProfile => (
+      let feedProfiles = this.state.data.map((userProfile) => (
         <UserFeedItem key={userProfile._id} profile={userProfile} />
       ));
 

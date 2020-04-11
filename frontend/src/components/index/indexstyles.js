@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -7,15 +7,15 @@ export const Container = styled.div`
   max-width: 250px;
   max-height: 450px;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: transparent;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  
+
   border-radius: 0.25rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   overflow: hidden;
   margin: 10px;
-  &:hover{
+  &:hover {
     box-shadow: 0 0.125rem 0.25rem #a3fff6;
     transition-duration: 0.4s;
     transform: scale(1.03);
@@ -28,8 +28,8 @@ export const Body = styled.div`
   flex: 1 1 auto;
   min-height: 1px;
   /* padding: 1.25rem; */
-  padding: 5px ;
-  position:relative;
+  padding: 5px;
+  position: relative;
   /* text-overflow: ellipsis;
   white-space: nowrap; */
   overflow: hidden;
@@ -38,7 +38,7 @@ export const Body = styled.div`
 export const Title = styled.h1`
   font-size: 1.25rem;
   font-weight: bold;
-  margin: 5 0 ;
+  margin: 5 0;
   text-align: center;
 `;
 
@@ -48,10 +48,9 @@ export const Text = styled.p`
 `;
 
 export const Image = styled.img`
-  
   height: 250px;
   width: 250px;
-  object-fit:cover;
+  object-fit: cover;
 
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 `;

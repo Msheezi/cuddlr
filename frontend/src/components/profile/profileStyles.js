@@ -9,58 +9,58 @@ import styled from "styled-components";
 // `
 export const ProfileContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
   grid-template-rows: auto;
-  grid-template-areas: 
-    "header header header "
-    "carousel details  ."
-    "likes spacer . "
-     "  description description . "
-    " crud crud crud ";
-  width: 90vw; 
+  grid-template-areas:
+    ". header header . "
+    ". carousel details  ."
+    ". likes spacer . "
+    "  . description description . "
+    "  crud crud crud crud ";
+  width: 90vw;
   margin: 10px auto;
+  background-color: transparent;
 `;
 
 export const ProfileHeader = styled.h2`
   grid-area: header;
   text-align: center;
   font-size: 24pt;
-`
-
-
+`;
 
 export const ProfileCarouselContainer = styled.div`
   grid-area: carousel;
   margin: 0;
   justify-self: center;
-`
+  background-color: white;
+`;
 export const Likes = styled.div`
   grid-area: likes;
   display: flex;
-  margin:  auto;
+  margin: auto;
   border-bottom: 1px solid black;
   width: 100%;
-`
+`;
 export const Spacer = styled.div`
   grid-area: spacer;
-   border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
   width: 100%;
-`
-
+`;
 
 export const ProfileDetails = styled.div`
   grid-area: details;
-  
+
   display: flex;
   flex-direction: column;
   /* height: 100vh; */
-  margin: 10px;
+  /* margin: 10px; */
   /* padding-top: 30px; */
+  background-color: white;
+  box-sizing: border-box;
 `;
 
-
 export const ProfileDescripton = styled.div`
-grid-area: description;
+  grid-area: description;
   margin: 10px;
 `;
 
@@ -77,12 +77,12 @@ export const ProfileText = styled.h3`
 `;
 
 export const DetailsText = styled.h2`
-  font-family: 'Work Sans', sans-serif;
-  
+  font-family: "Work Sans", sans-serif;
+
   margin: 5px;
   color: #2e3443;
   word-wrap: break-word;
-`
+`;
 
 export const ProfileButtons = styled.button`
   cursor: pointer;
@@ -90,8 +90,8 @@ export const ProfileButtons = styled.button`
   /* width: 50%; */
   height: 40px;
   /* margin: 10px auto; */
-  color:  "#fff";
-  background-color: ${props => props.color || "#28a745"};
+  color: "#fff";
+  background-color: ${(props) => props.color || "#28a745"};
   /* background-color: #28a745; */
   border-color: #28a745;
   display: block;
@@ -117,49 +117,46 @@ export const ProfileButtons = styled.button`
 export const LikeButton = styled(ProfileButtons)`
   width: 50%;
   margin: 10px auto;
-`
+`;
 
 export const StyledInput = styled.input`
-  
   &:disabled {
     border: none;
-    background-color: transparent;
+    background-color: white;
   }
 `;
 
 export const StyledTextArea = styled.textarea`
-  
   &:disabled {
     border: none;
-    background-color: transparent;
+    background-color: white;
   }
 `;
 
 export const StyledHeadline = styled(StyledInput)`
-  font-family: 'Work Sans', sans-serif;
-
-  font-size:24pt;
-`
+  font-family: "Work Sans", sans-serif;
+  width: 100%;
+  font-size: 24pt;
+  text-align: center;
+`;
 
 export const StyledDescription = styled(StyledTextArea)`
   font-size: 14pt;
   color: #2e3443;
   word-wrap: break-word;
-  width:100%;
-  height:200px;
-`
+  width: 100%;
+  height: 200px;
+`;
 export const StyledSelect = styled.select`
-  
   font-size: 14pt;
   color: #2e3443;
   border: none;
   background-color: lightblue;
-  
-    &:disabled {
+
+  &:disabled {
     border: none;
     background-color: transparent;
     -webkit-appearance: none;
     -moz-appearance: none;
   }
-
-`
+`;
