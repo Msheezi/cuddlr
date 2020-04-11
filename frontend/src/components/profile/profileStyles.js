@@ -25,7 +25,8 @@ export const ProfileContainer = styled.div`
 export const ProfileHeader = styled.h2`
   grid-area: header;
   text-align: center;
-  font-size: 24pt;
+  font-size: 22pt;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
 
 export const ProfileCarouselContainer = styled.div`
@@ -33,6 +34,7 @@ export const ProfileCarouselContainer = styled.div`
   margin: 0;
   justify-self: center;
   background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
 export const Likes = styled.div`
   grid-area: likes;
@@ -57,11 +59,13 @@ export const ProfileDetails = styled.div`
   /* padding-top: 30px; */
   background-color: white;
   box-sizing: border-box;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
 
 export const ProfileDescripton = styled.div`
   grid-area: description;
-  margin: 10px;
+
+  box-sizing: border-box;
 `;
 
 export const CrudButtons = styled.div`
@@ -127,6 +131,8 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledTextArea = styled.textarea`
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
   &:disabled {
     border: none;
     background-color: white;
@@ -159,4 +165,9 @@ export const StyledSelect = styled.select`
     -webkit-appearance: none;
     -moz-appearance: none;
   }
+`;
+
+export const AboutMe = styled.h2`
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;

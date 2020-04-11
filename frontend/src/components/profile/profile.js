@@ -20,6 +20,7 @@ import {
   StyledSelect,
   Spacer,
   LikeButton,
+  AboutMe,
 } from "./profileStyles";
 import { updateProfile } from "../../util/profiles_util";
 
@@ -221,7 +222,7 @@ export class Profile extends React.Component {
           </ProfileDetails>
 
           <ProfileDescripton>
-            <h2 style={{ backgroundColor: "white" }}>In Your Own Words:</h2>
+            <AboutMe>In My Own Words:</AboutMe>
             <StyledDescription
               id="description"
               row
