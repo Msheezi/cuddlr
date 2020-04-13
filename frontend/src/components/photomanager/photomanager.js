@@ -15,6 +15,15 @@ const Screen = styled.div`
 
 const ModalContainer = styled.div`
     /* width: 50%; */
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    " . header header header ."
+    " . mainImage . uploadbox ."
+    " otherImages otherImages otherImages uploadbox .";
+    /* " . header header ." */
+
     min-width: 500px;
     height: 75vh;
     min-height: 450px;
@@ -26,29 +35,31 @@ const ModalContainer = styled.div`
     box-sizing: border-box;
     /* border: 1px solid black; */
     /* overflow-y: auto; */
-    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 `
 
 const Headline = styled.h2`
+    grid-area: header;
     text-align: center;
     margin-top: 5px;
 `
 
-const ImagesContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    /* border: 1px solid black; */
-    margin: 50px 5px 50px 10px;
-    /* width: 30%; */
-    /* padding: 25px 10px; */
-    /* height: 90vh; */
-    align-items: center;
+// const ImagesContainer = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     flex-wrap: wrap;
+//     /* border: 1px solid black; */
+//     margin: 50px 5px 50px 10px;
+//     /* width: 30%; */
+//     /* padding: 25px 10px; */
+//     /* height: 90vh; */
+//     align-items: center;
    
-`
+// `
 
 const SelectedImageContainer = styled.img`
+    grid-area: mainImage;
     border: 1px solid blue;
     width: 300px;
     height: 300px;
@@ -59,6 +70,7 @@ const SelectedImageContainer = styled.img`
 `
 
 const OtherImagesContainer = styled.div`
+   grid-area: otherImages;
     display:flex;
     flex-direction: row;
     overflow-x: auto;
@@ -77,6 +89,7 @@ const OtherImages = styled.img`
     
 `
 const UploadContainer = styled.div`
+    grid-area: uploadbox;
     min-width: 300px;
 
     /* height: 75vh; */
@@ -84,7 +97,7 @@ const UploadContainer = styled.div`
     display:flex;
     flex-direction: column;
     align-items: center;
-    margin: 50px;
+    /* margin: 50px; */
 
 `
 
@@ -168,9 +181,12 @@ export class PhotoManager extends React.Component{
     render(){
         if (this.state.loaded){
             const preview = this.state.photoUrl ? (
-                <img 
+               <div>
+
+               <img 
                 style={{width:"250px", height:"250px", objectFit: "cover"}} 
                 src={this.state.photoUrl} />
+                </div> 
                     ) : null;
         let others = this.state.images.map(imageObj => {
             let url = imageObj.pictureUrl
@@ -183,26 +199,28 @@ export class PhotoManager extends React.Component{
 
         return(
             <div>
+
+                <ModalContainer>
                     <Headline>
                         Photo Manager
                     </Headline>
-
-                <ModalContainer>
-                    <ImagesContainer>
+                    {/* <ImagesContainer> */}
                             {selected}
                         <OtherImagesContainer>
                             {others}
                     </OtherImagesContainer>
-                    </ImagesContainer>
+                    {/* </ImagesContainer> */}
                 <UploadContainer> 
-                    <h2>Upload A New Image</h2>
-                <form onSubmit={(e)=>this.handleSubmit(e)}>
+                    <h3>Upload A New Image</h3>
+                <form style={{display: "flex", flexDirection:"column", alignItems: "Center"}} onSubmit={(e)=>this.handleSubmit(e)}>
                 <input type="file" name='file' id="file" onChange={(e)=> this.handleFile(e)}/>
                 {preview}
-                <label>Make Primary?</label>
+                <label>Make Primary?
+
 
                     {/* this is where you will put your image preview */}
                 <input type="checkbox" value="Make Primary"/>
+                </label>
                 <br/>
                 <button type="submit" style={{justifySelf: "flex-end"}} >Save Changes</button>
                </form>
