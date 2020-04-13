@@ -37,6 +37,7 @@ router.post("/upload", upload.single('file'), (req, res) =>{
         if (err) {
             res.status(500).json({error: true, Message: err})
         } else {
+            res.send({data})
             const newFileUploaded = {
               userId: req.body.userId,
               pictureUrl: s3FileURL + file.originalname,
@@ -50,17 +51,18 @@ router.post("/upload", upload.single('file'), (req, res) =>{
               if (error) {
                 throw error.Message;
             }
-            //need to wipe all the current primaries from the userPicture, changed above
-                // if (primary) {
-                //     User.findOne({"_id": userId }, (err, userData)=> {
-                //         userData.mainProfilePic = s3FileURL + file.originalname
-                //         userData.save()
-                //     })
-                // }
-              res.json(newFile)
+            // need to wipe all the current primaries from the userPicture, changed above
+                
             })
         }
     })
+    if (primary) {
+        User.findOne({ "_id": userId }, (err, userData) => {
+            userData.mainProfilePic = s3FileURL + file.originalname
+            userData.save()
+        })
+    }
+    // res.json(newFile)
 })
 
 

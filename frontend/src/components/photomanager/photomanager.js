@@ -61,6 +61,7 @@ const SelectedImageContainer = styled.img`
 const OtherImagesContainer = styled.div`
     display:flex;
     flex-direction: row;
+    overflow-x: auto;
   
 `
 
