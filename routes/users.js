@@ -139,7 +139,6 @@ router.get("/:id/likes", (req, res) => {
   Like.find({ _id: currentUser }).then(likes => res.send(json(likes)));
 });
 
-
 //get prfolie pics
 
 router.get("/userPics/:id", (req,res)=>{

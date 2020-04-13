@@ -1,23 +1,24 @@
 require('dotenv').config()
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
 const AWS = require('aws-sdk')
+const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({storage: storage})
 const UserPicture = require("../models/userPicture");
 const User = require("../models/user")
 
 
-router.post("/upload", upload.single("file"), (req, res) =>{
+router.post("/upload", upload.single('file'), (req, res) =>{
+//    console.log(req)
+   const file = req.file 
     const primary = req.body.profilePrimary
     const userId = req.body.userId
-    const file = req.file 
     const s3FileURL = process.env.AWS_Uploaded_File_URL_Link
     // this should update the profile avatar with  the new photo if primary is selected
-    if (primary){
-        User.findOneAndUpdate({"_id": userId}, {"pictureUrl": s3FileUrl}, {new:true})
-    }
+    // if (primary){
+    //     User.findOneAndUpdate({"_id": userId}, {"pictureUrl": s3FileUrl}, {new:true})
+    // }
     let s3bucket = new AWS.S3({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID, 
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, 

@@ -16,3 +16,7 @@ export const updateProfile = (id, data) => {
     
     return axios.patch(`/users/${id}`, data)
 }
+
+export const uploadPhoto = (data) => {
+    return axios.post('/userPicture/upload', data)
+}

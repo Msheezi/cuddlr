@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { getProfile, getProfilePics } from "../../util/profiles_util";
+import { getProfile, getProfilePics, uploadPhoto } from "../../util/profiles_util";
 import Loader from "../spinner/spinner";
 
 const Screen = styled.div`
@@ -114,14 +114,63 @@ export class PhotoManager extends React.Component{
         }))
     }
 
+    // componentDidUpdate(prevProps) {
+    //     // added component did update to resolve bug where nav bar "My Profile" button, when already
+    //     // on a profile was not triggering a re-render with the new data
+    //     let id = this.props.currentUserId
+
+    //     if (prevProps.match.params.id !== id) {
+    //         getProfile(id)
+    //             .then((profile) => this.setState({ user: profile.data[0] }))
+    //             .then(() => getProfilePics(id))
+    //             .then((pics) => this.setState({ pics: pics.data, loaded: true }));
+    //     }
+    // }
+
+    // add in a component did update to get the new pictures
+
     handleClick(e){
         
         this.setState({ displayedImage: e.target.src })
     }
 
+    handleFile(e) {
+        // const file = e.currentTarget.files[0];
+        const file = e.target.files[0];
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+            this.setState({ photoFile: file, photoUrl: fileReader.result });
+        };
+        if (file) {
+            fileReader.readAsDataURL(file);
+        }
+    }
+
+    handleSubmit(e){
+
+        e.preventDefault()
+        let id = this.props.currentUserId
+        const formData = new FormData()
+        formData.append('file', this.state.photoFile, this.state.photoFile.name )
+        formData.append("userId", id)
+        formData.append("profilePrimary", "true")
+        uploadPhoto(formData).then(()=> getProfilePics(id)
+            .then(pics => this.setState({
+                images: pics.data,
+                loaded: true,
+                displayedImage: pics.data[0].pictureUrl
+            })))
+
+    }
+    
+
     render(){
         if (this.state.loaded){
-        
+            const preview = this.state.photoUrl ? (
+                <img 
+                style={{width:"250px", height:"250px", objectFit: "cover"}} 
+                src={this.state.photoUrl} />
+                    ) : null;
         let others = this.state.images.map(imageObj => {
             let url = imageObj.pictureUrl
             return (
@@ -146,14 +195,16 @@ export class PhotoManager extends React.Component{
                     </ImagesContainer>
                 <UploadContainer> 
                     <h2>Upload A New Image</h2>
-
-                <input type="file" name="file" id="file"/>
+                <form onSubmit={(e)=>this.handleSubmit(e)}>
+                <input type="file" name='file' id="file" onChange={(e)=> this.handleFile(e)}/>
+                {preview}
                 <label>Make Primary?</label>
 
                     {/* this is where you will put your image preview */}
                 <input type="checkbox" value="Make Primary"/>
                 <br/>
-                <div style={{justifySelf: "flex-end"}}>Save Changes</div>
+                <button type="submit" style={{justifySelf: "flex-end"}} >Save Changes</button>
+               </form>
                 </UploadContainer>
                 </ModalContainer>
             </div>
