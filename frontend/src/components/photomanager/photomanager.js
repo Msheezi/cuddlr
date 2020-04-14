@@ -1,116 +1,26 @@
 import React from 'react'
-import styled from 'styled-components'
 import { getProfile, getProfilePics, uploadPhoto } from "../../util/profiles_util";
 import Loader from "../spinner/spinner";
-
-const Screen = styled.div`
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.6);
-`
-
-const ModalContainer = styled.div`
-    /* width: 50%; */
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: 
-    " . header header header ."
-    " . mainImage . uploadbox ."
-    " otherImages otherImages otherImages uploadbox .";
-    /* " . header header ." */
-
-    min-width: 500px;
-    height: 75vh;
-    min-height: 450px;
-    padding: 10px;
-    border-radius: 3px;
-    margin: 50px 20%;
-    
-    background-color: #ffffff;
-    box-sizing: border-box;
-    /* border: 1px solid black; */
-    /* overflow-y: auto; */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-`
-
-const Headline = styled.h2`
-    grid-area: header;
-    text-align: center;
-    margin-top: 5px;
-`
-
-// const ImagesContainer = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     flex-wrap: wrap;
-//     /* border: 1px solid black; */
-//     margin: 50px 5px 50px 10px;
-//     /* width: 30%; */
-//     /* padding: 25px 10px; */
-//     /* height: 90vh; */
-//     align-items: center;
-   
-// `
-
-const SelectedImageContainer = styled.img`
-    grid-area: mainImage;
-    border: 1px solid blue;
-    width: 300px;
-    height: 300px;
-    /* margin: 5px auto; */
-    src: url(${props => props.url});
-    object-fit: cover;
-
-`
-
-const OtherImagesContainer = styled.div`
-   grid-area: otherImages;
-    display:flex;
-    flex-direction: row;
-    overflow-x: auto;
-  
-`
-
-const OtherImages = styled.img`
-    border: 1px solid blue;
-    margin: 50px auto;
-    margin: 10px;
-    max-height: 125px;
-    max-width: 125px;
-    src: url(${props => props.url});
-    object-fit: cover;
-    cursor: pointer;
-    
-`
-const UploadContainer = styled.div`
-    grid-area: uploadbox;
-    min-width: 300px;
-
-    /* height: 75vh; */
-    /* border: 1px solid red; */
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    /* margin: 50px; */
-
-`
-
+import { 
+        ModalContainer, 
+        Headline, 
+        SelectedImageContainer, 
+        OtherImagesContainer, 
+        OtherImages,
+        UploadContainer,
+} from './photomanstyles'
 
 // pass in user photos as props?
 
 export class PhotoManager extends React.Component{
     constructor(props) {
         super(props)
+        this.myRef = React.createRef()
         this.state = {
             selected: 0,
             displayedImage: "",
             loaded:false,
+            checked: false,
             
         }
 
@@ -148,6 +58,9 @@ export class PhotoManager extends React.Component{
         this.setState({ displayedImage: e.target.src })
     }
 
+    handleChange(e){
+        this.setState({checked:!this.state.checked})
+    }
     handleFile(e) {
         // const file = e.currentTarget.files[0];
         const file = e.target.files[0];
@@ -164,10 +77,11 @@ export class PhotoManager extends React.Component{
 
         e.preventDefault()
         let id = this.props.currentUserId
+        
         const formData = new FormData()
         formData.append('file', this.state.photoFile, this.state.photoFile.name )
         formData.append("userId", id)
-        formData.append("profilePrimary", "true")
+        formData.append("profilePrimary", this.state.checked)
         uploadPhoto(formData).then(()=> getProfilePics(id)
             .then(pics => this.setState({
                 images: pics.data,
@@ -176,57 +90,109 @@ export class PhotoManager extends React.Component{
             })))
 
     }
-    
 
+    clearImage(e){
+        this.setState({photoFile: "", photoUrl: ""})
+    }
+
+    buttons(){
+        if (this.state.photoFile){
+            return (
+                <>
+                <div type="submit" style={{ justifySelf: "flex-end" }} onClick={e=> this.clearImage(e)} >Cancel</div>
+                <button type="submit" style={{ justifySelf: "flex-end" }} >Save Changes</button>
+                </>
+            )
+        } else {
+            return ( 
+                <> 
+                <button type="submit" style={{ justifySelf: "flex-end" }} >Save Changes</button>
+                </>
+            )
+        }
+    }
+
+    // hides the default select file input, uses a ref to grab the reference
+    // set in the constructor.  placing the ref on the dom node allows me to use
+    // in the function below and click the button via my other button
+    simulateClick(e){
+        this.myRef.current.click()
+    }
+    
     render(){
         if (this.state.loaded){
+            // render the main image preview
             const preview = this.state.photoUrl ? (
                <div>
 
                <img 
-                style={{width:"250px", height:"250px", objectFit: "cover"}} 
+                style={{
+                    width:"250px", 
+                    height:"250px",
+                    objectFit: "cover"}} 
                 src={this.state.photoUrl} />
                 </div> 
                     ) : null;
+                    // render other images if available 
         let others = this.state.images.map(imageObj => {
             let url = imageObj.pictureUrl
-            return (
-                    <OtherImages src={url} value={url} key={imageObj._id}
-                     onClick={e=>this.handleClick(e)}></OtherImages>
+            return  (
+                        <OtherImages 
+                            key={imageObj._id}
+                            src={url} 
+                            value={url} 
+                            onClick={e=>this.handleClick(e)}></OtherImages>
                      )
         })
+        
         let selected = <SelectedImageContainer src={this.state.displayedImage}></SelectedImageContainer>
 
         return(
-            <div>
-
-                <ModalContainer>
+            <ModalContainer>
                     <Headline>
                         Photo Manager
                     </Headline>
-                    {/* <ImagesContainer> */}
-                            {selected}
-                        <OtherImagesContainer>
-                            {others}
+                        {selected}
+                    <OtherImagesContainer>
+                        {others}
                     </OtherImagesContainer>
-                    {/* </ImagesContainer> */}
+                
                 <UploadContainer> 
                     <h3>Upload A New Image</h3>
-                <form style={{display: "flex", flexDirection:"column", alignItems: "Center"}} onSubmit={(e)=>this.handleSubmit(e)}>
-                <input type="file" name='file' id="file" onChange={(e)=> this.handleFile(e)}/>
-                {preview}
-                <label>Make Primary?
-
-
-                    {/* this is where you will put your image preview */}
-                <input type="checkbox" value="Make Primary"/>
-                </label>
-                <br/>
-                <button type="submit" style={{justifySelf: "flex-end"}} >Save Changes</button>
-               </form>
+                        <form style={{
+                                    display: "flex", 
+                                    flexDirection:"column", 
+                                    alignItems: "Center"
+                                    }}
+                                onSubmit={(e)=>this.handleSubmit(e)}>
+                            <input 
+                                type="file" 
+                                name='file'
+                                id="file" 
+                                style={{display:"none"}}
+                                onChange={(e)=> this.handleFile(e)}
+                                ref={this.myRef}
+                            />
+                                {preview}
+                            <input type="button" 
+                                value="Select Image" 
+                                onClick={(e)=> this.simulateClick(e)}
+                                 
+                            />
+                            <label>Make Primary?
+                                <input 
+                                    type="checkbox" 
+                                    value="Make Primary"
+                                    onChange={(e) => this.handleChange(e)}
+                                />
+                            </label>
+                            <br/>
+                            {this.buttons()}
+                            {/* <button type="submit" style={{justifySelf: "flex-end"}} >Save Changes</button> */}
+                        </form>
                 </UploadContainer>
-                </ModalContainer>
-            </div>
+            </ModalContainer>
+          
             
 
              )
