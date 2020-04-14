@@ -1,5 +1,5 @@
 import React from 'react'
-import { getProfile, getProfilePics, uploadPhoto, setPrimaryPic } from "../../util/profiles_util";
+import { getProfile, getProfilePics, uploadPhoto, setPrimaryPic, deletePhoto } from "../../util/profiles_util";
 import Loader from "../spinner/spinner";
 import { 
         ModalContainer, 
@@ -104,14 +104,30 @@ export class PhotoManager extends React.Component{
         const formData = new FormData()
         formData.append('file', this.state.photoFile, this.state.photoFile.name )
         formData.append("userId", id)
-        formData.append("profilePrimary", this.state.checked)
+        // formData.append("profilePrimary", this.state.checked)
         uploadPhoto(formData).then(()=> getProfilePics(id)
+            .then(pics => this.setState({
+                images: pics.data,
+                loaded: true,
+                photoFile: "", photoUrl: ""
+                // displayedImage: pics.data[0].pictureUrl
+            })))
+
+    }
+
+    handleDelete(e){
+        e.preventDefault()
+        let id = this.props.currentUserId
+        let value = this.state.images.find(pictureObj => pictureObj.pictureUrl === this.state.displayedImage)
+        
+        deletePhoto(value._id).then(() => getProfilePics(id)
             .then(pics => this.setState({
                 images: pics.data,
                 loaded: true,
                 displayedImage: pics.data[0].pictureUrl
             })))
-
+        
+    
     }
 
     clearImage(e){
@@ -123,14 +139,15 @@ export class PhotoManager extends React.Component{
             return (
                 <>
                 <div type="submit" style={{ justifySelf: "flex-end" }} onClick={e=> this.clearImage(e)} >Cancel</div>
-                <button type="submit" style={{ justifySelf: "flex-end" }} >Save Changes</button>
+                <button type="submit" style={{ justifySelf: "flex-end" }} >Upload Photo</button>
                 </>
             )
         } else {
             return ( 
-                <> 
-                <button type="submit" style={{ justifySelf: "flex-end" }} >Save Changes</button>
-                </>
+                ""
+                // <> 
+                // <button type="submit" style={{ justifySelf: "flex-end" }} >Save Changes</button>
+                // </>
             )
         }
     }
@@ -179,6 +196,9 @@ export class PhotoManager extends React.Component{
                                     onChange={(e) => this.handleChange(e)}
                                 />
                             </label>
+                            <br/>
+                            
+                            <button onClick={(e)=>this.handleDelete(e)}>Delete Photo?</button> 
                         </div>
 
         return(

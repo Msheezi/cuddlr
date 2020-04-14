@@ -10,14 +10,18 @@ const User = require("../models/user")
 
 
 
-
+//delete photo
+router.delete("/delete/:id", (req, res)=> {
+    let pictureId = req.params.id
+    UserPicture.findOneAndDelete({"_id": pictureId}).then(() => res.json(pictureId))
+})
 
 
 // upload photo route
 router.post("/upload", upload.single('file'), (req, res) =>{
 //    console.log(req)
    const file = req.file 
-    const primary = req.body.profilePrimary
+    // const primary = req.body.profilePrimary
     const userId = req.body.userId
     const s3FileURL = process.env.AWS_Uploaded_File_URL_Link
     // this should update the profile avatar with  the new photo if primary is selected
@@ -46,7 +50,7 @@ router.post("/upload", upload.single('file'), (req, res) =>{
             const newFileUploaded = {
               userId: req.body.userId,
               pictureUrl: s3FileURL + file.originalname,
-              profilePrimary: primary
+            //   profilePrimary: primary
             };
 
             const userPicture = new UserPicture(newFileUploaded)
@@ -61,12 +65,12 @@ router.post("/upload", upload.single('file'), (req, res) =>{
             })
         }
     })
-    if (primary) {
-        User.findOne({ "_id": userId }, (err, userData) => {
-            userData.mainProfilePic = s3FileURL + file.originalname
-            userData.save()
-        })
-    }
+    // if (primary) {
+    //     User.findOne({ "_id": userId }, (err, userData) => {
+    //         userData.mainProfilePic = s3FileURL + file.originalname
+    //         userData.save()
+    //     })
+    // }
     // res.json(newFile)
 })
 

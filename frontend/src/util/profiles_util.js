@@ -24,3 +24,7 @@ export const uploadPhoto = (data) => {
 export const setPrimaryPic = (id, data) => {
     return axios.patch(`/users/makeprimary/${id}`, data)
 }
+
+export const deletePhoto = (id)=>{
+    return axios.delete(`/userPicture/delete/${id}`)
+}
