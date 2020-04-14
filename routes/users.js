@@ -99,6 +99,7 @@ router.get("/current", passport.authenticate('jwt', {session: false}), (req,res)
   res.json({
     id: req.user.id, 
     username: req.user.username
+    
    
   })
 })
@@ -130,7 +131,7 @@ router.patch("/:id", (req, res)=> {
   const userId = req.params.id 
   let updatedUser = req.body
   
-  User.findOneAndUpdate({"_id": userId}, updatedUser, {new: true} ).then(user => res.json(user))
+  User.findOneAndUpdate({ "_id": userId }, updatedUser, { new: true, fields: excludedUserFields} ).then(user => res.json(user))
   
 })
 // Current users Likes
@@ -139,7 +140,7 @@ router.get("/:id/likes", (req, res) => {
   Like.find({ _id: currentUser }).then(likes => res.send(json(likes)));
 });
 
-//get prfolie pics
+//get profile pics
 
 router.get("/userPics/:id", (req,res)=>{
   const userId = req.params.id
@@ -152,7 +153,7 @@ router.get("/userPics/:id", (req,res)=>{
 router.patch("/makeprimary/:id", (req, res) => {
   
   let userId = req.params.id
-  User.findOneAndUpdate({ "_id": userId }, { "mainProfilePic": req.body.mainProfilePic }, { new: true }).then(user => res.json(user))
+  User.findOneAndUpdate({ "_id": userId }, { "mainProfilePic": req.body.mainProfilePic }, { new: true, fields: excludedUserFields }).then(user => res.json(user))
   
 })
 

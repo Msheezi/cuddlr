@@ -155,7 +155,7 @@ export class Profile extends React.Component {
       let imgUrls =
         this.state.pics.length === 0
           ? ["https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp"]
-          : this.state.pics.map((imgObj) => imgObj.pictureUrl);
+          : this.state.pics.map((imgObj) => imgObj.pictureUrl).sort();
 
       return (
         <ProfileContainer>

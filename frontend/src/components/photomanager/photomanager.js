@@ -26,43 +26,63 @@ export class PhotoManager extends React.Component{
 
     }
 
-    componentDidMount(){
+    async componentDidMount(){
         let id = this.props.currentUserId
         // sets the default image to the first image in the object array retrieved
         //backend needs to sort the images by the primary flag so this always works
-        getProfilePics(id)
-        .then(pics=> this.setState({
-            images: pics.data, 
-            loaded: true, 
-            displayedImage: pics.data[0].pictureUrl 
-        }))
+        const user = await getProfile(id)
+        const pictures = await getProfilePics(id)
+       
+        // revised logic for displayed image
+        // if no image, use the blank image file
+        //add a statement here that let displayedImage = user.mainProfilePic
+       
+        let defaultImage = user.data[0].mainProfilePic
+       
+        
+        this.setState({
+            images: pictures.data,
+            // displayedImage: pictures.data[0].pictureUrl,
+            displayedImage: defaultImage,
+            user: user.data[0],
+            checked : true,
+            loaded: true
+        })
+       
     }
 
-    // componentDidUpdate(prevProps) {
+    // componentDidUpdate(prevState) {
     //     // added component did update to resolve bug where nav bar "My Profile" button, when already
     //     // on a profile was not triggering a re-render with the new data
-    //     let id = this.props.currentUserId
-
-    //     if (prevProps.match.params.id !== id) {
-    //         getProfile(id)
-    //             .then((profile) => this.setState({ user: profile.data[0] }))
-    //             .then(() => getProfilePics(id))
-    //             .then((pics) => this.setState({ pics: pics.data, loaded: true }));
+    //     if (prevState.user.mainProfilePic !== this.state.user.mainProfilePic){
+    //         getProfile(this.props.currentUserId).then(user=> this.setState({user:user.data[0]}))
     //     }
+
+    //     // if (prevProps.match.params.id !== id) {
+    //     //     getProfile(id)
+    //     //         .then((profile) => this.setState({ user: profile.data[0] }))
+    //     //         .then(() => getProfilePics(id))
+    //     //         .then((pics) => this.setState({ pics: pics.data, loaded: true }));
+    //     // }
     // }
 
     // add in a component did update to get the new pictures
 
     handleClick(e){
-        
-        this.setState({ displayedImage: e.target.src })
+        // clicking on image updates the displayed image
+        // let isChecked = this.state.displayedImage === this.state.user.mainProfilePic ? true: false
+        // checked: isChecked
+       let isChecked = e.target.src === this.state.user.mainProfilePic
+        this.setState({ displayedImage: e.target.src, checked: isChecked })
     }
 
     handleChange(e){
+        // updates the user main profile pic
         const update = { "mainProfilePic": this.state.displayedImage}
         let userId = this.props.currentUserId
-        setPrimaryPic(userId, update)
-        this.setState({checked:!this.state.checked})
+        setPrimaryPic(userId, update).then(user => 
+            this.setState({ user: user.data, checked: true})
+            )
     }
     handleFile(e) {
         // const file = e.currentTarget.files[0];
@@ -154,7 +174,8 @@ export class PhotoManager extends React.Component{
                             <label style={{margin:"0 auto"}}>Make Primary?
                                     <input
                                     type="checkbox"
-                                    value="Make Primary"
+                                    // value={this.state.user.mainProfilePic === this.state.displayedImage ? true : false }
+                                    checked={this.state.checked}
                                     onChange={(e) => this.handleChange(e)}
                                 />
                             </label>
