@@ -41,13 +41,22 @@ export class Profile extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     let id = this.props.match.params.id;
 
-    getProfile(id)
-      .then((profile) => this.setState({ user: profile.data[0] }))
-      .then(() => getProfilePics(id))
-      .then((pics) => this.setState({ pics: pics.data, loaded: true }));
+    let profile = await getProfile(id)
+    let pics = await getProfilePics(id)
+
+    this.setState({
+      user: profile.data[0],
+      pics: pics.data,
+      loaded: true
+    })
+
+    // getProfile(id)
+    //   .then((profile) => this.setState({ user: profile.data[0] }))
+    //   .then(() => getProfilePics(id))
+    //   .then((pics) => this.setState({ pics: pics.data, loaded: true }));
   }
 
   componentDidUpdate(prevProps) {
@@ -155,7 +164,14 @@ export class Profile extends React.Component {
       let imgUrls =
         this.state.pics.length === 0
           ? ["https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp"]
-          : this.state.pics.map((imgObj) => imgObj.pictureUrl).sort();
+          : this.state.pics.filter((imgObj) => {
+              return imgObj.pictureUrl !== profileData.mainProfilePic
+            }
+          ).map(objs=> objs.pictureUrl)
+          
+          imgUrls.unshift(profileData.mainProfilePic)
+
+         
 
       return (
         <ProfileContainer>
