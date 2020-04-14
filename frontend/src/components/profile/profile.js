@@ -160,7 +160,14 @@ export class Profile extends React.Component {
   render() {
     let profileData = this.state.user;
 
+
+    
     if (this.state.loaded) {
+      
+      //imgUrls, this is array of images provided to carousel component
+      // if no pics are retrived in DidMount, display blank pic
+      // if pics are retrieved, filter the results to remove the main pic
+      // Add the main pic to the front of imgUrls and pass to Carousel
       let imgUrls =
         this.state.pics.length === 0
           ? ["https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp"]
