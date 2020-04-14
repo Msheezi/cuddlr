@@ -147,6 +147,15 @@ router.get("/userPics/:id", (req,res)=>{
 })
 
 
+// make primary route
+
+router.patch("/makeprimary/:id", (req, res) => {
+  
+  let userId = req.params.id
+  User.findOneAndUpdate({ "_id": userId }, { "mainProfilePic": req.body.mainProfilePic }, { new: true }).then(user => res.json(user))
+  
+})
+
 module.exports = router;
 
 // const {

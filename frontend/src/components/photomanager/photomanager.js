@@ -1,5 +1,5 @@
 import React from 'react'
-import { getProfile, getProfilePics, uploadPhoto } from "../../util/profiles_util";
+import { getProfile, getProfilePics, uploadPhoto, setPrimaryPic } from "../../util/profiles_util";
 import Loader from "../spinner/spinner";
 import { 
         ModalContainer, 
@@ -59,6 +59,9 @@ export class PhotoManager extends React.Component{
     }
 
     handleChange(e){
+        const update = { "mainProfilePic": this.state.displayedImage}
+        let userId = this.props.currentUserId
+        setPrimaryPic(userId, update)
         this.setState({checked:!this.state.checked})
     }
     handleFile(e) {
@@ -145,7 +148,17 @@ export class PhotoManager extends React.Component{
                      )
         })
         
-        let selected = <SelectedImageContainer src={this.state.displayedImage}></SelectedImageContainer>
+        let selected = <div style={{alignItems:"center", gridArea:"mainImage", width:"100%", textAlign:"center"}}>
+            
+                         <SelectedImageContainer src={this.state.displayedImage}></SelectedImageContainer>
+                            <label style={{margin:"0 auto"}}>Make Primary?
+                                    <input
+                                    type="checkbox"
+                                    value="Make Primary"
+                                    onChange={(e) => this.handleChange(e)}
+                                />
+                            </label>
+                        </div>
 
         return(
             <ModalContainer>
@@ -153,6 +166,7 @@ export class PhotoManager extends React.Component{
                         Photo Manager
                     </Headline>
                         {selected}
+                     
                     <OtherImagesContainer>
                         {others}
                     </OtherImagesContainer>
@@ -179,13 +193,7 @@ export class PhotoManager extends React.Component{
                                 onClick={(e)=> this.simulateClick(e)}
                                  
                             />
-                            <label>Make Primary?
-                                <input 
-                                    type="checkbox" 
-                                    value="Make Primary"
-                                    onChange={(e) => this.handleChange(e)}
-                                />
-                            </label>
+                            
                             <br/>
                             {this.buttons()}
                             {/* <button type="submit" style={{justifySelf: "flex-end"}} >Save Changes</button> */}

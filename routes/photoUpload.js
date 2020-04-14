@@ -9,6 +9,11 @@ const UserPicture = require("../models/userPicture");
 const User = require("../models/user")
 
 
+
+
+
+
+// upload photo route
 router.post("/upload", upload.single('file'), (req, res) =>{
 //    console.log(req)
    const file = req.file 

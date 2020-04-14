@@ -20,3 +20,7 @@ export const updateProfile = (id, data) => {
 export const uploadPhoto = (data) => {
     return axios.post('/userPicture/upload', data)
 }
+
+export const setPrimaryPic = (id, data) => {
+    return axios.patch(`/users/makeprimary/${id}`, data)
+}
