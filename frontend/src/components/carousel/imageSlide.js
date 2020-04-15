@@ -5,6 +5,7 @@ const ArrowDiv = styled.div`
 color: red;
 cursor: pointer;
 z-index: 1;
+background-color: transparent;
 &:hover{
     color: blue;
 }

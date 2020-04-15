@@ -25,7 +25,9 @@ const CarouselContainer = {
   // height: "100%",
   // width: "100%",
   display: "flex",
-  alignItems: "center"
+  alignItems: "center",
+  backgroundColor: "transparent",
+  borderRadius: "10px"
   // margin: "15px 20px 10px 0px",
   // paddingTop: "50px "
 };
