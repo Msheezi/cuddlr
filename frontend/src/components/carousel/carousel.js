@@ -49,9 +49,16 @@ class Carousel extends React.Component {
     }
     this.setState({ imgUrls: this.props.imgUrls });
   }
+// this update make sure the transition from profiles resets the carosel index
+  componentDidUpdate(prevProps){
+    if (this.props.imgUrls !== prevProps.imgUrls){
+      this.setState({currentImageIndex: 0})
+    }
+  }
 
   componentWillUnmount() {
     clearInterval(this.carouselInterval);
+    
   }
 
   autoAdvance() {

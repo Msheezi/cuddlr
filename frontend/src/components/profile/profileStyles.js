@@ -28,7 +28,7 @@ export const ProfileHeader = styled.h2`
   /* width: 100%; */
   font-size: 22pt;
   /* border-radius: 0.25rem; */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
   /* margin: 10px; */
   /* box-sizing: border-box; */
   /* background-color: white; */
@@ -181,7 +181,9 @@ export const StyledSelect = styled.select`
   }
 `;
 
-export const AboutMe = styled.h2`
+export const AboutMe = styled.h3`
   background-color: white;
+  padding: 5px;
+  border-radius: 0.25em;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;

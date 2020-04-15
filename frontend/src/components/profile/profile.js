@@ -59,17 +59,28 @@ export class Profile extends React.Component {
     //   .then((pics) => this.setState({ pics: pics.data, loaded: true }));
   }
 
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     // added component did update to resolve bug where nav bar "My Profile" button, when already
     // on a profile was not triggering a re-render with the new data
     let id = this.props.match.params.id;
+    if (prevProps.match.params.id !== id){
 
-    if (prevProps.match.params.id !== id) {
-      getProfile(id)
-        .then((profile) => this.setState({ user: profile.data[0] }))
-        .then(() => getProfilePics(id))
-        .then((pics) => this.setState({ pics: pics.data, loaded: true }));
+      let profile = await getProfile(id)
+      let pics = await getProfilePics(id)
+      
+      this.setState({
+        user: profile.data[0],
+        pics: pics.data,
+        loaded: true
+      })
     }
+
+    // if (prevProps.match.params.id !== id) {
+    //   getProfile(id)
+    //     .then((profile) => this.setState({ user: profile.data[0] }))
+    //     .then(() => getProfilePics(id))
+    //     .then((pics) => this.setState({ pics: pics.data, loaded: true }));
+    // }
   }
 
   handleInput(e) {
