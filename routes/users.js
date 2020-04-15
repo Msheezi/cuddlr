@@ -3,13 +3,14 @@ const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require('bcryptjs')
 const UserPicture = require('../models/userPicture')
+const Like = require('../models/like')
 const keys = require('../config/keys')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const validateLoginInput = require('../validation/login')
 const validateRegisterInput = require('../validation/register')
 
-const excludedUserFields = { "passwordDigest": 0, "email": 0, "__v": 0}
+const excludedUserFields = { "password": 0, "email": 0, "__v": 0}
 const pictureFields = {"profilePrimary": 1, "userId": 1, "pictureUrl": 1, "_id": 1}
 
 //register route
@@ -137,7 +138,7 @@ router.patch("/:id", (req, res)=> {
 // Current users Likes
 router.get("/:id/likes", (req, res) => {
   let currentUser;
-  Like.find({ _id: currentUser }).then(likes => res.send(json(likes)));
+  Like.find({ "_id": currentUser }).then(likes => res.send(json(likes)));
 });
 
 //get profile pics

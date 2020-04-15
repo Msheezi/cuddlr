@@ -6,7 +6,7 @@ router.post("/new", (req, res) => { // old/users/:id/newLike"
   // parse the current user ID and the user id sent in the request
   
   newLike = new Like({
-    userId: currentUser,
+    userId: req.body.userId,
     likedUserId: req.body.likedUserId
   });
 

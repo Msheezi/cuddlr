@@ -28,3 +28,7 @@ export const setPrimaryPic = (id, data) => {
 export const deletePhoto = (id)=>{
     return axios.delete(`/userPicture/delete/${id}`)
 }
+
+export const likeUser = (data)=>{
+    return axios.post(`/likes/new`,data) 
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getProfile, getProfilePics } from "../../util/profiles_util";
+import { getProfile, getProfilePics, likeUser } from "../../util/profiles_util";
 import Carousel from "../carousel/carousel";
 import { getAge } from "../../reducers/selectors";
 import Loader from "../spinner/spinner";
@@ -118,6 +118,15 @@ export class Profile extends React.Component {
 
     updateProfile(this.props.match.params.id, updatedProfile);
     this.enable();
+  }
+
+  handleLike(e){
+    let userId =  this.props.currentUserId
+    let likee = this.props.match.params.id 
+    let obj = {"userId": userId,
+                "likedUserId": likee
+                }
+              likeUser(obj)
   }
 
   renderCruds() {
@@ -268,7 +277,7 @@ export class Profile extends React.Component {
           </ProfileDescripton>
 
           <Likes>
-            <LikeButton color="red">Like {profileData.username}</LikeButton>
+            <LikeButton onClick={e=> this.handleLike(e)}color="red">Like {profileData.username}</LikeButton>
           </Likes>
           <Spacer />
           {this.renderCruds()}
