@@ -10,6 +10,7 @@ const passport = require('passport')
 const users = require("./routes/users");
 const likes = require("./routes/likes");
 const photoUpload = require("./routes/photoUpload")
+const messages = require("./routes/messages")
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false  })
@@ -29,5 +30,6 @@ app.get("/", (req, res) => {
 app.use("/users", users);
 app.use("/likes", likes)
 app.use("/userPicture", photoUpload)
+app.use("/messages", messages)
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

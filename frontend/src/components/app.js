@@ -11,6 +11,7 @@ import SignupFormContainer from './login/signup_form_container'
 import UserFeed from './index/userFeed'
 import ProfileContainer from './profile/profileContainer'
 import PhotoManagerContainer from './photomanager/photoManagerContainer'
+import MessagesContainer from './messages/messagesContainer'
 
 const Footer = styled.footer`
     position: fixed;
@@ -30,7 +31,7 @@ const App = () => (
         <AuthRoute exact path="/" component={MainPage}/>
         <AuthRoute exact path="/login" component={LoginFormContainer}/>
         <AuthRoute exact path="/register" component={SignupFormContainer}/>
-        {/* <AuthRoute exact path="/messages" component={MessagesContainer}/> */}
+        <ProtectedRoute exact path="/messages" component={MessagesContainer}/>
         <ProtectedRoute exact path="/home" component={UserFeed}/>
         <ProtectedRoute exact path="/users/:id" component={ProfileContainer}/>
         <ProtectedRoute exact path="/photoman" component={PhotoManagerContainer}/>

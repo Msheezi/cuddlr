@@ -198,7 +198,7 @@ export class PhotoManager extends React.Component{
                             </label>
                             <br/>
                             
-                            <button onClick={(e)=>this.handleDelete(e)}>Delete Photo?</button> 
+                            <button onClick={(e)=>this.handleDelete(e)}>Delete Photo</button> 
                         </div>
 
         return(
