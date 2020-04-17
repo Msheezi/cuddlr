@@ -3,7 +3,9 @@ const router = express.Router()
 const Conversation = require("../models/conversation")
 const Message = require("../models/message")
 
-// get conversations
+// get conversations  this needs to group by conversation 
+// find conversations where userID is in participants array,
+// then retrieve messages by conversation
 router.get("/test/:id", (req,res)=>{
     // console.log(req.body)
     let id = req.params.id
@@ -22,7 +24,7 @@ router.post("/posttest", (req,res)=> {
 //get conversation threads
 
 router.get('/convos', (req, res) => {
-
+    //this needs to be a post type
     //find conversation if conversation, save message with ID
     // if no conversation, new Conversation => coversation.id save new message
     // console.log(req.body.participants)
