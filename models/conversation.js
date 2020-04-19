@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ConversationSchema = new Schema({
-    userId: {  // pick one, either this or participants
-        type: String,
-        required: true
-    },
+    // userId: {  // pick one, either this or participants
+    //     type: String,
+    //     required: true
+    // },
 
     participants: {
         type: Array,

@@ -3,13 +3,33 @@ const router = express.Router();
 const Conversation = require("../models/conversation");
 const Message = require("../models/message");
 
+// test users
+
+// 5e729be9e4afbc3899864aca
+//5e9675e830b5ce3d28676e14
+
+
 // get conversations  this needs to group by conversation
 // find conversations where userID is in participants array,
 // then retrieve messages by conversation
-router.get("/conversations/:id", (req, res) => {
+
+router.get("/conversations/:userId", (req, res) => {
   // console.log(req.body)
-  let id = req.params.id;
-  Conversation.find({ participants: id }).then((convo) => res.json(convo));
+  // get list of conversations user is a part of by finding docs with this
+  // current users id
+  let id = req.params.userId;
+  Conversation.find({ "participants": id },{"_id": 1}).then((convo) => res.json(convo));
+});
+
+
+// use conversation ID to get thread details
+// returns array of message objects sorted oldest to newest
+// test data 5e9c91f29e42a21519b4e8d0
+router.get("/conversations/threads/:convoId", (req, res) => {
+    let id = req.params.convoId;
+    Message.find({ "conversationId": id }, {"__v":0}, {
+        sort: { "timeSent": 1 },
+    }).then((threads) => res.json(threads));
 });
 
 router.post("/posttest", (req, res) => {
@@ -37,7 +57,7 @@ router.post("/convos", (req, res) => {
     senderId: senderId,
     content: content,
   };
-  console.log(id1, id2);
+  //console.log(id1, id2);
   let newMessage;
   Conversation.exists(
     { $or: [{ participants: id1 }, { participants: id2 }] },
@@ -71,12 +91,7 @@ router.post("/convos", (req, res) => {
   // res.send("this is a test")
 });
 
-router.get("/threads/:id", (req, res) => {
-  let id = req.params.id;
-  Message.find({ conversationId: id }, null, {
-    sort: { timeSent: -1 },
-  }).then((threads) => res.json(threads));
-});
+
 
 router.post("/threads/:id", (req, res) => {
   // let id = req.params.id
