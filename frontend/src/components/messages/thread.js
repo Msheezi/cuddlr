@@ -17,6 +17,15 @@ class Thread extends React.Component{
     })
   }
 
+  componentDidUpdate(prevProps){
+    if (this.props.conversationId !== prevProps.conversationId){
+
+      getThreadByConvoId(this.props.conversationId).then(convoList => {
+        this.setState({ messages: convoList.data, loaded: true })
+      })
+    }
+  }
+
   render() {
     let messages
     if (this.state.loaded){

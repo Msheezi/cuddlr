@@ -49,18 +49,17 @@ router.post("/postmessage", (req, res) => {
   //this needs to be a post type
   //find conversation if conversation, save message with ID
   // if no conversation, new Conversation => coversation.id save new message
-  // console.log(req.body.participants)
   let { conversationId, senderId, content } = req.body;
   let userId = req.body.userId;
   let id1 = [req.body.id1, req.body.id2];
   let id2 = [req.body.id2, req.body.id1];
-  // let message = req.body.message //this should be an object
+  
   let message = {
     conversationId: conversationId,
     senderId: senderId,
     content: content,
   };
-  //console.log(id1, id2);
+
   let newMessage;
   Conversation.exists(
     { $or: [{ participants: id1 }, { participants: id2 }] },
@@ -68,6 +67,7 @@ router.post("/postmessage", (req, res) => {
       if (err) {
         res.send(err);
       }
+      // If conversation not found, create one and assign messages to that ID
       if (!result) {
         let newConvo = new Conversation({ userId: userId, participants: id1 });
         newConvo.save().then((conversation) => {
@@ -76,7 +76,10 @@ router.post("/postmessage", (req, res) => {
           newMessage.save().then((message) => res.json(message));
         });
       }
-
+      // assuming this is being sent from a location where the conversationId
+      // is not being sent with the request.
+      // find the conversation with the participants
+      // get the conversation id, post the message to correct conversation
       if (result) {
         Conversation.find({ $or: [{ "participants": id1 }, { "participants": id2 }]}, {"_id": 1})
         .then(conversation=> {
@@ -88,14 +91,10 @@ router.post("/postmessage", (req, res) => {
         
       }
 
-      // res.json(message)
-      // newMessage = new Message({message})
-
-      // newMessage.save().then((message)=> res.json(message))
     }
   );
 
-  // Conversation.find({ "$or":[ {"participants":id1 }, {"participants": id2}]})
+  // Conversation.find({ $or:[ {"participants":id1 }, {"participants": id2}]})
   // .then(conversation=> res.json(conversation))
   // res.send("this is a test")
 });

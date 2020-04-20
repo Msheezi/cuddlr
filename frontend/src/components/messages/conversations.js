@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { getConversationList, getThreadByConvoId, postMessage } from "../../util/messages_util";
-import Thread from "./thread";
+import Thread from "./thread"
+import {Loader} from '../spinner/spinner'
 
 const ConverationContainer = styled.div`
   margin: 10px auto;
@@ -31,20 +32,12 @@ const Heading = styled.div`
   text-align: center;
 `;
 
-const getMessages =  (messages) => {
-  messages.map( async conversationObj => {
-    let id = conversationObj._id
-    let thread = await this.props.fetchThread(id)
-    return messages[id] = thread
-  })
-}
-
 export class Conversations extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedConversation: "5e9c91f29e42a21519b4e8d0",
+      selectedConversation: "",
       // selectedConversation: "5e9c91f29e42a21519b4e8d0",
       loaded: false,
     };
@@ -55,10 +48,59 @@ export class Conversations extends React.Component {
 
     let userId = this.props.currentUserId;
     this.props.fetchConversations(userId)
-    .then(() => {
-      Promise.all(this.props.messages.map(convoObj=> getThreadByConvoId(convoObj._id)) )
-    });
-    let messages = {}
+    .then(() => this.setState({
+      loaded: true,
+      selectedConversation: this.props.messages[0]._id
+    }))
+      
+  }
+
+  handleClick(value){
+    this.setState({selectedConversation: value})
+  }
+
+  renderConversation() {
+    let convoRender = this.props.messages.map(convoObj => (
+      <div name={convoObj._id} key={convoObj._id} onClick={()=>this.handleClick(convoObj._id)}>{convoObj._id}</div>
+    ))
+    return convoRender
+  }
+    
+  render() {
+
+    // let testConversation = this.getThread()
+    if (this.state.loaded){
+
+      return (
+        <ConverationContainer>
+        <Heading>Balls</Heading>
+        <Conversation>
+          <div>Hello I'm Conversations placeholder</div>
+          {this.renderConversation()}
+          <button onClick={e=>this.getThread(e)}></button>
+        </Conversation>
+        <Threads>
+          <div>Hello I'm Thread Placeholder</div>
+          <Thread conversationId={this.state.selectedConversation}/>
+          {/* <Thread message={this.state.selectedConversation || ""}/> */}
+        </Threads>
+      </ConverationContainer>
+    );
+  } else {
+      return <Loader />;
+  }
+  }
+}
+
+export default Conversations;
+
+
+
+
+
+
+
+
 
     // console.log(conversations)
 
@@ -78,16 +120,16 @@ export class Conversations extends React.Component {
     //    })
     // let threads = await getTheads(conversation._id)
 
-    this.setState({
-      // conversations: convoIds,
-      // conversations: conversations.data,
-      // selectedConversation: initialConvoId,
-      threads: messages,
-      loaded: true
-     });
-  }
+    // this.setState({
+    //   // conversations: convoIds,
+    //   // conversations: conversations.data,
+    //   // selectedConversation: initialConvoId,
+    //   threads: messages,
+    //   loaded: true
+    //  });
 
-  comp
+
+
 
   // componentDidUpdate(prevState){
   //   if( prevState.selectedConversation !== this.state.selectedConversation){
@@ -99,37 +141,19 @@ export class Conversations extends React.Component {
   // filter for conversations this user is a part of
   // on click render that list of messages using a function component
 
-  async getThread(e){
+  // async getThread(e){
     // pass the conversation id into the API request
-    let thread = await getThreadByConvoId("5e9c91f29e42a21519b4e8d0")
+    // let thread = await getThreadByConvoId("5e9c91f29e42a21519b4e8d0")
     // console.log(thread.data)
     // let myvalues = thread.data
-    return this.setState({threads: thread.data})
+    // return this.setState({threads: thread.data})
     //   this.setState({selectedConversation: myvalues})
       // thread is array of objects
-
-
-  }
-
-  render() {
-
-    // let testConversation = this.getThread()
-
-    return (
-      <ConverationContainer>
-        <Heading>Balls</Heading>
-        <Conversation>
-          <div>Hello I'm Conversations placeholder</div>
-          <button onClick={e=>this.getThread(e)}></button>
-        </Conversation>
-        <Threads>
-          <Thread conversationId={this.state.selectedConversation}/>
-          <div>Hello I'm Thread Placeholder</div>
-          {/* <Thread message={this.state.selectedConversation || ""}/> */}
-        </Threads>
-      </ConverationContainer>
-    );
-  }
-}
-
-export default Conversations;
+  // }
+  // const getMessages =  (messages) => {
+//   messages.map( async conversationObj => {
+//     let id = conversationObj._id
+//     let thread = await this.props.fetchThread(id)
+//     return messages[id] = thread
+//   })
+// }
