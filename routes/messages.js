@@ -19,6 +19,9 @@ router.get("/conversations/:userId", (req, res) => {
   // current users id
   let id = req.params.userId;
   Conversation.find({ "participants": id },{"_id": 1, "participants": 1}).then((convo) => res.json(convo));
+    // can ypu update this in such a way that you get
+    // [{conversation1: {message1, message2}}, {conversation2:{message1, message2}}]
+
 });
 
 

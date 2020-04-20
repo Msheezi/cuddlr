@@ -44,7 +44,7 @@ export class Conversations extends React.Component {
     super(props);
 
     this.state = {
-      selectedConversation: "",
+      selectedConversation: "5e9c91f29e42a21519b4e8d0",
       // selectedConversation: "5e9c91f29e42a21519b4e8d0",
       loaded: false,
     };
@@ -71,7 +71,7 @@ export class Conversations extends React.Component {
   //      return messages[id] = thread
   //     })
   //   }
-    let initialConvoId = this.props.messages[0]
+    // let initialConvoId = this.props.messages[0]
 
     // let convoIds = conversations.data.map(convoObj => {
     //   return Object.values(convoObj)
@@ -81,7 +81,7 @@ export class Conversations extends React.Component {
     this.setState({
       // conversations: convoIds,
       // conversations: conversations.data,
-      selectedConversation: initialConvoId,
+      // selectedConversation: initialConvoId,
       threads: messages,
       loaded: true
      });
@@ -123,6 +123,7 @@ export class Conversations extends React.Component {
           <button onClick={e=>this.getThread(e)}></button>
         </Conversation>
         <Threads>
+          <Thread conversationId={this.state.selectedConversation}/>
           <div>Hello I'm Thread Placeholder</div>
           {/* <Thread message={this.state.selectedConversation || ""}/> */}
         </Threads>
