@@ -78,8 +78,14 @@ router.post("/postmessage", (req, res) => {
       }
 
       if (result) {
-        newMessage = new Message(message);
+        Conversation.find({ $or: [{ "participants": id1 }, { "participants": id2 }]}, {"_id": 1})
+        .then(conversation=> {
+          message.conversationId = conversation[0]._id
+          newMessage = new Message(message);
+          newMessageconversationId = conversation._id
         newMessage.save().then((message) => res.json(message));
+        })
+        
       }
 
       // res.json(message)
