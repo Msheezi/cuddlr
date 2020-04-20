@@ -18,7 +18,7 @@ router.get("/conversations/:userId", (req, res) => {
   // get list of conversations user is a part of by finding docs with this
   // current users id
   let id = req.params.userId;
-  Conversation.find({ "participants": id },{"_id": 1}).then((convo) => res.json(convo));
+  Conversation.find({ "participants": id },{"_id": 1, "participants": 1}).then((convo) => res.json(convo));
 });
 
 
@@ -42,7 +42,7 @@ router.post("/posttest", (req, res) => {
 
 //get conversation threads
 
-router.post("/convos", (req, res) => {
+router.post("/postmessage", (req, res) => {
   //this needs to be a post type
   //find conversation if conversation, save message with ID
   // if no conversation, new Conversation => coversation.id save new message

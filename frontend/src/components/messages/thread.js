@@ -9,6 +9,8 @@ const Thread = ({ props, message }) => {
     );
   });
   return <div>{threadedMessages}</div>;
+
+  // return ("test")
 };
 
 export default Thread;

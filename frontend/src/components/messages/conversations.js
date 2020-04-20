@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { getConversations } from "../../util/messages_util";
+import { getConversationList, getThreadByConvoId, postMessage } from "../../util/messages_util";
 import Thread from "./thread";
 
 const ConverationContainer = styled.div`
@@ -31,37 +31,100 @@ const Heading = styled.div`
   text-align: center;
 `;
 
+const getMessages =  (messages) => {
+  messages.map( async conversationObj => {
+    let id = conversationObj._id
+    let thread = await this.props.fetchThread(id)
+    return messages[id] = thread
+  })
+}
+
 export class Conversations extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       selectedConversation: "",
+      // selectedConversation: "5e9c91f29e42a21519b4e8d0",
+      loaded: false,
     };
   }
 
-  async componentDidMount() {
+    componentDidMount() {
+  // conversation.data is an array of objects
+
     let userId = this.props.currentUserId;
-    let conversations = await getConversations(userId);
+    this.props.fetchConversations(userId)
+    .then(() => {
+      Promise.all(this.props.messages.map(convoObj=> getThreadByConvoId(convoObj._id)) )
+    });
+    let messages = {}
+
+    // console.log(conversations)
+
+    // getMessages(this.props.messages)
+  //  async function(this.props.messages) {
+
+  //    this.props.messages.map(conversationObj =>{
+  //      let id = conversationObj._id
+  //      let thread = await this.props.fetchThread(id)
+  //      return messages[id] = thread
+  //     })
+  //   }
+    let initialConvoId = this.props.messages[0]
+
+    // let convoIds = conversations.data.map(convoObj => {
+    //   return Object.values(convoObj)
+    //    })
     // let threads = await getTheads(conversation._id)
 
     this.setState({
-      conversations: conversations.data,
-    });
+      // conversations: convoIds,
+      // conversations: conversations.data,
+      selectedConversation: initialConvoId,
+      threads: messages,
+      loaded: true
+     });
   }
 
+  comp
+
+  // componentDidUpdate(prevState){
+  //   if( prevState.selectedConversation !== this.state.selectedConversation){
+  //     getThreadByConvoId(this.state.selectedConversation).then(thread => {
+  //       this.setState({ threads: thread.data})
+  //     })
+  //   }
+  // }
   // filter for conversations this user is a part of
   // on click render that list of messages using a function component
 
+  async getThread(e){
+    // pass the conversation id into the API request
+    let thread = await getThreadByConvoId("5e9c91f29e42a21519b4e8d0")
+    // console.log(thread.data)
+    // let myvalues = thread.data
+    return this.setState({threads: thread.data})
+    //   this.setState({selectedConversation: myvalues})
+      // thread is array of objects
+
+
+  }
+
   render() {
+
+    // let testConversation = this.getThread()
+
     return (
       <ConverationContainer>
         <Heading>Balls</Heading>
         <Conversation>
           <div>Hello I'm Conversations placeholder</div>
+          <button onClick={e=>this.getThread(e)}></button>
         </Conversation>
         <Threads>
           <div>Hello I'm Thread Placeholder</div>
+          {/* <Thread message={this.state.selectedConversation || ""}/> */}
         </Threads>
       </ConverationContainer>
     );
