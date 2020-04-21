@@ -6,8 +6,9 @@ import {Loader} from '../spinner/spinner'
 
 const ConverationContainer = styled.div`
   margin: 10px auto;
+  max-height: 80vh;
   width: 80vw;
-  height: 80vh;
+  height: 60vh;
   /* border: 1px solid black; */
   display: grid;
   grid-template-columns: 1fr 2fr 3fr 1fr;
@@ -16,12 +17,14 @@ const ConverationContainer = styled.div`
     ". heading heading ."
     " . conversationList thread . "
     " . conversationList input . ";
+
 `;
 
 const Conversation = styled.div`
   grid-area: conversationList;
   border: 1px solid lightgray;
   background-color: #fff;
+  max-height: 60vh;
 `;
 
 const Threads = styled.div`
@@ -29,7 +32,8 @@ const Threads = styled.div`
   border: 1px solid lightgray;
   padding: 5px;
   background-color: #fff;
-  height: 100%;
+  max-height: 50vh;
+  overflow-y: auto;
 `;
 
 const Heading = styled.div`
@@ -83,6 +87,20 @@ const MessageInput = styled.input`
   border: none;
   height: 100%;
   padding: 5px;
+`
+
+export const SubmitButton = styled.button`
+    justify-self: flex-end;
+    position:absolute;
+    right: 0px;
+    background-color: #0066FF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    /* margin: 10px 5px 0px 0px; */
+    height: 49px;
+    width: 80px;
+    
 `
 
 export class Conversations extends React.Component {
@@ -195,7 +213,7 @@ export class Conversations extends React.Component {
                 placeholder="Type to Chat"
                 onChange={(e) => this.handleChange(e)}
                 value={this.state.messageResponse}/>
-              <button style={{justifySelf: "flex-end", position:"absolute", right:"0px"}} onClick={() => this.handleMessage()}>Send</button>
+              <SubmitButton  onClick={() => this.handleMessage()}>Send</SubmitButton>
             
             </StyledInputDiv>
         </ConverationContainer>

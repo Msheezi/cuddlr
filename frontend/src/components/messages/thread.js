@@ -1,6 +1,6 @@
 import React from "react";
-import {  getThreadByConvoId, postMessage } from "../../util/messages_util";
-import { StyledInputDiv, ThreadContainer, MessageWindow } from './threadStyles'
+import {  getThreadByConvoId } from "../../util/messages_util";
+import { ThreadContainer, MessageWindow, MessageBubble } from './threadStyles'
 
 
 class Thread extends React.Component{
@@ -43,10 +43,19 @@ class Thread extends React.Component{
   render() {
     let messages
     if (this.state.loaded){
-       messages = this.state.messages.map(messageObj=> (
-
-        <div key={messageObj._id}>{messageObj.content}</div>
-      ))
+      //  messages = this.state.messages.map(messageObj=> (
+      //   //assign a align self direction based on the user id
+      //    <MessageBubble key={messageObj._id}>{messageObj.content}</MessageBubble>
+      // ))
+       messages = this.state.messages.map(messageObj=> {
+          let alignment = messageObj.senderId === this.props.currentUser ? "flex-end" : "flex-start"
+         let color = messageObj.senderId === this.props.currentUser ? "#58A4B0" : "#D8DBE2"
+          //assign a align self direction based on the user id
+          return (
+            <MessageBubble color={color} alignment={alignment} key={messageObj._id}>{messageObj.content}</MessageBubble>
+          )
+        }
+         )
        
     }
 
