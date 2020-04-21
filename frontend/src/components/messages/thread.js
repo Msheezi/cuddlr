@@ -1,5 +1,16 @@
 import React from "react";
 import {  getThreadByConvoId, postMessage } from "../../util/messages_util";
+import styled from 'styled-components'
+
+const StyledInputDiv = styled.div`
+  width: 100%;
+  height: 56px;
+  border-radius: 4px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.3s all;
+
+`;
 
 
 class Thread extends React.Component{
@@ -27,11 +38,7 @@ class Thread extends React.Component{
       })
     }
 
-    if (this.state.rerender){
-      getThreadByConvoId(this.props.conversationId).then((convoList) => {
-        this.setState({ messages: convoList.data, loaded: true, rerender:false });
-      });
-    }
+    
   }
 
 
@@ -70,7 +77,7 @@ class Thread extends React.Component{
     return (
       <div>
         {messages}
-        <div>
+        <StyledInputDiv>
           <input
             style={{ width: "100%" }}
             placeholder="Type to Chat"
@@ -78,7 +85,7 @@ class Thread extends React.Component{
             value={this.state.messageResponse}
           />
           <button onClick={() => this.handleMessage()}>Send</button>
-        </div>
+        </StyledInputDiv>
       </div>
     );
   }
