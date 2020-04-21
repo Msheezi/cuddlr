@@ -12,7 +12,7 @@ const MessagesReducer = (state ={}, action) => {
             return Object.assign({}, state, newState)
         case RECEIVE_MESSAGE:
             newState = Object.assign({}, state)
-            newState[action.data.message._id] = action.message;
+            newState[action.message.data._id] = action.message.data;
         case RECEIVE_THREAD: 
 
         default: 

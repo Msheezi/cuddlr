@@ -14,29 +14,16 @@ const User = require("../models/user")
 // find conversations where userID is in participants array,
 // then retrieve messages by conversation
 
+// get list of conversations user is a part of by finding docs with this
+// current users id
+ // on load, get a list of all users they have conversations with and store in 
+// redux with the profile pick link and user name, match to users in the messages
+// component, prevents a rough backend creation here
 router.get("/conversations/:userId", (req, res) => {
-  // console.log(req.body)
-  // get list of conversations user is a part of by finding docs with this
-  // current users id
   let id = req.params.userId;
-  // use Id to get the current users details
-  // for each conversation, build and insert and obj
-
-  // on load, get a list of all users they have conversations with and store in 
-  // redux with the profile pick link and user name, match to users in the messages
-  // component, prevents a rough backend creation here
-  let participantDetails = {}
   Conversation.find({ "participants": id },{"_id": 1, "participants": 1})
   .then((convo) => res.json(convo));
-  // have conversation list, now want to include the username, 
-  //and profile url for each user in the response
-
-  // {participants: [], _id: "", participantDetails: {id1{ }}}
-
-  // want to append this to each detail in participant
-  // participantDetails: { 
-  //   id1:{username: username, mainProfilePic: "" } 
-  // }
+  
 
 });
 
@@ -51,13 +38,13 @@ router.get("/conversations/threads/:convoId", (req, res) => {
     }).then((threads) => res.json(threads));
 });
 
-router.post("/posttest", (req, res) => {
-  // let id = req.params.id
-  // console.log(req.body)
+// router.post("/posttest", (req, res) => {
+//   // let id = req.params.id
+//   // console.log(req.body)
 
-  let newConversation = new Conversation(req.body);
-  newConversation.save().then((conversation) => res.json(conversation));
-});
+//   let newConversation = new Conversation(req.body);
+//   newConversation.save().then((conversation) => res.json(conversation));
+// });
 
 //get conversation threads
 
@@ -117,11 +104,45 @@ router.post("/postmessage", (req, res) => {
 
 
 
-router.post("/threads/:id", (req, res) => {
-  // let id = req.params.id
-  let newMessage = new Message(req.body);
-  newMessage.save().then((message) => res.json(message));
-});
+// router.post("/threads/:id", (req, res) => {
+//   // let id = req.params.id
+//   let newMessage = new Message(req.body);
+//   newMessage.save().then((message) => res.json(message));
+// });
+
+
+
+
+
+// use this to load the redux state when going to messages page,
+// this will allow me to get relevant data into the sidebar
+router.get("/messagedUsers/:id", (req, res) => {
+  let currentUser = req.params.id
+  // username, profilephoto, _id 
+  // { "_id": 1, "username": 1, "mainProfilePic": 1 }
+  const userList = []
+  Conversation.find({ "participants": currentUser }, { "participants": 1 }, function(err, docs){
+    docs.forEach(({ participants }) => {
+      participants.forEach(el => {
+        if (el !== currentUser) {
+          userList.push(el)
+        }
+      })
+    })
+    User.find({ "_id": userList }, { "username": 1, "mainProfilePic": 1,})
+    .then(users => res.json(users))
+  }) 
+    // .then(userListArray => {
+    //   userListArray
+    //   // res.send(userList)console.log(userList)
+    })
+
+
+
+
+
+module.exports = router;
+
 
 
 // router.get("/messagedUsers", (req, res)=>{
@@ -143,36 +164,4 @@ router.post("/threads/:id", (req, res) => {
 //     User.find({"_id": userList},{"username": 1, "mainProfilePic": 1, "_id": 1})
 //   })
 //   .then(users => res.json(users))
-    
-
-
 // })
-// use this to load the redux state when going to messages page,
-// this will allow me to get relevant data into the sidebar
-router.get("/messagedUsers", (req, res) => {
-  let currentUser = req.body.currentUser
-  // username, profilephoto, _id 
-  // { "_id": 1, "username": 1, "mainProfilePic": 1 }
-  const userList = []
-  Conversation.find({ "participants": currentUser }, { "participants": 1 }, function(err, docs){
-    docs.forEach(({ participants }) => {
-      participants.forEach(el => {
-        if (el !== currentUser) {
-          userList.push(el)
-        }
-      })
-    })
-    console.log(userList)
-    User.find({ "_id": userList }, { "username": 1, "mainProfilePic": 1,})
-    .then(users => res.json(users))
-  }) 
-    // .then(userListArray => {
-    //   userListArray
-    //   // res.send(userList)console.log(userList)
-    })
-
-
-
-
-
-module.exports = router;

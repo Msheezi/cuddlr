@@ -7,7 +7,9 @@ class Thread extends React.Component{
     super(props)
 
     this.state ={
-      loaded: false
+      loaded: false,
+      messageResponse: "",
+      rerender: false
     }
   }
 
@@ -17,13 +19,42 @@ class Thread extends React.Component{
     })
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps, prevState){
     if (this.props.conversationId !== prevProps.conversationId){
 
       getThreadByConvoId(this.props.conversationId).then(convoList => {
         this.setState({ messages: convoList.data, loaded: true })
       })
     }
+
+    if (this.state.rerender){
+      getThreadByConvoId(this.props.conversationId).then((convoList) => {
+        this.setState({ messages: convoList.data, loaded: true, rerender:false });
+      });
+    }
+  }
+
+
+  handleMessage(){
+    if (this.state.messageResponse !== ""){
+
+      let message = {
+        id1: this.props.participants[0],
+        id2: this.props.participants[1],
+        senderId: this.props.currentUser,
+        content: this.state.messageResponse
+      }
+      
+      this.props.postMessage(message)
+      .then(()=> getThreadByConvoId(this.props.conversationId))
+      .then((convoList) => {
+        this.setState({ messages: convoList.data, loaded: true, rerender:false, messageResponse:"" })
+      
+    })}}
+  
+
+  handleChange(e){
+    this.setState({messageResponse: e.target.value})
   }
 
   render() {
@@ -38,10 +69,18 @@ class Thread extends React.Component{
 
     return (
       <div>
-      {messages}
-
+        {messages}
+        <div>
+          <input
+            style={{ width: "100%" }}
+            placeholder="Type to Chat"
+            onChange={(e) => this.handleChange(e)}
+            value={this.state.messageResponse}
+          />
+          <button onClick={() => this.handleMessage()}>Send</button>
+        </div>
       </div>
-    )
+    );
   }
 }
 

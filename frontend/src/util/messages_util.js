@@ -10,5 +10,9 @@ export const getThreadByConvoId = (id)=> {
 }
 
 export const postMessage = (data)=> {
-  return axios.post(`/messages/postmessage`)
+  return axios.post(`/messages/postmessage`, data)
+}
+
+export const getMessagedUsers = (id) => {
+  return axios.get(`/messages/messagedUsers/${id}`)
 }

@@ -55,7 +55,8 @@ export class Conversations extends React.Component {
   // conversation.data is an array of objects
 
     let userId = this.props.currentUserId;
-    this.props.fetchConversations(userId)
+     this.props.fetchConversations(userId)
+     this.props.fetchMessagedUsers(userId)
     .then(() => this.setState({
       loaded: true,
       selectedConversation: this.props.messages[0]._id
@@ -68,34 +69,49 @@ export class Conversations extends React.Component {
   }
 
   renderConversation() {
-    let convoRender = this.props.messages.map(convoObj => (
+    
+    let convoRender = this.props.messages.map(convoObj => {
+    // get the particpants array and find the value that doesn't match the current user
+      let otherUser = convoObj.participants.filter(id => id !== this.props.currentUserId).join()
+      let convoId = convoObj._id
+      return (
+
       <ConversationItem
-       key={convoObj._id} 
-       onClick={()=>this.handleClick(convoObj._id)} >
-         {convoObj._id}
+        key = {convoId} 
+        name={convoId}
+          onClick = {(e) => this.handleClick(convoId)} >
+            <img style={{height: "40px", marginTop: "5px"}} src={this.props.messagedUsers[otherUser].mainProfilePic}/>
+          {this.props.messagedUsers[otherUser].username}
       </ConversationItem>
-    ))
+        )
+    }
+    )
     return convoRender
   }
     
   render() {
 
     // let testConversation = this.getThread()
+    
     if (this.state.loaded){
-
-      return (
+        let threadParticipants = this.props.messages.filter(obj=>obj._id === this.state.selectedConversation)
+        return (
         <ConverationContainer>
-        <Heading>Balls</Heading>
-        <Conversation>
-          {this.renderConversation()}
-        </Conversation>
-        <Threads>
-          <div>Hello I'm Thread Placeholder</div>
-          <Thread conversationId={this.state.selectedConversation}/>
-          {/* <Thread message={this.state.selectedConversation || ""}/> */}
-        </Threads>
-      </ConverationContainer>
-    );
+          <Heading>Balls</Heading>
+          <Conversation>{this.renderConversation()}</Conversation>
+          <Threads>
+            <div>Hello I'm Thread Placeholder</div>
+            <Thread
+              conversationId={this.state.selectedConversation}
+              participants={threadParticipants[0].participants}
+              id1={this.props.messages.participants}
+              postMessage={this.props.postMessage}
+              currentUser={this.props.currentUserId}
+            />
+            {/* <Thread message={this.state.selectedConversation || ""}/> */}
+          </Threads>
+        </ConverationContainer>
+      );
   } else {
       return <Loader />;
   }
