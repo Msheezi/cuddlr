@@ -11,10 +11,11 @@ const ConverationContainer = styled.div`
   /* border: 1px solid black; */
   display: grid;
   grid-template-columns: 1fr 2fr 3fr 1fr;
-  grid-template-rows: 50px auto;
+  grid-template-rows: 50px auto 50px;
   grid-template-areas:
     ". heading heading ."
-    " . conversationList thread . ";
+    " . conversationList thread . "
+    " . conversationList input . ";
 `;
 
 const Conversation = styled.div`
@@ -28,6 +29,7 @@ const Threads = styled.div`
   border: 1px solid lightgray;
   padding: 5px;
   background-color: #fff;
+  height: 100%;
 `;
 
 const Heading = styled.div`
@@ -56,7 +58,32 @@ const AvatarText = styled.p`
    vertical-align: center; 
 `;
 
+export const StyledInputDiv = styled.div`
+  grid-area: input;
+  display:flex;
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid lightgray;
+  /* height: 56px; */
+  border-radius: 4px;
+  position: relative;
+  justify-self: baseline;
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  transition: 0.3s all;
+  box-sizing: border-box;
 
+`;
+
+const MessageInput = styled.input`
+  width: 80%;
+  position: absolute;
+  bottom: 0px;
+  box-sizing: border-box;
+  border: none;
+  height: 100%;
+  padding: 5px;
+`
 
 export class Conversations extends React.Component {
   constructor(props) {
@@ -65,24 +92,53 @@ export class Conversations extends React.Component {
     this.state = {
       selectedConversation: "",
       loaded: false,
+      messageResponse: "",
+      
     };
   }
 
-    componentDidMount() {
+   async componentDidMount() {
   // conversation.data is an array of objects
 
     let userId = this.props.currentUserId;
      this.props.fetchConversations(userId)
      this.props.fetchMessagedUsers(userId)
+    //  let messages = await getThreadByConvoId(this.props.messages[0]._id)
     .then(() => this.setState({
       loaded: true,
-      selectedConversation: this.props.messages[0]._id
+      selectedConversation: this.props.messages[0]._id,
+      participants: this.props.messages[0].participants,
+      // messages: messages
     }))
       
   }
 
+  handleChange(e) {
+    this.setState({ messageResponse: e.target.value })
+  }
   handleClick(value){
-    this.setState({selectedConversation: value})
+    let conversation = this.props.messages.filter(objs => objs._id === value)
+    let participants = conversation[0].participants
+    this.setState({selectedConversation: value, participants: participants})
+  }
+
+
+  handleMessage() {
+    if (this.state.messageResponse !== "") {
+      let message = {
+        id1: this.state.participants[0],
+        id2: this.state.participants[1],
+        senderId: this.props.currentUserId,
+        content: this.state.messageResponse
+      }
+
+      this.props.postMessage(message)
+        .then(() => getThreadByConvoId(this.state.selectedConversation))
+        .then((convoList) => {
+          this.setState({ messages: convoList.data, loaded: true, rerender: false, messageResponse: "" })
+
+        })
+    }
   }
 
   renderConversation() {
@@ -123,6 +179,7 @@ export class Conversations extends React.Component {
           <Threads>
             
             <Thread
+              messages={this.state.messages}
               conversationId={this.state.selectedConversation}
               participants={threadParticipants[0].participants}
               id1={this.props.messages.participants}
@@ -131,6 +188,16 @@ export class Conversations extends React.Component {
             />
             {/* <Thread message={this.state.selectedConversation || ""}/> */}
           </Threads>
+            <StyledInputDiv>
+              
+              <MessageInput
+               
+                placeholder="Type to Chat"
+                onChange={(e) => this.handleChange(e)}
+                value={this.state.messageResponse}/>
+              <button style={{justifySelf: "flex-end", position:"absolute", right:"0px"}} onClick={() => this.handleMessage()}>Send</button>
+            
+            </StyledInputDiv>
         </ConverationContainer>
       );
   } else {
