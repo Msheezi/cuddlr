@@ -32,13 +32,21 @@ const Heading = styled.div`
   text-align: center;
 `;
 
+const ConversationItem = styled.div`
+  height: 50px;
+  border: 1px solid blue;
+  &:hover{
+    transition: background-color 0.15s ease-in;
+    background-color: lightgray;
+  }
+`
+
 export class Conversations extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       selectedConversation: "",
-      // selectedConversation: "5e9c91f29e42a21519b4e8d0",
       loaded: false,
     };
   }
@@ -61,7 +69,11 @@ export class Conversations extends React.Component {
 
   renderConversation() {
     let convoRender = this.props.messages.map(convoObj => (
-      <div name={convoObj._id} key={convoObj._id} onClick={()=>this.handleClick(convoObj._id)}>{convoObj._id}</div>
+      <ConversationItem
+       key={convoObj._id} 
+       onClick={()=>this.handleClick(convoObj._id)} >
+         {convoObj._id}
+      </ConversationItem>
     ))
     return convoRender
   }
@@ -75,9 +87,7 @@ export class Conversations extends React.Component {
         <ConverationContainer>
         <Heading>Balls</Heading>
         <Conversation>
-          <div>Hello I'm Conversations placeholder</div>
           {this.renderConversation()}
-          <button onClick={e=>this.getThread(e)}></button>
         </Conversation>
         <Threads>
           <div>Hello I'm Thread Placeholder</div>
