@@ -8,7 +8,7 @@ const ConverationContainer = styled.div`
   margin: 10px auto;
   width: 80vw;
   height: 80vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: grid;
   grid-template-columns: 1fr 2fr 3fr 1fr;
   grid-template-rows: 50px auto;
@@ -19,12 +19,15 @@ const ConverationContainer = styled.div`
 
 const Conversation = styled.div`
   grid-area: conversationList;
-  border: 1px solid green;
+  border: 1px solid lightgray;
+  background-color: #fff;
 `;
 
 const Threads = styled.div`
   grid-area: thread;
-  border: 1px solid red;
+  border: 1px solid lightgray;
+  padding: 5px;
+  background-color: #fff;
 `;
 
 const Heading = styled.div`
@@ -34,12 +37,26 @@ const Heading = styled.div`
 
 const ConversationItem = styled.div`
   height: 50px;
-  border: 1px solid blue;
+
+  border-bottom: 1px solid lightgray;
   &:hover{
     transition: background-color 0.15s ease-in;
     background-color: lightgray;
   }
 `
+
+const AvatarImage = styled.img`
+height: 40px; 
+margin: 5px;
+vertical-align: middle;
+
+`
+const AvatarText = styled.p`
+   display: inline; 
+   vertical-align: center; 
+`;
+
+
 
 export class Conversations extends React.Component {
   constructor(props) {
@@ -75,15 +92,19 @@ export class Conversations extends React.Component {
       let otherUser = convoObj.participants.filter(id => id !== this.props.currentUserId).join()
       let convoId = convoObj._id
       return (
-
-      <ConversationItem
-        key = {convoId} 
-        name={convoId}
-          onClick = {(e) => this.handleClick(convoId)} >
-            <img style={{height: "40px", marginTop: "5px"}} src={this.props.messagedUsers[otherUser].mainProfilePic}/>
-          {this.props.messagedUsers[otherUser].username}
-      </ConversationItem>
-        )
+        <ConversationItem
+          key={convoId}
+          name={convoId}
+          onClick={(e) => this.handleClick(convoId)}
+        >
+          <AvatarImage
+            src={this.props.messagedUsers[otherUser].mainProfilePic}
+          />
+          <AvatarText>
+            {this.props.messagedUsers[otherUser].username}
+          </AvatarText>
+        </ConversationItem>
+      );
     }
     )
     return convoRender
@@ -97,10 +118,10 @@ export class Conversations extends React.Component {
         let threadParticipants = this.props.messages.filter(obj=>obj._id === this.state.selectedConversation)
         return (
         <ConverationContainer>
-          <Heading>Balls</Heading>
+          <Heading>Message Center</Heading>
           <Conversation>{this.renderConversation()}</Conversation>
           <Threads>
-            <div>Hello I'm Thread Placeholder</div>
+            
             <Thread
               conversationId={this.state.selectedConversation}
               participants={threadParticipants[0].participants}
