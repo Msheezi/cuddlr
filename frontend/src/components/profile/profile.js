@@ -277,7 +277,7 @@ export class Profile extends React.Component {
           </ProfileDescripton>
 
           <Likes>
-            <LikeButton onClick={e=> this.handleLike(e)}color="red">Like {profileData.username}</LikeButton>
+            <LikeButton onClick={e => this.handleLike(e)} color="#DC7F6C" hover="#C44536">Like {profileData.username}</LikeButton>
           </Likes>
           <Spacer />
           {this.renderCruds()}

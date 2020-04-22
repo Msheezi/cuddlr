@@ -10,22 +10,38 @@ const Screen = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
+  z-index:2;
+
 `
 
 const ModalContainer = styled.div`
   position: fixed;
   background: white;
-  width: 90%;
-  height: 90%;
+  width: 400px;
+  height: 200px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-items:center;
+  align-items: center;
 `
 
-const MessageBox = styled.input`
+const MessageBox = styled.textarea`
+    margin: 5% auto;
+    height: 50%;
+    width:80%;
 
 `
-
+const MessageButton = styled.button`
+    width: 50px;
+    background-color: #0066FF;
+    color: #fff;
+    border: none;
+    border-radius: 5px; 
+    align-self: center;
+`
 
 class MessageModal extends React.Component{
     constructor(props){
@@ -79,7 +95,7 @@ class MessageModal extends React.Component{
                         value={this.state.messageResponse}
                         onChange={(e)=>this.handleChange(e)}
                         placeholder="Type your message here"/>
-                        <button onClick={(e)=>this.handleMessage(e)}>Send</button>
+                        <MessageButton onClick={(e) => this.handleMessage(e)}>Send</MessageButton>
                     </ModalContainer>
                 </Screen>
 

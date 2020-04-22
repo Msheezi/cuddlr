@@ -43,7 +43,7 @@ const Heading = styled.div`
 
 const ConversationItem = styled.div`
   height: 50px;
-
+  cursor:pointer;
   border-bottom: 1px solid lightgray;
   &:hover{
     transition: background-color 0.15s ease-in;
@@ -100,6 +100,7 @@ export const SubmitButton = styled.button`
     /* margin: 10px 5px 0px 0px; */
     height: 49px;
     width: 80px;
+    cursor: pointer;
     
 `
 

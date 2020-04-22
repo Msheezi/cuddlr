@@ -105,8 +105,8 @@ export const ProfileButtons = styled.button`
   /* width: 50%; */
   height: 40px;
   /* margin: 10px auto; */
-  color: "#fff";
-  background-color: ${(props) => props.color || "#28a745"};
+  color: white;
+  background-color: ${(props) => props.color || "#0066FF"};
   /* background-color: #28a745; */
   border-color: #28a745;
   display: block;
@@ -124,7 +124,7 @@ export const ProfileButtons = styled.button`
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   &:hover {
     color: #fff;
-    background-color: #218838;
+    background-color: ${props => props.hover || "#218838"};
     border-color: #1e7e34;
   }
 `;
