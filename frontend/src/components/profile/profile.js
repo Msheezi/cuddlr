@@ -44,14 +44,14 @@ export class Profile extends React.Component {
   async componentDidMount() {
     let id = this.props.match.params.id;
 
-    let profile = await getProfile(id)
-    let pics = await getProfilePics(id)
+    let profile = await getProfile(id);
+    let pics = await getProfilePics(id);
 
     this.setState({
       user: profile.data[0],
       pics: pics.data,
-      loaded: true
-    })
+      loaded: true,
+    });
 
     // getProfile(id)
     //   .then((profile) => this.setState({ user: profile.data[0] }))
@@ -63,16 +63,15 @@ export class Profile extends React.Component {
     // added component did update to resolve bug where nav bar "My Profile" button, when already
     // on a profile was not triggering a re-render with the new data
     let id = this.props.match.params.id;
-    if (prevProps.match.params.id !== id){
+    if (prevProps.match.params.id !== id) {
+      let profile = await getProfile(id);
+      let pics = await getProfilePics(id);
 
-      let profile = await getProfile(id)
-      let pics = await getProfilePics(id)
-      
       this.setState({
         user: profile.data[0],
         pics: pics.data,
-        loaded: true
-      })
+        loaded: true,
+      });
     }
 
     // if (prevProps.match.params.id !== id) {
@@ -120,13 +119,11 @@ export class Profile extends React.Component {
     this.enable();
   }
 
-  handleLike(e){
-    let userId =  this.props.currentUserId
-    let likee = this.props.match.params.id 
-    let obj = {"userId": userId,
-                "likedUserId": likee
-                }
-              likeUser(obj)
+  handleLike(e) {
+    let userId = this.props.currentUserId;
+    let likee = this.props.match.params.id;
+    let obj = { userId: userId, likedUserId: likee };
+    likeUser(obj);
   }
 
   renderCruds() {
@@ -180,10 +177,7 @@ export class Profile extends React.Component {
   render() {
     let profileData = this.state.user;
 
-
-    
     if (this.state.loaded) {
-      
       //imgUrls, this is array of images provided to carousel component
       // if no pics are retrived in DidMount, display blank pic
       // if pics are retrieved, filter the results to remove the main pic
@@ -191,14 +185,13 @@ export class Profile extends React.Component {
       let imgUrls =
         this.state.pics.length === 0
           ? ["https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp"]
-          : this.state.pics.filter((imgObj) => {
-              return imgObj.pictureUrl !== profileData.mainProfilePic
-            }
-          ).map(objs=> objs.pictureUrl)
-          
-          imgUrls.unshift(profileData.mainProfilePic)
+          : this.state.pics
+              .filter((imgObj) => {
+                return imgObj.pictureUrl !== profileData.mainProfilePic;
+              })
+              .map((objs) => objs.pictureUrl);
 
-         
+      imgUrls.unshift(profileData.mainProfilePic);
 
       return (
         <ProfileContainer>
@@ -229,8 +222,8 @@ export class Profile extends React.Component {
                 onChange={(e) => this.handleInput(e)}
               >
                 <option value="Spoon">Spoon</option>
-                <option value="Loom">Loom </option>
-                <option value="Boom"> Boom</option>
+                <option value="halfSpoon">Half Spoon</option>
+                <option value="legHug"> Leg Hug</option>
               </StyledSelect>
             </ProfileText>
             <ProfileText>
@@ -244,7 +237,7 @@ export class Profile extends React.Component {
               >
                 <option value="Big Spoon">Big Spoon</option>
                 <option value="Little Spoon">Little Spoon</option>
-                <option value="There Is No Spoon">There Is No Spoon</option>
+                <option value="There Is No Spoon">Whatever Feels Right</option>
               </StyledSelect>
             </ProfileText>
 
@@ -277,7 +270,13 @@ export class Profile extends React.Component {
           </ProfileDescripton>
 
           <Likes>
-            <LikeButton onClick={e => this.handleLike(e)} color="#DC7F6C" hover="#C44536">Like {profileData.username}</LikeButton>
+            <LikeButton
+              onClick={(e) => this.handleLike(e)}
+              color="#DC7F6C"
+              hover="#C44536"
+            >
+              Like {profileData.username}
+            </LikeButton>
           </Likes>
           <Spacer />
           {this.renderCruds()}
