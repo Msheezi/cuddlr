@@ -2,7 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const db = require("./config/keys_prod").mongoURI;
+const db = require("./config/keys").mongoURI;
 const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
 const passport = require("passport");
