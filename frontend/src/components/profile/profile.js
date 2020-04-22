@@ -155,7 +155,7 @@ export class Profile extends React.Component {
     } else {
       return (
         <CrudButtons>
-          <ProfileButtons>
+          <ProfileButtons onClick={this.props.openModal}>
             {`Contact ${this.state.user.username} `}
           </ProfileButtons>
         </CrudButtons>

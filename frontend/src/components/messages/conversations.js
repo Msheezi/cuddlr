@@ -172,7 +172,7 @@ export class Conversations extends React.Component {
           onClick={(e) => this.handleClick(convoId)}
         >
           <AvatarImage
-            src={this.props.messagedUsers[otherUser].mainProfilePic}
+            src={this.props.messagedUsers[otherUser].mainProfilePic || "https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp" }
           />
           <AvatarText>
             {this.props.messagedUsers[otherUser].username}
