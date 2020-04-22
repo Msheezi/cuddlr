@@ -1,9 +1,11 @@
 /node_modules
 /config/keys.js
+/config/keys_dev.js
 /schema.txt
 
 /awskeys
 /.env
 /routes/removedcodebutreference.js
+
 
 /frontend/node_modules
