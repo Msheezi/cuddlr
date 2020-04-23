@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
       dob: "",
       email: "",
       hzip: "",
-      errors: {}
+      errors: {},
     };
     this.handleSignup = this.handleSignup.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -69,11 +69,41 @@ class LoginForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.signedIn === true) {
-      this.props.history.push("/login");
+      this.props.history.push("/");
     }
 
     // Set or clear errors
     this.setState({ errors: nextProps.errors });
+  }
+
+  async demoLogin(e) {
+    e.preventDefault();
+
+    const demoUser = {
+      username: "mango20",
+      password: "password",
+    };
+
+    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+    document.getElementById("username").focus();
+    for (let i = 1; i <= demoUser.username.length; i++) {
+      this.setState({ username: demoUser.username.substr(0, i) });
+      await sleep(50);
+    }
+
+    await sleep(250);
+
+    document.getElementById("password").focus();
+    for (let i = 1; i <= demoUser.password.length; i++) {
+      this.setState({ password: demoUser.password.substr(0, i) });
+      await sleep(50);
+    }
+
+    await sleep(250);
+
+    document.getElementById("submit").click();
+    document.getElementById("password").blur();
   }
 
   //   componentDidUpdate(prevProps) {
@@ -84,9 +114,9 @@ class LoginForm extends React.Component {
   //   }
 
   update(field) {
-    return e =>
+    return (e) =>
       this.setState({
-        [field]: e.currentTarget.value
+        [field]: e.currentTarget.value,
       });
   }
 
@@ -95,7 +125,7 @@ class LoginForm extends React.Component {
 
     let user = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
     };
 
     this.props.login(user);
@@ -109,7 +139,7 @@ class LoginForm extends React.Component {
       password2: this.state.password2,
       dob: this.state.dob,
       email: this.state.email,
-      homeZip: this.state.hzip
+      homeZip: this.state.hzip,
     };
 
     this.props.signup(user);
@@ -136,6 +166,7 @@ class LoginForm extends React.Component {
           <InputField
             type="text"
             name="username"
+            id="username"
             onChange={this.update("username")}
             value={this.state.username}
           />
@@ -143,12 +174,17 @@ class LoginForm extends React.Component {
           <InputField
             type="password"
             name="password"
+            id="password"
             onChange={this.update("password")}
             value={this.state.password}
           />
-          <button type="submit">Login</button>
+          <button type="submit" id="submit">
+            Login
+          </button>
           {this.renderErrors()}
         </FormContainer>
+        <button onClick={(e) => this.demoLogin(e)}>Demo Login</button>
+
         <LoginRegister>
           Don't Have an Account? <Link to="/register">Register</Link>
         </LoginRegister>
