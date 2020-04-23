@@ -1,4 +1,3 @@
-import React from "react";
 import { connect } from "react-redux";
 import MessageModal from "./messageModal";
 import { openModal, closeModal } from "../../actions/ui_actions";
