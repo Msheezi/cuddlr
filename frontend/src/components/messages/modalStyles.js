@@ -29,6 +29,7 @@ export const MessageBox = styled.textarea`
     margin: 5% auto;
     height: 50%;
     width:80%;
+    resize: none;
 
 `
 export const MessageButton = styled.button`

@@ -3,6 +3,7 @@ import {
   RECEIVE_CONVERSATIONS,
   //   RECEIVE_THREAD,
 } from "../actions/message_actions";
+import { RECEIVE_USER_LOGOUT} from '../actions/session_actions'
 
 const MessagesReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -16,6 +17,9 @@ const MessagesReducer = (state = {}, action) => {
       newState = Object.assign({}, state);
       newState[action.message.data._id] = action.message.data;
     // case RECEIVE_THREAD:
+    case RECEIVE_USER_LOGOUT:
+      newState= {}
+      return newState
 
     default:
       return state;

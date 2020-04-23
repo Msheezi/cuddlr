@@ -34,14 +34,23 @@ export class Conversations extends React.Component {
       // Update store with: messaged users and all conversations
       // set state with the first conversation in the list
       // need the case for no values
-    let userId = this.props.currentUserId;
-     this.props.fetchConversations(userId)
-     this.props.fetchMessagedUsers(userId)
-    .then(() => this.setState({
-      loaded: true,
-      selectedConversation: this.props.messages[0]._id,
-      participants: this.props.messages[0].participants,
-    }))
+      let userId = this.props.currentUserId;
+      this.props.fetchConversations(userId)
+      this.props.fetchMessagedUsers(userId)
+      .then(() =>{
+        
+        if (this.props.userMessaged){
+  
+           this.setState({
+            loaded: true,
+            selectedConversation: this.props.messages[0]._id,
+            participants: this.props.messages[0].participants,
+          })
+        } 
+        else {
+          this.setState({ loaded: true})
+        }
+      })
       
   }
 
@@ -77,20 +86,21 @@ export class Conversations extends React.Component {
   }
 
   renderConversation() {
-    
-    let convoRender = this.props.messages.map(convoObj => {
-    // get the particpants array and find the value that doesn't match the current user
-      let otherUser = convoObj.participants.filter(id => id !== this.props.currentUserId).join()
-      let convoId = convoObj._id
-      return (
-        <ConversationItem
+    if (this.props.userMessaged) {
+       
+      let convoRender = this.props.messages.map(convoObj => {
+        // get the particpants array and find the value that doesn't match the current user
+        let otherUser = convoObj.participants.filter(id => id !== this.props.currentUserId).join()
+        let convoId = convoObj._id
+        return (
+          <ConversationItem
           key={convoId}
           name={convoId}
           onClick={(e) => this.handleClick(convoId)}
-        >
+          >
           <AvatarImage
             src={this.props.messagedUsers[otherUser].mainProfilePic || "https://cuddlr-dev.s3-us-west-1.amazonaws.com/blankpic.webp" }
-          />
+            />
           <AvatarText>
             {this.props.messagedUsers[otherUser].username}
           </AvatarText>
@@ -99,14 +109,30 @@ export class Conversations extends React.Component {
     }
     )
     return convoRender
-  }
+  } else {
+    
+    return (
+      <ConversationItem>
+        <AvatarText>Contact A User to See</AvatarText>
+      </ConversationItem>
+    )
+  }}
     
   render() {
 
     if (this.state.loaded){
-        let threadParticipants = this.props.messages.filter(obj=>obj._id === this.state.selectedConversation)
+      //If no participants, want to render the empty messaging box, else render the messages
+      let threadParticipants
+      let participants 
+      if (this.state.userMessaged){
+          threadParticipants = this.props.messages.filter(obj=>obj._id === this.state.selectedConversation)
+          participants = threadParticipants[0].participants
+        } else {
+        participants=[]
+      }
+
         return (
-        <ConverationContainer>
+          <ConverationContainer>
           <Heading>Message Center</Heading>
           <Conversation>{this.renderConversation()}</Conversation>
           <Threads>
@@ -114,25 +140,27 @@ export class Conversations extends React.Component {
             <Thread
               messages={this.state.messages}
               conversationId={this.state.selectedConversation}
-              participants={threadParticipants[0].participants}
+              // participants={threadParticipants[0].participants}
+              participants={participants}
               id1={this.props.messages.participants}
               postMessage={this.props.postMessage}
               currentUser={this.props.currentUserId}
-            />
+              />
             {/* <Thread message={this.state.selectedConversation || ""}/> */}
           </Threads>
             <StyledInputDiv>
               
               <MessageInput
                
-                placeholder="Type to Chat"
-                onChange={(e) => this.handleChange(e)}
-                value={this.state.messageResponse}/>
+               placeholder="Type to Chat"
+               onChange={(e) => this.handleChange(e)}
+               value={this.state.messageResponse}/>
               <SubmitButton  onClick={() => this.handleMessage()}>Send</SubmitButton>
             
             </StyledInputDiv>
         </ConverationContainer>
-      );
+      )
+    
   } else {
       return <Loader />;
   }

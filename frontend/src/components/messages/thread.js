@@ -64,15 +64,7 @@ class Thread extends React.Component{
         <MessageWindow>
           {messages}
         </MessageWindow>
-        {/* <StyledInputDiv>
-          <input
-            style={{ width: "100%" }}
-            placeholder="Type to Chat"
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.messageResponse}
-          />
-          <button onClick={() => this.handleMessage()}>Send</button>
-        </StyledInputDiv> */}
+        
       </ThreadContainer>
     );
   }

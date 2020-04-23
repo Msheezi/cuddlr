@@ -5,6 +5,7 @@ import MessagesReducer from './messages_reducer'
 import MessagedUsersReducer from './messagedUsers_reducer'
 import uiReducer from './ui_reducer'
 
+
 const RootReducer = combineReducers({
     session,
     errors,
