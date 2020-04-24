@@ -35,6 +35,7 @@ export const Threads = styled.div`
 export const Heading = styled.div`
   grid-area: heading;
   text-align: center;
+  font-size: 22pt;
 `;
 
 export const ConversationItem = styled.div`

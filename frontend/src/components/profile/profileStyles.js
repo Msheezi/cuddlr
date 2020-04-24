@@ -27,8 +27,9 @@ export const ProfileHeader = styled.h2`
   text-align: center;
   /* width: 100%; */
   font-size: 22pt;
-  /* border-radius: 0.25rem; */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+  font-weight: 300;
   /* margin: 10px; */
   /* box-sizing: border-box; */
   /* background-color: white; */
@@ -41,6 +42,7 @@ export const ProfileCarouselContainer = styled.div`
   background-color: transparent;
 
   border-radius: 0.25rem;
+  /* overflow:hidden; */
 
 `;
 export const Likes = styled.div`
@@ -88,12 +90,13 @@ export const CrudButtons = styled.div`
 export const ProfileText = styled.h3`
   margin: 5px;
   color: #2e3443;
+  font-weight: 200;
   word-wrap: break-word;
 `;
 
 export const DetailsText = styled.h2`
   font-family: "Work Sans", sans-serif;
-
+  font-weight: 200;
   margin: 5px;
   color: #2e3443;
   word-wrap: break-word;
@@ -186,5 +189,6 @@ export const AboutMe = styled.h3`
   background-color: white;
   padding: 5px;
   border-radius: 0.25em;
+  font-weight: 200;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
