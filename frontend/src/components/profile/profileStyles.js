@@ -157,7 +157,7 @@ export const StyledHeadline = styled(StyledInput)`
   width: 100%;
   font-size: 24pt;
   text-align: center;
-  border-radius: 0.25rem;
+  border-radius: 5px;
 
 `;
 
