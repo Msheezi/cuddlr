@@ -12,7 +12,7 @@ import UserFeed from "./index/userFeed";
 import ProfileContainer from "./profile/profileContainer";
 import PhotoManagerContainer from "./photomanager/photoManagerContainer";
 import ConversationsContainer from "./messages/conversationContainer";
-import ModalContainer from './messages/messageModalContainer'
+import ModalContainer from "./messages/messageModalContainer";
 
 const Footer = styled.footer`
   position: fixed;
@@ -25,17 +25,17 @@ const Footer = styled.footer`
 const App = () => (
   <div>
     <NavBarContainer />
-    <ModalContainer/>
+    <ModalContainer />
     <Switch>
       <AuthRoute exact path="/" component={MainPage} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/register" component={SignupFormContainer} />
+      <ProtectedRoute exact path="/home" component={UserFeed} />
       <ProtectedRoute
         exact
         path="/messages"
         component={ConversationsContainer}
       />
-      <ProtectedRoute exact path="/home" component={UserFeed} />
       <ProtectedRoute exact path="/users/:id" component={ProfileContainer} />
       <ProtectedRoute
         exact
