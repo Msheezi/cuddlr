@@ -42,6 +42,16 @@ const StyledLabel = styled.label`
   color: #2e3443;
 `;
 
+const buttonStyle = {
+  width: "100px",
+  backgroundColor: "#0066FF",
+  cursor: "pointer",
+  color: "#fff",
+  border: "none",
+  borderRadius: "5px",
+  alignSelf: "center"
+}
+
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -178,12 +188,12 @@ class LoginForm extends React.Component {
             onChange={this.update("password")}
             value={this.state.password}
           />
-          <button type="submit" id="submit">
+          <button style={buttonStyle} type="submit" id="submit">
             Login
           </button>
           {this.renderErrors()}
         </FormContainer>
-        <button onClick={(e) => this.demoLogin(e)}>Demo Login</button>
+        <button style={buttonStyle} onClick={(e) => this.demoLogin(e)}>Demo Login</button>
 
         <LoginRegister>
           Don't Have an Account? <Link to="/register">Register</Link>
@@ -243,7 +253,7 @@ class LoginForm extends React.Component {
             value={this.state.hzip}
           />
 
-          <button type="submit">Register</button>
+          <button style={buttonStyle} type="submit">Register</button>
           {this.renderErrors()}
         </FormContainer>
         <LoginRegister>
