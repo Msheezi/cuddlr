@@ -15,8 +15,17 @@ class Thread extends React.Component{
 
   componentDidMount(){
     getThreadByConvoId(this.props.conversationId).then(convoList=> {
-      this.setState({messages: convoList.data, loaded: true})
+      this.setState({messages: convoList.data, loaded: true}, this.advance())
     })
+  }
+
+  advance() {
+    this.chatInterval = setInterval(() => {
+      getThreadByConvoId(this.props.conversationId).then(convoList => {
+        this.setState({ messages: convoList.data, loaded: true })
+      })
+      console.log("running")
+    }, 5000);
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -32,6 +41,10 @@ class Thread extends React.Component{
     
     }
 
+  componentWillUnmount() {
+    clearInterval(this.chatInterval);
+
+  }
 
   
   

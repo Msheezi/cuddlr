@@ -209,7 +209,7 @@ export class Profile extends React.Component {
           </ProfileCarouselContainer>
 
           <ProfileDetails>
-            <DetailsText>{profileData.username}'s Details</DetailsText>
+            <DetailsText>{profileData.username}'s details</DetailsText>
             <ProfileText>Age: {getAge(profileData.dob)}</ProfileText>
             <ProfileText>City: {profileData.location}</ProfileText>
             <ProfileText>
