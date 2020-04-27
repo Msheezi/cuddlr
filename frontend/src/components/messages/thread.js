@@ -24,7 +24,7 @@ class Thread extends React.Component{
       getThreadByConvoId(this.props.conversationId).then(convoList => {
         this.setState({ messages: convoList.data, loaded: true })
       })
-      console.log("running")
+      
     }, 5000);
   }
 
