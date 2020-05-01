@@ -97,3 +97,55 @@ export const UploadContainer = styled.div`
     /* margin: 50px; */
 
 `
+
+export const PhotoButtons = styled.button`
+    cursor: pointer;
+  margin: 10px;
+  /* width: 50%; */
+  height: 40px;
+  /* margin: 10px auto; */
+  color: white;
+  background-color: ${(props) => props.color || "#0066FF"};
+  /* background-color: #28a745; */
+  border-color: #28a745;
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  /* vertical-align: center; */
+  user-select: none;
+  border: 1px solid transparent;
+  /* padding: 0.375rem 0.75rem; */
+  font-size: 12pt;
+  /* line-height: 1.5; */
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  &:hover {
+    color: #fff;
+    background-color: ${props => props.hover || "#218838"};
+    border-color: #1e7e34;
+  }
+`
+
+export const InputButton = styled.input`
+    cursor: pointer;
+    background-color:#0066FF;
+    border: none;
+    border-radius: 3px; 
+    color: #fff;
+    height: 30px;
+`
+
+export const Cancel = styled(PhotoButtons)`
+    background-color: red;
+    height: 20px;
+    font-size: 10pt;
+`
+export const DeleteButton = styled(PhotoButtons)`
+    height: 30px;
+    font-size: 10pt;
+    text-align: center;
+    margin: 10px auto;
+    
+`

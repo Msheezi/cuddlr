@@ -60,10 +60,12 @@ router.post("/postmessage", (req, res) => {
           newMessage.save().then((message) => res.json(message));
         });
       }
-      // assuming this is being sent from a location where the conversationId
-      // is not being sent with the request.
-      // find the conversation with the participants
-      // get the conversation id, post the message to correct conversation
+      /* 
+       assuming this is being sent from a location where the conversationId
+       is not being sent with the request.
+       find the conversation with the participants
+       get the conversation id, post the message to correct conversation
+      */
       if (result) {
         Conversation.find(
           { $or: [{ participants: id1 }, { participants: id2 }] },

@@ -8,6 +8,11 @@ import {
         OtherImagesContainer, 
         OtherImages,
         UploadContainer,
+        PhotoButtons,
+    InputButton,
+    DeleteButton,
+
+    Cancel
 } from './photomanstyles'
 
 // pass in user photos as props?
@@ -138,8 +143,8 @@ export class PhotoManager extends React.Component{
         if (this.state.photoFile){
             return (
                 <>
-                <div type="submit" style={{ justifySelf: "flex-end" }} onClick={e=> this.clearImage(e)} >Cancel</div>
-                <button type="submit" style={{ justifySelf: "flex-end" }} >Upload Photo</button>
+                    <Cancel type="submit" style={{ justifySelf: "flex-end" }} onClick={e => this.clearImage(e)}  >Cancel</Cancel>
+                    <PhotoButtons type="submit" style={{ justifySelf: "flex-end" }} >Upload Photo</PhotoButtons>
                 </>
             )
         } else {
@@ -198,7 +203,7 @@ export class PhotoManager extends React.Component{
                             </label>
                             <br/>
                             
-                            <button onClick={(e)=>this.handleDelete(e)}>Delete Photo</button> 
+            <DeleteButton onClick={(e) => this.handleDelete(e)}>Delete Photo</DeleteButton> 
                         </div>
 
         return(
@@ -229,8 +234,9 @@ export class PhotoManager extends React.Component{
                                 ref={this.myRef}
                             />
                                 {preview}
-                            <input type="button" 
+                        <InputButton type="button" 
                                 value="Select Image" 
+                            style={{ }}
                                 onClick={(e)=> this.simulateClick(e)}
                                  
                             />
