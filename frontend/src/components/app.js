@@ -43,7 +43,7 @@ const App = () => (
         component={PhotoManagerContainer}
       />
     </Switch>
-    <Footer>Copyright &copy; 2020 Cuddlr</Footer>
+    {/* <Footer>Copyright &copy; 2020 Cuddlr</Footer> */}
   </div>
 );
 

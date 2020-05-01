@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   margin: 15px auto;
   position: relative;
   z-index: 1;
-  background-color: transparent;
+  background-color: #f7f7f7;
 `;
 
 class UserFeed extends React.Component {

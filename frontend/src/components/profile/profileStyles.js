@@ -43,7 +43,6 @@ export const ProfileCarouselContainer = styled.div`
 
   border-radius: 0.25rem;
   /* overflow:hidden; */
-
 `;
 export const Likes = styled.div`
   grid-area: likes;
@@ -78,7 +77,6 @@ export const ProfileDescripton = styled.div`
 
   box-sizing: border-box;
   border-radius: 0.25rem;
-
 `;
 
 export const CrudButtons = styled.div`
@@ -127,7 +125,7 @@ export const ProfileButtons = styled.button`
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   &:hover {
     color: #fff;
-    background-color: ${props => props.hover || "#218838"};
+    background-color: ${(props) => props.hover || "#218838"};
     border-color: #1e7e34;
   }
 `;
@@ -161,7 +159,6 @@ export const StyledHeadline = styled(StyledInput)`
   font-size: 24pt;
   text-align: center;
   border-radius: 5px;
-
 `;
 
 export const StyledDescription = styled(StyledTextArea)`
