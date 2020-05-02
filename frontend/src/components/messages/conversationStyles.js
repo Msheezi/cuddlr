@@ -19,7 +19,7 @@ export const ConverationContainer = styled.div`
 export const Conversation = styled.div`
   grid-area: conversationList;
   border: 1px solid lightgray;
-  background-color: #fff;
+background-color: "#fff";
   max-height: 60vh;
 `;
 
@@ -42,9 +42,10 @@ export const ConversationItem = styled.div`
   height: 50px;
   cursor:pointer;
   border-bottom: 1px solid lightgray;
+  background-color: ${props => props.color || "#fff"};
   &:hover{
     transition: background-color 0.15s ease-in;
-    background-color: lightgray;
+    background-color: #ACEDEF;
   }
 `
 

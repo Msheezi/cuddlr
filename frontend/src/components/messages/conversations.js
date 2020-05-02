@@ -96,6 +96,7 @@ export class Conversations extends React.Component {
           <ConversationItem
           key={convoId}
           name={convoId}
+            color={this.state.selectedConversation === convoId ? "#ACEDEF" : null}
           onClick={(e) => this.handleClick(convoId)}
           >
           <AvatarImage
