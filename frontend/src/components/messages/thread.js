@@ -62,7 +62,7 @@ class Thread extends React.Component{
       // ))
        messages = this.state.messages.map(messageObj=> {
           let alignment = messageObj.senderId === this.props.currentUser ? "flex-end" : "flex-start"
-         let color = messageObj.senderId === this.props.currentUser ? "#58A4B0" : "#D8DBE2"
+         let color = messageObj.senderId === this.props.currentUser ? "#ACEDEF" : "#D8DBE2"
           //assign a align self direction based on the user id
           return (
             <MessageBubble color={color} alignment={alignment} key={messageObj._id}>{messageObj.content}</MessageBubble>
