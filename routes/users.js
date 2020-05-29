@@ -135,11 +135,29 @@ router.patch("/:id", (req, res)=> {
   User.findOneAndUpdate({ "_id": userId }, updatedUser, { new: true, fields: excludedUserFields} ).then(user => res.json(user))
   
 })
-// Current users Likes
+// Get Current Users Likes
 router.get("/:id/likes", (req, res) => {
   let currentUser;
   Like.find({ "_id": currentUser }).then(likes => res.send(json(likes)));
 });
+
+
+
+/// Add Liked user
+router.post("/like/:id", (req,res) =>{
+  let likedUser = req.params.id
+  // should the insert be an object or just a simple array, adds are easy, removes could be tough
+  // search through entire array and remove value
+  // have to ensure the same user isn't liked more than once or isn't contained in the array
+  // more than once
+  User.findOneAndUpdate({"_id": userId }, 
+  {$push:{likes: likedUser }}, 
+  {new: true, fields: excludedUserFields} )
+  .then(user => res.json(user))
+})
+
+
+// remove liked user
 
 //get profile pics
 
