@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
  const Container = styled.div`
   background: transparent;
   width: 100%;
-  background-color: #B3D5DB;
+  /* background-color: #B3D5DB; */
   margin: 0;
   padding: 0;
   height: 75px;
@@ -42,37 +42,45 @@ const LinksContainer = styled.div`
 `;
 
  const LinkButton = styled(Link)`
-  width: 150px;
-  height: 20px;
-  background: transparent;
+  width: 100px;
+  height: 25px;
+  /* background: transparent; */
+  background: #58A4B0;
   border: 1px solid white;
   text-align: center;
   margin: 0px 2px ;
   align-self: flex-end;
-  color: black;
+  color: #fff;
   text-decoration: none;
   box-sizing: border-box;
+  border-radius: 50px;
+  line-height: 25px;
   &:hover{
     color: #fff;
-    background-color: #218838;
+    background-color: #3899E5;
     border-color: #1e7e34;
   }
 `;
 
 const NavButton = styled.div`
-width: 150px;
-height: 20px;
-  background: transparent;
+width: 100px;
+height: 25px;
+  /* background: transparent; */
+  background: #58A4B0;
+
   border: 1px solid white;
   text-align: center;
   margin: 0px 2px ;
   align-self: flex-end;
-  color: black;
+  color: #fff;
   box-sizing: border-box;
+  border-radius: 50px;
+  line-height: 25px;
+
   
   &:hover{
    color: #fff;
-    background-color: #218838;
+    background-color: #3899E5;
     border-color: #1e7e34;
   }
   padding: 0px;
@@ -106,7 +114,7 @@ class NavBar extends React.Component {
     } else {
       return (
         <LinksContainer>
-          <LinkButton to="/register">Register </LinkButton>
+          <LinkButton to="/register">Sign Up </LinkButton>
           <LinkButton to="/login">Login </LinkButton>
         </LinksContainer>
       );

@@ -15,7 +15,8 @@ export const UserFeedItem = ({ profile }) => {
   }
 
   return (
-    <Container pic={profile.mainProfilePic}>
+    <Link to={`/users/${profile._id}`} style={{ textDecoration: "none" }}>
+   <Container pic={profile.mainProfilePic}>
       <Image src={imgSrc} />
       <Body>
         <Title>{profile.headline}</Title>
@@ -24,10 +25,10 @@ export const UserFeedItem = ({ profile }) => {
         <br />
         {/* <BottomFade></BottomFade> */}
       </Body>
-      <Link to={`/users/${profile._id}`} style={{ textDecoration: "none" }}>
+      
         <Button>{profile.username}'s Profile</Button>
-      </Link>
     </Container>
+      </Link>
   );
 };
 

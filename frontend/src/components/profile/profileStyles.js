@@ -93,8 +93,8 @@ export const ProfileText = styled.h3`
 `;
 
 export const DetailsText = styled.h2`
-  font-family: "Work Sans", sans-serif;
-  font-weight: 200;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
   margin: 5px;
   color: #2e3443;
   word-wrap: break-word;
@@ -145,7 +145,9 @@ export const StyledInput = styled.input`
 export const StyledTextArea = styled.textarea`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 0.25rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
+  padding: 5px;
+  box-sizing: border-box;
   resize: none;
   &:disabled {
     border: none;
@@ -154,7 +156,7 @@ export const StyledTextArea = styled.textarea`
 `;
 
 export const StyledHeadline = styled(StyledInput)`
-  font-family: "Work Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   width: 100%;
   font-size: 24pt;
   text-align: center;
@@ -186,6 +188,8 @@ export const AboutMe = styled.h3`
   background-color: white;
   padding: 5px;
   border-radius: 0.25em;
-  font-weight: 200;
+  font-weight: 500;
+
+  color: #545454;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;

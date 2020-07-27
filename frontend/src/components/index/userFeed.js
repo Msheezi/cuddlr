@@ -16,6 +16,14 @@ const Wrapper = styled.div`
   background-color: #f7f7f7;
 `;
 
+const headlineStyle = {
+  color: "#373F51",
+  fontWeight: "bold",
+  paddingLeft: "10px",
+
+}
+
+
 class UserFeed extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +52,7 @@ class UserFeed extends React.Component {
       //add an onclick to wrapper to go to profile page
       return (
         <div>
-          <h3>View Cuddlrs In Your Area</h3>
+          <h3 style={headlineStyle}>View Cuddlrs In Your Area</h3>
           <Wrapper>{feedProfiles}</Wrapper>
         </div>
       );

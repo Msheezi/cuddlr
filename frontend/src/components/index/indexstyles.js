@@ -5,7 +5,8 @@ export const Container = styled.div`
   flex-direction: column;
   min-width: 0;
   max-width: 250px;
-  max-height: 450px;
+  height: 450px;
+  
   word-wrap: break-word;
   background-color: transparent;
   background-clip: border-box;
@@ -37,9 +38,13 @@ export const Body = styled.div`
 
 export const Title = styled.h1`
   font-size: 1.25rem;
+  font-style: italic;
   font-weight: bold;
   margin: 5 0;
   text-align: center;
+  color: 	#333333;
+
+  /* color: #3899E5; */
 `;
 
 export const Text = styled.p`
