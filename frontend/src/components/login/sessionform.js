@@ -27,7 +27,7 @@ const SessionForm = () => {
             <InputField type="text" name="username" onChange={handleInputChange} value={inputs.username}/>
             <StyledLabel>Password</StyledLabel>
             <InputField type="password" name="password" onChange={handleInputChange} value={inputs.password}/>
-            <button type="submit" >Login</button>
+            <button type="submit" > Login</button>
         </FormContainer>
     )
 }

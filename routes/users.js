@@ -144,13 +144,16 @@ router.get("/:id/likes", (req, res) => {
 
 
 /// Add Liked user
-router.post("/like/:id", (req,res) =>{
-  let likedUser = req.params.id
+router.post("/like/new", (req,res) =>{
+  const user = req.query.userId
+  const likedUser = req.query.likedUser
+  
+  console.log(user, likedUser)
   // should the insert be an object or just a simple array, adds are easy, removes could be tough
   // search through entire array and remove value
   // have to ensure the same user isn't liked more than once or isn't contained in the array
   // more than once
-  User.findOneAndUpdate({"_id": userId }, 
+  User.findOneAndUpdate({"_id": user }, 
   {$push:{likes: likedUser }}, 
   {new: true, fields: excludedUserFields} )
   .then(user => res.json(user))
@@ -158,6 +161,34 @@ router.post("/like/:id", (req,res) =>{
 
 
 // remove liked user
+router.post("/like/delete", (req, res) => {
+  let user = req.query.userId
+  let unlikedUser = req.query.likedUser
+  // should the insert be an object or just a simple array, adds are easy, removes could be tough
+  // search through entire array and remove value
+  // have to ensure the same user isn't liked more than once or isn't contained in the array
+  // more than once
+  User.findOneAndUpdate({ "_id": user },
+    { $pull: { likes: unlikedUser } },
+    { new: true, fields: excludedUserFields })
+    .then(user => res.json(user))
+})
+
+// get liked users
+
+// router.get("/userlikes", (req, res)=>{
+//   let user = req.query.userId
+
+
+//   // get the user Id to get the likes.  filter users by users in likes table?
+//   likedUserIds= User.findById({"_id": user}) then get the likes Array
+
+//   likedUserObjs = Users.find({"_id" :{"$in": likedUserIds}})
+
+//   .then(likedUserObjss => res.json(likedUserObjss))
+
+//   User.findA
+// })
 
 //get profile pics
 

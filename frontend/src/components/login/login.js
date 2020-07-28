@@ -8,7 +8,7 @@ const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 15vh auto;
-  width: 35%;
+  width: 350px;
 
   align-items: center;
 `;
@@ -31,8 +31,9 @@ const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 5% 10% 10% 10%;
-  justify-content: space-around;
+  padding: 5% 10% 0px 10%;
+  justify-content: flex-end;
+
 `;
 
 const InputField = styled.input`
@@ -44,12 +45,16 @@ const StyledLabel = styled.label`
 
 const buttonStyle = {
   width: "100px",
+  height: "25px",
+
+  lineHeight: "25px",
   backgroundColor: "#0066FF",
   cursor: "pointer",
   color: "#fff",
   border: "none",
   borderRadius: "5px",
-  alignSelf: "center"
+  alignSelf: "center",
+  marginBottom: '20px'
 }
 
 class LoginForm extends React.Component {
@@ -188,11 +193,12 @@ class LoginForm extends React.Component {
             onChange={this.update("password")}
             value={this.state.password}
           />
-          <button style={buttonStyle} type="submit" id="submit">
-            Login
-          </button>
+          
           {this.renderErrors()}
         </FormContainer>
+        <button style={buttonStyle} type="submit" id="submit" onClick={ this.handleLogin }>
+          Login
+          </button>
         <button style={buttonStyle} onClick={(e) => this.demoLogin(e)}>Demo Login</button>
 
         <LoginRegister>
