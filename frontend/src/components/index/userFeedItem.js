@@ -26,7 +26,7 @@ export const UserFeedItem = ({ profile }) => {
         {/* <BottomFade></BottomFade> */}
       </Body>
       
-        <Button>{profile.username}'s Profile</Button>
+        <Button>{profile.username}</Button>
     </Container>
       </Link>
   );
