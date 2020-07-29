@@ -176,19 +176,32 @@ router.post("/like/delete", (req, res) => {
 
 // get liked users
 
-// router.get("/userlikes", (req, res)=>{
-//   let user = req.query.userId
+router.get("/like/users", (req, res) =>{
+  let user = req.query.userId
 
+  // get the user Id to get the likes.  filter users by users in likes table?
+  User.findById(user, {"likes": 1})
+  .then(likedUserArray =>{
+    // const likesArray = likedUserArray["likes"]
+    console.log(likedUserArray.likes)
+    
 
-//   // get the user Id to get the likes.  filter users by users in likes table?
-//   likedUserIds= User.findById({"_id": user}) then get the likes Array
+    User.find({ "_id": { $in: [...likedUserArray.likes] } },
+     excludedUserFields, 
+      (err,docs) => {
+      res.json(docs)
+    })
+      
+  })
 
-//   likedUserObjs = Users.find({"_id" :{"$in": likedUserIds}})
+  // likedUserObjs = Users.find({"_id" :{"$in": likedUserIds}})
 
-//   .then(likedUserObjss => res.json(likedUserObjss))
+  // .then(likedUserObjs => {
+  //   console.log(likedUserObjs)
+  //   res.json(likedUserObjs)})
 
-//   User.findA
-// })
+ 
+})
 
 //get profile pics
 

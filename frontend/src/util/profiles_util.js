@@ -29,6 +29,14 @@ export const deletePhoto = (id)=>{
     return axios.delete(`/userPicture/delete/${id}`)
 }
 
-export const likeUser = (data)=>{
-    return axios.post(`/likes/new`,data) 
+export const likeUser = (userId, likedUser)=>{
+    return axios.post(`/users/like/new?userId=${userId}likedUser=${likedUser}`) 
+}
+
+export const unlikeUser = (userId, likedUser)=>{
+    return axios.post(`/users/like/delete?userId=${userId}likedUser=${likedUser}`)
+}
+
+export const getUserLikes = (userId)=> {
+    return axios.get(`/users/like/users?userId=${userId}`)
 }
