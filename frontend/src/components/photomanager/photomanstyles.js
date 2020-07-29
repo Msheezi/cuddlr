@@ -38,6 +38,7 @@ export const ModalContainer = styled.div`
 
 export const Headline = styled.h2`
     grid-area: header;
+    font-weight: 500;
     text-align: center;
     margin-top: 5px;
 `

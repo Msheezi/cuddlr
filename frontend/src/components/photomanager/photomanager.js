@@ -218,7 +218,7 @@ export class PhotoManager extends React.Component{
                     </OtherImagesContainer>
                 
                 <UploadContainer> 
-                    <h3>Upload A New Image</h3>
+                    <h3 style={{fontWeight: "300"}}>Upload A New Image</h3>
                         <form style={{
                                     display: "flex", 
                                     flexDirection:"column", 
