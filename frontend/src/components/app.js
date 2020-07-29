@@ -13,6 +13,7 @@ import ProfileContainer from "./profile/profileContainer";
 import PhotoManagerContainer from "./photomanager/photoManagerContainer";
 import ConversationsContainer from "./messages/conversationContainer";
 import ModalContainer from "./messages/messageModalContainer";
+import LikesFeed from './index/likedUsers'
 
 const Footer = styled.footer`
   position: fixed;
@@ -31,6 +32,8 @@ const App = () => (
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/register" component={SignupFormContainer} />
       <ProtectedRoute exact path="/home" component={UserFeed} />
+      <ProtectedRoute exact path="/likes" component={LikesFeed} />
+      
       <ProtectedRoute
         exact
         path="/messages"

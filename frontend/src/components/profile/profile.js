@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getProfile, getProfilePics, likeUser } from "../../util/profiles_util";
+import { getProfile, getProfilePics, likeUser, unlikeUser } from "../../util/profiles_util";
 import Carousel from "../carousel/carousel";
 import { getAge } from "../../reducers/selectors";
 import Loader from "../spinner/spinner";
@@ -122,8 +122,8 @@ export class Profile extends React.Component {
   handleLike(e) {
     let userId = this.props.currentUserId;
     let likee = this.props.match.params.id;
-    let obj = { userId: userId, likedUserId: likee };
-    likeUser(obj);
+    
+    likeUser(userId, likee);
   }
 
   renderCruds() {

@@ -188,7 +188,7 @@ router.get("/like/users", (req, res) =>{
   User.findById(user, {"likes": 1})
   .then(likedUserArray =>{
     // const likesArray = likedUserArray["likes"]
-    console.log(likedUserArray.likes)
+    
     
 
     User.find({ "_id": { $in: [...likedUserArray.likes] } },

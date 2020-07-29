@@ -106,6 +106,7 @@ class NavBar extends React.Component {
         <LinksContainer>
            
           <LinkButton to={`/users/${this.props.currentUserId}`}> My Profile</LinkButton>
+          <LinkButton to={`/likes/`}> My Likes</LinkButton>
           <LinkButton to={"/messages"}>Messages</LinkButton>
           <NavButton onClick={this.logoutUser}>Logout</NavButton>
         </LinksContainer>
