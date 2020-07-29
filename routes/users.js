@@ -149,6 +149,7 @@ router.get("/:id/likes", (req, res) => {
       search through entire array and remove value
       have to ensure the same user isn't liked more than once or isn't contained in the array
       more than once
+      set variable to indexOf key, if not found, push, if not found, push
     */
 router.post("/like/new", (req,res) =>{
   const user = req.query.userId

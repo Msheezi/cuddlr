@@ -9,7 +9,7 @@ import uiReducer from './ui_reducer'
 const RootReducer = combineReducers({
     session,
     errors,
-    messages: MessagesReducer,
+    conversations: MessagesReducer,
     messagedUsers: MessagedUsersReducer,
     ui: uiReducer
 })

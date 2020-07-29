@@ -61,6 +61,7 @@ export class Conversations extends React.Component {
   // find the correct convo obj in conversations and update participants for
   // sending messages later
   handleClick(value){
+    
     let conversation = this.props.messages.filter(objs => objs._id === value)
     let participants = conversation[0].participants
     this.setState({selectedConversation: value, participants: participants})
@@ -68,6 +69,7 @@ export class Conversations extends React.Component {
 
 
   handleMessage() {
+    
     if (this.state.messageResponse !== "") {
       let message = {
         id1: this.state.participants[0],

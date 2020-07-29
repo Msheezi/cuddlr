@@ -1,5 +1,5 @@
 import {
-  RECEIVE_MESSAGE,
+  // RECEIVE_MESSAGE,
   RECEIVE_CONVERSATIONS,
   //   RECEIVE_THREAD,
 } from "../actions/message_actions";
@@ -13,9 +13,10 @@ const MessagesReducer = (state = {}, action) => {
       newState = {};
       action.conversations.data.forEach((el) => (newState[el._id] = el));
       return Object.assign({}, state, newState);
-    case RECEIVE_MESSAGE:
-      newState = Object.assign({}, state);
-      newState[action.message.data._id] = action.message.data;
+    // case RECEIVE_MESSAGE:
+    //   newState = Object.assign({}, state);
+    //   newState[action.message.data._id] = action.message.data;
+      // return newState
     // case RECEIVE_THREAD:
     case RECEIVE_USER_LOGOUT:
       newState= {}

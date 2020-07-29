@@ -6,9 +6,9 @@ import { postMessage, fetchConversations, fetchThread, fetchMessagedUsers} from 
 const msp = (state) => {
   
   
-  let userMessaged = Object.keys(state.messages).length === 0 ? false : true
+  let userMessaged = Object.keys(state.conversations).length === 0 ? false : true
   
-   let messages = Object.keys(state.messages).map(messageKey=> state.messages[messageKey])
+  let messages = Object.keys(state.conversations).map(messageKey => state.conversations[messageKey])
   // let messagedUsers = Object.keys(state.messagedUsers).map(messagedUsersKey => state.messagedUsers[messagedUsersKey])
   return {
 
