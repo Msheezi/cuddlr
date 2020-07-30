@@ -38,6 +38,7 @@ export class Profile extends React.Component {
     this.state = {
       loaded: false,
       disabled: true,
+      liked: false
     };
   }
 
@@ -46,23 +47,23 @@ export class Profile extends React.Component {
 
     let profile = await getProfile(id);
     let pics = await getProfilePics(id);
-
+    let likeStatus = this.props.likes.includes(this.props.match.params.id)
+    
     this.setState({
       user: profile.data[0],
       pics: pics.data,
       loaded: true,
+      liked: likeStatus
     });
 
-    // getProfile(id)
-    //   .then((profile) => this.setState({ user: profile.data[0] }))
-    //   .then(() => getProfilePics(id))
-    //   .then((pics) => this.setState({ pics: pics.data, loaded: true }));
   }
 
   async componentDidUpdate(prevProps) {
     // added component did update to resolve bug where nav bar "My Profile" button, when already
     // on a profile was not triggering a re-render with the new data
     let id = this.props.match.params.id;
+    let likeStatus = this.props.likes.includes(this.props.match.params.id)
+
     if (prevProps.match.params.id !== id) {
       let profile = await getProfile(id);
       let pics = await getProfilePics(id);
@@ -71,15 +72,11 @@ export class Profile extends React.Component {
         user: profile.data[0],
         pics: pics.data,
         loaded: true,
+        liked: likeStatus
       });
     }
 
-    // if (prevProps.match.params.id !== id) {
-    //   getProfile(id)
-    //     .then((profile) => this.setState({ user: profile.data[0] }))
-    //     .then(() => getProfilePics(id))
-    //     .then((pics) => this.setState({ pics: pics.data, loaded: true }));
-    // }
+    
   }
 
   handleInput(e) {
@@ -122,18 +119,23 @@ export class Profile extends React.Component {
   handleLike(e) {
     let userId = this.props.currentUserId;
     let likee = this.props.match.params.id;
-    let likeOrUnlike = this.props.likes.indexOf(likee)
-    if (likeOrUnlike > -1){
-      console.log(likeOrUnlike)
-      this.props.unlikeUser(userId,likee)
-    } else {
-      console.log(likeOrUnlike)
-      this.props.likeUser(userId, likee);
-
-    }
-
+    this.state.liked ? 
+      this.props.unlikeUser(userId, likee) 
+      : this.props.likeUser(userId, likee)
+    this.setState({liked: !this.state.liked})
     
     
+    // let likeOrUnlike = this.props.likes.indexOf(likee)
+    // if (likeOrUnlike > -1){
+    //   console.log(likeOrUnlike)
+    //   this.props.unlikeUser(userId,likee)
+    // } else {
+    //   console.log(likeOrUnlike)
+    //   this.props.likeUser(userId, likee);
+
+    // }
+
+
   }
 
   renderCruds() {
@@ -186,6 +188,7 @@ export class Profile extends React.Component {
 
   render() {
     let profileData = this.state.user;
+    let displayLike = this.state.liked ? "Unlike" : "Like"
 
     if (this.state.loaded) {
       //imgUrls, this is array of images provided to carousel component
@@ -285,7 +288,7 @@ export class Profile extends React.Component {
               color="#DC7F6C"
               hover="#C44536"
             >
-              Like {profileData.username}
+              {displayLike} {profileData.username}
             </LikeButton>
           </Likes>
           <Spacer />
