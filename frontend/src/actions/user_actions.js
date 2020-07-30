@@ -36,4 +36,4 @@ export const receiveUserUpdate = user => ({
     user
 })
 
-// export const updateUser = dispatch
+// export const updateUser = dispatchF

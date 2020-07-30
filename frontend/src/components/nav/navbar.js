@@ -65,6 +65,7 @@ const LinksContainer = styled.div`
 const NavButton = styled.div`
 width: 100px;
 height: 25px;
+cursor:pointer;
   /* background: transparent; */
   background: #58A4B0;
 
