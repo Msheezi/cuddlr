@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   /* justify-content:flex-start; */
   flex-wrap: wrap;
   align-self: center;
+  justify-content: center;
   margin: 15px auto;
   position: relative;
   z-index: 1;
@@ -52,7 +53,7 @@ class LikesFeed extends React.Component {
             //import user feeddetail component and pass in props
             //add an onclick to wrapper to go to profile page
             return (
-                <div>
+                <div >
                     <h3 style={headlineStyle}>Viewing Your Liked Users</h3>
                     <Wrapper>{feedProfiles}</Wrapper>
                 </div>
