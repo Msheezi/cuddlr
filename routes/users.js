@@ -12,7 +12,7 @@ const validateRegisterInput = require('../validation/register')
 
 const excludedUserFields = { "password": 0, "email": 0, "__v": 0}
 const pictureFields = {"profilePrimary": 1, "userId": 1, "pictureUrl": 1, "_id": 1}
-
+const likesFields = {"_id": 1}
 //register route
 router.post("/register", (req,res)=>{
   const {errors, isValid} = validateRegisterInput(req.body)
@@ -105,6 +105,14 @@ router.get("/current", passport.authenticate('jwt', {session: false}), (req,res)
   })
 })
 
+// get user likes id
+
+router.get("/currentUserLikes/:id", (req,res)=>{
+  userId = req.params.id
+  User.findById(userId,{"likes":1})
+  .then(likesArray=> res.json(likesArray))
+})
+
 // index view
 router.get("/", (req, res)=>{
   User.find({},excludedUserFields)
@@ -152,12 +160,13 @@ router.get("/:id/likes", (req, res) => {
       set variable to indexOf key, if not found, push, if not found, push
     */
 router.post("/like/new", (req,res) =>{
-  const user = req.query.userId
-  const likedUser = req.query.likedUser
+  let user = req.query.userId
+  let likedUser = req.query.likedUser
   User.findOneAndUpdate({"_id": user }, 
   {$push:{likes: likedUser }}, 
-  {new: true, fields: excludedUserFields} )
-  .then(user => res.json(user))
+    { new: true, fields: likesFields} )
+    .then(() => res.json(likedUser))
+    // res.json(likedUser)
 })
 
 
@@ -175,8 +184,9 @@ router.post("/like/delete", (req, res) => {
   
   User.findOneAndUpdate({ "_id": user },
     { $pull: { likes: unlikedUser } },
-    { new: true, fields: excludedUserFields })
-    .then(user => res.json(user))
+    { new: true, fields: likesFields })
+    .then(()=>res.json(unlikedUser))
+    // .then(likeduser => res.json(likeduser))
 })
 
 // get liked users

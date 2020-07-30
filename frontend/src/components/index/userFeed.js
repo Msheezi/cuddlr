@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import {connect} from 'react-redux'
 import { getProfiles } from "../../util/profiles_util";
 import { UserFeedItem } from "./userFeedItem";
 import Loader from "../spinner/spinner";
+import { getLikesList} from '../../actions/user_actions'
 
 const Wrapper = styled.div`
   width: 80vw;
@@ -40,6 +42,9 @@ class UserFeed extends React.Component {
       let data = profiles.data;
       this.setState({ data, loaded: true });
     });
+    this.props.getLikesList(this.props.currentUser)
+    /*
+    */
   }
 
   render() {
@@ -62,4 +67,16 @@ class UserFeed extends React.Component {
   }
 }
 
-export default UserFeed;
+const msp =(state)=> ({
+  currentUser: state.session.user.id,
+
+})
+
+
+const mdp = dispatch => ({
+  getLikesList: (currentUser) => dispatch(getLikesList(currentUser))
+})
+
+export default connect(msp, mdp)(UserFeed);
+
+

@@ -122,8 +122,18 @@ export class Profile extends React.Component {
   handleLike(e) {
     let userId = this.props.currentUserId;
     let likee = this.props.match.params.id;
+    let likeOrUnlike = this.props.likes.indexOf(likee)
+    if (likeOrUnlike > -1){
+      console.log(likeOrUnlike)
+      this.props.unlikeUser(userId,likee)
+    } else {
+      console.log(likeOrUnlike)
+      this.props.likeUser(userId, likee);
+
+    }
+
     
-    likeUser(userId, likee);
+    
   }
 
   renderCruds() {

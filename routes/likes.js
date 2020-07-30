@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Like = require("../models/like");
 
-router.post("/new", (req, res) => { // old/users/:id/newLike"
+router.post("/:id", (req, res) => { // old/users/:id/newLike"
   // parse the current user ID and the user id sent in the request
   
   newLike = new Like({

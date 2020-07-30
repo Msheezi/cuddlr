@@ -4,6 +4,7 @@ import errors from './errors_reducer'
 import MessagesReducer from './messages_reducer'
 import MessagedUsersReducer from './messagedUsers_reducer'
 import uiReducer from './ui_reducer'
+import LikesReducer from './likes_reducer'
 
 
 const RootReducer = combineReducers({
@@ -11,7 +12,8 @@ const RootReducer = combineReducers({
     errors,
     conversations: MessagesReducer,
     messagedUsers: MessagedUsersReducer,
-    ui: uiReducer
+    ui: uiReducer,
+    likes: LikesReducer
 })
 
 

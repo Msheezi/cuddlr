@@ -40,3 +40,7 @@ export const unlikeUser = (userId, likedUser)=>{
 export const getUserLikes = (userId)=> {
     return axios.get(`/users/like/users?userId=${userId}`)
 }
+
+export const getUserLikesList = (userId)=> {
+    return axios.get(`users/currentUserLikes/${userId}`)
+}
