@@ -14,6 +14,7 @@ import PhotoManagerContainer from "./photomanager/photoManagerContainer";
 import ConversationsContainer from "./messages/conversationContainer";
 import ModalContainer from "./messages/messageModalContainer";
 import LikesFeed from './index/likedUsers'
+import ReactGA from 'react-ga'
 
 const Footer = styled.footer`
   position: fixed;
@@ -23,7 +24,16 @@ const Footer = styled.footer`
   text-align: center;
 `;
 
-const App = () => (
+function initializeReactGA() {
+  ReactGA.initialize("UA-179340407-1");
+  ReactGA.pageview("/homepage");
+}
+
+const App = () => 
+{
+  initializeReactGA()
+
+return (
   <div>
     <NavBarContainer />
     <ModalContainer />
@@ -49,5 +59,5 @@ const App = () => (
     {/* <Footer>Copyright &copy; 2020 Cuddlr</Footer> */}
   </div>
 );
-
+}
 export default App;
